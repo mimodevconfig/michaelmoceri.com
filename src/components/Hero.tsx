@@ -4,6 +4,7 @@ import { GooeyText } from './ui/gooey-text-morphing';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Magnetic } from './ui/magnetic';
 import { Button } from './ui/button';
+import { getAvatarUrl } from '../lib/imageUtils';
 
 const SOCIAL_LINKS = [
   {
@@ -68,6 +69,15 @@ export default function Hero() {
         top: targetElement.offsetTop - 80, // Offset for the fixed header
         behavior: 'smooth'
       });
+    }
+  };
+
+  // Function to handle image errors and use fallback
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    const target = e.target as HTMLImageElement;
+    const fallbackSrc = 'https://images.unsplash.com/photo-1633332755192-727a05c4013d';
+    if (target.src !== fallbackSrc) {
+      target.src = fallbackSrc;
     }
   };
 
@@ -154,7 +164,11 @@ export default function Hero() {
             <div className="relative w-80 h-80 flex items-center justify-center">
               <div className="relative scale-[3]">
                 <Avatar className="w-32 h-32 border-4 border-ide-text-link">
-                  <AvatarImage src="https://images.unsplash.com/photo-1633332755192-727a05c4013d" alt="Mike Moceri" />
+                  <AvatarImage 
+                    src={getAvatarUrl('profile.jpg')} 
+                    alt="Mike Moceri" 
+                    onError={handleImageError}
+                  />
                   <AvatarFallback>MM</AvatarFallback>
                 </Avatar>
                 <span className="absolute top-2 right-2 scale-150">

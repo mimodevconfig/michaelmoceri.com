@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
 import { projects } from './Projects';
-import { cn } from '../lib/utils';
+import { getProjectImageUrl } from '../lib/imageUtils';
 
 export default function ProjectDetail() {
   const { id } = useParams();
@@ -20,6 +20,26 @@ export default function ProjectDetail() {
   // Get previous and next projects
   const prevProject = projects[prevIndex];
   const nextProject = projects[nextIndex];
+
+  // State for additional project images
+  const [additionalImages, setAdditionalImages] = useState<string[]>([]);
+
+  // Load additional images if they exist
+  useEffect(() => {
+    if (project) {
+      // This would typically be an API call or dynamic import
+      // For now, we'll just check if there are any additional images in the project folder
+      const potentialImages = ['detail1.jpg', 'detail2.jpg', 'detail3.jpg'];
+      
+      // In a real implementation, you would check if these files exist
+      // For now, we'll just use the project ID to simulate having different images
+      const projectImages = potentialImages
+        .slice(0, (currentIndex + 1) % 3 + 1) // Simulate 1-3 images based on project index
+        .map(img => getProjectImageUrl(project.id, img));
+      
+      setAdditionalImages(projectImages);
+    }
+  }, [project, currentIndex]);
 
   // Scroll to top when component mounts or when the URL changes
   useEffect(() => {
@@ -39,6 +59,14 @@ export default function ProjectDetail() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [navigate, prevProject.id, nextProject.id]);
+
+  // Function to handle image errors and use fallback
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>, fallbackSrc: string) => {
+    const target = e.target as HTMLImageElement;
+    if (target.src !== fallbackSrc) {
+      target.src = fallbackSrc;
+    }
+  };
 
   if (!project) {
     return (
@@ -68,6 +96,7 @@ export default function ProjectDetail() {
               src={project.image} 
               alt={project.title}
               className="w-full h-full object-cover"
+              onError={(e) => handleImageError(e, project.imageFallback)}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end">
               <div className="p-6 text-white">
@@ -79,6 +108,24 @@ export default function ProjectDetail() {
               </div>
             </div>
           </div>
+          
+          {/* Additional project images gallery (if any) */}
+          {additionalImages.length > 0 && (
+            <div className="p-6 pt-0">
+              <div className="grid grid-cols-3 gap-2 mt-2">
+                {additionalImages.map((img, index) => (
+                  <div key={index} className="h-24 overflow-hidden rounded-lg">
+                    <img 
+                      src={img} 
+                      alt={`${project.title} detail ${index + 1}`}
+                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                      onError={(e) => handleImageError(e, project.imageFallback)}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
           
           <div className="p-6 sm:p-8">
             <div className="space-y-8">

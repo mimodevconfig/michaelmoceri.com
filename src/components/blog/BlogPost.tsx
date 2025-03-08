@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { getBlogCoverUrl } from '../../lib/imageUtils';
 
 const BlogPost: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -22,10 +23,14 @@ const BlogPost: React.FC = () => {
         const post = getPostBySlug(slug);
         const mdxSource = await serializeMdx(post.content);
         
-        setPostData({
+        // Update the cover image to use our local image if available
+        const updatedPost = {
           ...post,
+          coverImage: getBlogCoverUrl(slug),
           mdxSource
-        });
+        };
+        
+        setPostData(updatedPost);
       } catch (err) {
         console.error('Error loading blog post:', err);
         setError('Failed to load the blog post. Please try again later.');
@@ -36,6 +41,18 @@ const BlogPost: React.FC = () => {
 
     loadPost();
   }, [slug]);
+
+  // Function to handle image errors and use fallback
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    const target = e.target as HTMLImageElement;
+    // If the local image fails to load, fall back to the original image or a default
+    if (postData && postData.originalCoverImage && target.src !== postData.originalCoverImage) {
+      target.src = postData.originalCoverImage;
+    } else {
+      // Default fallback image
+      target.src = 'https://images.unsplash.com/photo-1499750310107-5fef28a66643';
+    }
+  };
 
   if (loading) {
     return (
@@ -76,6 +93,7 @@ const BlogPost: React.FC = () => {
             src={postData.coverImage} 
             alt={postData.title} 
             className="w-full h-64 md:h-96 object-cover rounded-lg mb-8"
+            onError={handleImageError}
           />
           
           <div className="flex items-center mb-6">
@@ -117,6 +135,21 @@ const BlogPost: React.FC = () => {
                     <code className={className} {...props}>
                       {children}
                     </code>
+                  );
+                },
+                img({node, ...props}) {
+                  return (
+                    <img
+                      {...props}
+                      className="rounded-lg max-w-full h-auto"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        // If the image is from our local directory and fails, use a fallback
+                        if (target.src.includes('/images/blog/content/')) {
+                          target.src = 'https://images.unsplash.com/photo-1499750310107-5fef28a66643';
+                        }
+                      }}
+                    />
                   );
                 }
               }}
