@@ -7,7 +7,7 @@ import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
-import Testimonials from './components/Testimonials';
+import RecentBlogPosts from './components/RecentBlogPosts';
 import AppFooter from './components/AppFooter';
 import BlogLayout from './components/blog/BlogLayout';
 import BlogList from './components/blog/BlogList';
@@ -30,7 +30,7 @@ function App() {
             <About />
             <Experience />
             <Skills />
-            <Testimonials />
+            <RecentBlogPosts />
             <Contact />
           </>
         } />

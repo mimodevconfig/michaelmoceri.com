@@ -474,7 +474,7 @@ export default function Skills() {
         </div>
         
         <div className="bg-gray-800 rounded-b-xl p-3 text-center text-sm text-gray-400">
-          Click on nodes to focus and see connections. Hover to highlight relationships. Use zoom buttons to adjust view.
+          Click on nodes to focus and see connections. Hover to highlight relationships. Use zoom buttons to adjust view. Click and drag to pan and move nodes around.
         </div>
         
         <div 
