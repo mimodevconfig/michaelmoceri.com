@@ -19,6 +19,10 @@ import BlogPost from './components/blog/BlogPost';
 import CategoryPage from './components/blog/CategoryPage';
 import TagPage from './components/blog/TagPage';
 
+// Legal pages
+import PrivacyPolicy from './components/legal/PrivacyPolicy';
+import TermsOfService from './components/legal/TermsOfService';
+
 const HomePage = () => {
   return (
     <>
@@ -49,6 +53,10 @@ function App() {
           <Route path="category/:category" element={<CategoryPage />} />
           <Route path="tag/:tag" element={<TagPage />} />
         </Route>
+
+        {/* Legal pages */}
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
       </Routes>
       <AppFooter />
     </div>

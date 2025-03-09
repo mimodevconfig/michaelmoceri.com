@@ -4,7 +4,6 @@ import { Footer } from './blocks/footer';
 import { 
   Github, 
   Linkedin, 
-  Mail, 
   FileText, 
   Blocks, 
   Code2, 
@@ -12,7 +11,8 @@ import {
   Users,
   MessageSquare,
   Scale,
-  Handshake
+  Handshake,
+  Instagram
 } from 'lucide-react';
 
 export default function AppFooter() {
@@ -42,7 +42,7 @@ export default function AppFooter() {
       }
     } else {
       // For non-anchor links, navigate normally
-      window.location.href = href;
+      navigate(href);
     }
   };
 
@@ -50,24 +50,20 @@ export default function AppFooter() {
     <Footer
       brand={{
         name: "Michael Moceri",
-        description: "AI Product Developer and Technology Leader",
+        description: "AI, Advanced Manufacturing, Strategy, and Entrepreneurship",
       }}
       socialLinks={[
         {
           name: "Github",
-          href: "https://github.com/yourusername",
+          href: "https://github.com/mimodevconfig",
         },
         {
           name: "LinkedIn",
-          href: "https://linkedin.com/in/yourusername",
-        },
-        {
-          name: "YouTube",
-          href: "https://youtube.com",
+          href: "https://www.linkedin.com/in/mocerimike",
         },
         {
           name: "Instagram",
-          href: "https://instagram.com",
+          href: "https://www.instagram.com/mocerimike/?hl=en",
         },
       ]}
       columns={[
@@ -110,24 +106,30 @@ export default function AppFooter() {
           title: "Resources",
           links: [
             {
-              name: "Resume",
+              name: "Blog",
               Icon: FileText,
-              href: "/resume.pdf",
+              href: "/blog",
             },
             {
               name: "Github",
               Icon: Github,
-              href: "https://github.com/yourusername",
+              href: "https://github.com/mimodevconfig",
+              target: "_blank",
+              rel: "noopener noreferrer"
             },
             {
               name: "LinkedIn",
               Icon: Linkedin,
-              href: "https://linkedin.com/in/yourusername",
+              href: "https://www.linkedin.com/in/mocerimike",
+              target: "_blank",
+              rel: "noopener noreferrer"
             },
             {
-              name: "Email",
-              Icon: Mail,
-              href: "mailto:your.email@example.com",
+              name: "Instagram",
+              Icon: Instagram,
+              href: "https://www.instagram.com/mocerimike/?hl=en",
+              target: "_blank",
+              rel: "noopener noreferrer"
             },
           ],
         },
@@ -137,16 +139,12 @@ export default function AppFooter() {
             {
               name: "Privacy Policy",
               Icon: Scale,
-              href: "https://www.youtube.com/watch?v=qItugh-fFgg",
-              target: "_blank",
-              rel: "noopener noreferrer"
+              href: "/privacy-policy",
             },
             {
               name: "Terms of Service",
               Icon: Handshake,
-              href: "https://www.youtube.com/watch?v=6X_kx2xhx8M",
-              target: "_blank",
-              rel: "noopener noreferrer"
+              href: "/terms-of-service",
             },
           ],
         },
