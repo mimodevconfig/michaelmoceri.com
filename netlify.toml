@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# The following redirect is necessary for a single-page application with React Router
+# It ensures that all routes are handled by your React app instead of returning 404s
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
