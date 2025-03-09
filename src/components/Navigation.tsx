@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,11 +22,34 @@ const Navigation: React.FC = () => {
     setIsOpen(false);
   }, [location.pathname]);
 
+  // Handle scrolling to anchor when navigating from another page
+  useEffect(() => {
+    // Check if we have a scrollToId in the location state
+    if (location.state && location.state.scrollToId) {
+      const targetId = location.state.scrollToId;
+      const targetElement = document.getElementById(targetId);
+      
+      if (targetElement) {
+        // Small delay to ensure the page has loaded
+        setTimeout(() => {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }, 100);
+      }
+      
+      // Clear the state to prevent scrolling on subsequent renders
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
+
   // Handle smooth scrolling for anchor links
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
-    // Only handle anchor links on the homepage
+    e.preventDefault();
+    
+    // If we're already on the homepage
     if (location.pathname === '/') {
-      e.preventDefault();
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
         window.scrollTo({
@@ -33,6 +57,9 @@ const Navigation: React.FC = () => {
           behavior: 'smooth'
         });
       }
+    } else {
+      // Navigate to home page with the anchor
+      navigate('/', { state: { scrollToId: targetId } });
     }
   };
 

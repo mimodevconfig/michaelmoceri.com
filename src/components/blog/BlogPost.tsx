@@ -23,10 +23,11 @@ const BlogPost: React.FC = () => {
         const post = getPostBySlug(slug);
         const mdxSource = await serializeMdx(post.content);
         
-        // Update the cover image to use our local image if available
+        // Use the original coverImage from the post data
+        // Store the local image path as a backup
         const updatedPost = {
           ...post,
-          coverImage: getBlogCoverUrl(slug),
+          localCoverImage: getBlogCoverUrl(slug),
           mdxSource
         };
         
@@ -45,11 +46,11 @@ const BlogPost: React.FC = () => {
   // Function to handle image errors and use fallback
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.target as HTMLImageElement;
-    // If the local image fails to load, fall back to the original image or a default
-    if (postData && postData.originalCoverImage && target.src !== postData.originalCoverImage) {
-      target.src = postData.originalCoverImage;
+    // Try the local image as a fallback if we're not already using it
+    if (postData && postData.localCoverImage && target.src !== postData.localCoverImage) {
+      target.src = postData.localCoverImage;
     } else {
-      // Default fallback image
+      // Default fallback image as a last resort
       target.src = 'https://images.unsplash.com/photo-1499750310107-5fef28a66643';
     }
   };

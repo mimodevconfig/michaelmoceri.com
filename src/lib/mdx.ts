@@ -4,734 +4,233 @@ import { PostMeta, Post } from '../types/blog';
 // Sample blog posts data (in a real app, this would be fetched from an API)
 const blogPosts: Post[] = [
   {
-    title: "Hello World: My First Blog Post",
-    date: "2025-01-01",
-    excerpt: "Welcome to my first blog post where I share my journey as a developer.",
-    author: "John Doe",
-    category: "Development",
-    tags: ["React", "Web Development", "Beginners"],
-    coverImage: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97",
-    slug: "hello-world",
+    title: "ARE YOU READY FOR THE NEW SUPPLY CHAIN?",
+    date: "2023-07-11",
+    excerpt: "Big companies may come knocking at your door as supply chains adjust after COVID-19. Will your 3D printing business be ready?",
+    author: "Michael Moceri",
+    category: "Manufacturing",
+    tags: ["3D Printing", "Supply Chain", "COVID-19", "Manufacturing", "Business"],
+    coverImage: "https://static.wixstatic.com/media/0baac8_8d1053caa2c44b6784577b36889046bd~mv2.jpg/v1/fill/w_925,h_519,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/0baac8_8d1053caa2c44b6784577b36889046bd~mv2.jpg",
+    slug: "ready-for-new-supply-chain",
     content: `
-# Hello World!
+# ARE YOU READY FOR THE NEW SUPPLY CHAIN?
 
-Welcome to my first blog post. This is a sample post to demonstrate the MDX capabilities.
+Originally published at [3dprintingindustry.com](https://3dprintingindustry.com/news/are-you-ready-for-the-new-supply-chain-171073/) on April 27, 2020. Written by Mike Moceri.
 
-## What is MDX?
+Big companies may come knocking at your door as supply chains adjust after COVID-19. Will your 3D printing business be ready?
 
-MDX is a format that lets you write JSX in your markdown documents. You can import components, such as interactive charts or alerts, and embed them within your content.
+_By Mike Moceri, founder and CEO,_ [_MakerOS_](https://makeros.com/)
 
-\`\`\`jsx
-function Button() {
-  return <button>Click me</button>;
-}
+![](https://static.wixstatic.com/media/0baac8_8d1053caa2c44b6784577b36889046bd~mv2.jpg/v1/fill/w_925,h_519,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/0baac8_8d1053caa2c44b6784577b36889046bd~mv2.jpg)
 
-<Button />
-\`\`\`
+Earlier this month during a Saturday press conference, Governor Andrew Cuomo of New York State said this:
 
-## Why use MDX?
+_"China is, remarkably, the repository for all of these orders – ventilators, PPE – it all comes back to China, which in the long term, we have to figure out why we wound up in this situation, where we don't have the manufacturing capacity in this country. I understand supply chain issues, I understand the cost of manufacturing, but there's a public health reason why we learned the hard way why_ **_we need the capacity in this country to do this._**_"_
 
-- **Component-based**: Use React components within your markdown
-- **Flexible**: Combine the best of markdown and JSX
-- **Powerful**: Create interactive blog posts
+Many experts echo the governor's point. The COVID-19 global pandemic is exposing how incredibly fragile the modern global supply chain is. Many companies experienced some kind of supply chain disruption due to the coronavirus, and some did not have a plan to deal with the disruption.
 
-I hope you enjoy reading my blog posts!
+It's becoming abundantly clear that heavy dependence on a single source for materials and parts is no longer sustainable, particularly if that source is overseas. The coronavirus may very well have jump-started the fourth industrial revolution, where industry becomes more reliant on modern societal components including 3D printing.
+
+In [a recent article in the Atlantic](https://www.theatlantic.com/ideas/archive/2020/03/supply-chains-and-coronavirus/608329/), David Simchi-Levi, an MIT professor who studies supply chains and logistics, said, "companies will come under pressure to diversify where they make their products." Relying solely on outsourcing is out. Companies are already scrambling to find parts from alternative sources. These alternative sources will either become a permanent backup or the new main supplier – and those sources might just be you.
+
+If you're a small or medium-sized 3D printing service with less than 50 employees, you're nimble and agile enough to turn around orders faster than any overseas supplier. Large companies may very well turn to you as we enter the fourth industrial revolution. But is your workflow ready to manage bulk orders from Fortune 500 companies?
+
+Back in 2013, while I was running a 3D printing service bureau, my team and I received an order from a Fortune 500 company to print over 10,000 individual parts for a toy line. The project was challenging. Eventually, I realized that, considering how immensely large the job was, [we should have priced about 70% more](https://3dprintingindustry.com/news/youre-pricing-wrong-how-to-better-price-your-3d-printing-projects-168312/) than what we originally quoted. This realization ultimately led me to start a company to help 3D printing and fabrication companies better quote and manage projects. That company is called [MakerOS](https://makeros.com/?utm_source=3dprintingindustry&utm_medium=referral&utm_campaign=3dpindustry-aprilstandard-2020).
+
+MakerOS is a collaboration platform for digital fabrication and 3D printing companies to improve client workflows. What exactly is a collaboration platform, in the context of a 3D printing company?
+
+Take a second to think about all of the tools you usually use to manage day-to-day operations at a 3D printing company. You typically have a manual quoting process to price out new projects with spreadsheets. You have 3D viewers and CAD tools for analysis. You may use an internal project management platform to ensure optimal workflow. You have an online file hosting service to share and access files. You have an inventory management system to track materials and services. You have an accounting system to execute billing and invoices, and of course, you have email to communicate with clients and employees. All of these tools facilitate collaboration and communication, and effective collaboration and communication lead to successful projects.
+
+We consolidated all of these tools into one platform that is specifically designed for 3D printing and digital fabrication services.
+
+For clients, the platform is a secure, online hub to log in and submit projects, communicate with the service, view updates, upload and access files, and pay invoices.
+For a 3D printing or fabrication service, that platform is a secure, online dashboard to manage projects, to communicate with clients AND the rest of the team, to find and collect all files in one place, to view all relevant files, and to get paid.
+For everyone, it's a collaboration platform.
+
+Because the platform is all online, the web-based software enables managers to remotely manage both clients and teams from home. And so while it may be perceived that 3D printing companies cannot work remotely because of the nature of the status quo processes, the MakerOS collaboration platform makes working as a distributed team a realistic possibility.
+
+Our clients have had huge successes using the platform. Within the first year of using the MakerOS software, one of our clients reduced their development cycle from three weeks to just 4 days and increased their revenue ten-fold.
+
+Another one of our clients, an industrial 3D printing service, spent 10 months trying several other systems but kept landing back with MakerOS after realizing that other 3D printing software could not manage projects beyond the quoting phase.
+
+Their VP and Co-founder said, "MakerOS has helped us organize everything, stay on top of client communication, and see the statistics of our service over time. It's also increased the quality of how we process orders, which has translated directly to more orders being processed."
+
+You, too, can accomplish these wins and be ready for the fourth industrial revolution.
+
+###
+
+About the Author, Mike Moceri
+
+Mike Moceri has deep experience in manufacturing, design, and software. In 2013, he co-founded the world's first 3D printing retail service bureau in Chicago. In 2014 he founded Manulith, a 3D printing and product design agency, where his clientele included Fortune 500 companies within the aerospace, automotive, and medical industries. Mike is also a mentor at Stanley+Techstars Additive Manufacturing Accelerator, a mentor at WeWork Labs in NYC, and formerly a mentor at TechTown Detroit. He's previously been featured on MSN, Make Magazine, NBC, and the Encyclopedia Britannica. D-Business Magazine called him the "Face of 3D printing," and 3Dnatives named Mike one of "The Most Influential Personalities of Additive Manufacturing in 2020."
+
+Mike was the founder and CEO of MakerOS, an all-in-one business operating software for manufacturers, engineers, designers, and fabricators to facilitate modern product development. Shapeways acquired MakerOS in April 2022.
     `
   },
   {
-    title: "Understanding React Hooks",
-    date: "2025-01-15",
-    excerpt: "A deep dive into React Hooks and how they can simplify your code.",
-    author: "Jane Smith",
-    category: "React",
-    tags: ["React", "Hooks", "JavaScript"],
-    coverImage: "https://images.unsplash.com/photo-1633356122102-3fe601e05bd2",
-    slug: "react-hooks",
+    title: "How I Built a 3D Printing Business in a Bubble and Survived",
+    date: "2023-07-11",
+    excerpt: "Magazine covers, Netflix documentaries, and daily news segments talking about how 3D printing took over the world of tech and gave everyone an impassioned vision of the future.",
+    author: "Michael Moceri",
+    category: "Entrepreneurship",
+    tags: ["3D Printing", "Business", "Startup", "Manufacturing", "Technology"],
+    coverImage: "https://static.wixstatic.com/media/0baac8_d723e6fef6e94a97ae160953899a1043~mv2.png/v1/fill/w_925,h_405,al_c,lg_1,q_90,enc_avif,quality_auto/0baac8_d723e6fef6e94a97ae160953899a1043~mv2.png",
+    slug: "3d-printing-business-in-bubble",
     content: `
-# Understanding React Hooks
+# How I Built a 3D Printing Business in a Bubble and Survived
 
-React Hooks have revolutionized how we write React components. Let's explore them in detail.
+Originally published on [3dprint.com](https://3dprint.com/253695/how-i-built-a-3d-printing-business-in-a-bubble-and-survived/) on September 19, 2019. Written by Mike Moceri.
 
-## useState Hook
+###### Let's rewind to 2013.
 
-The useState hook allows you to add state to functional components:
+Magazine covers, Netflix documentaries, and daily news segments talking about how 3D printing took over the world of tech and gave everyone an impassioned vision of the future.
 
-\`\`\`jsx
-import { useState } from 'react';
+The ways 3D printing could be applied to modern problems seemed limitless.
 
-function Counter() {
-  const [count, setCount] = useState(0);
-  
-  return (
-    <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>
-        Click me
-      </button>
-    </div>
-  );
-}
-\`\`\`
+![](https://static.wixstatic.com/media/0baac8_d723e6fef6e94a97ae160953899a1043~mv2.png/v1/fill/w_925,h_405,al_c,lg_1,q_90,enc_avif,quality_auto/0baac8_d723e6fef6e94a97ae160953899a1043~mv2.png)
 
-## useEffect Hook
+This was everywhere in 2013.
 
-The useEffect hook lets you perform side effects in functional components:
+3D printing was going to revolutionize everything and companies from every corner of the internet were coming out of the woodwork to get a piece of the action.
 
-\`\`\`jsx
-import { useState, useEffect } from 'react';
+Communities like RepRap were forming, projects were being brought to life through crowdfunding, and even surprise venture capital backed startups were all adding to the hype. Then there were also the "big guys" like Stratasys and 3D Systems cashing in by acquiring more companies than they could handle and promising their shareholders the moon.
 
-function Example() {
-  const [count, setCount] = useState(0);
+As all of this was bubbling up, people were sent into a frenzy as the media told them not to miss out on the next "industrial revolution." Dumb money and bad ideas were everywhere.
 
-  useEffect(() => {
-    document.title = \`You clicked \${count} times\`;
-  }, [count]);
+###### What could go wrong?
 
-  return (
-    <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>
-        Click me
-      </button>
-    </div>
-  );
-}
-\`\`\`
+"TOUR DE RUST BELT"
 
-Hooks make our code cleaner and more reusable!
+In 2013, I co-founded 3DPX in Chicago with an eclectic group of passionate dreamers that were hellbent on bringing this technology to the masses. Then in 2014, I founded Manulith in Detroit to service the automotive, aerospace and medical industries and help them rapidly prototype new technologies. Throughout both of those businesses, I was taking the lessons learned and bootstrapping what would ultimately become MakerOS.
+
+![](https://static.wixstatic.com/media/0baac8_0680f274da224a6ab9e770a44af543f6~mv2.jpg/v1/fill/w_925,h_574,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/0baac8_0680f274da224a6ab9e770a44af543f6~mv2.jpg)
+
+The 3DPX Showroom in Chicago
+
+I was every bit a part of the 3D printing hype machine of 2013-2015. However, while the industry has changed since those early days I've seen a few things stand the test of time:
+
+###### People don't care how their thing is made.
+
+All they care about is if it's made on time, within budget, and meets their quality expectations.
+
+This is extremely relevant to the term "3D Printing" as it has been characterized as the apex of manufacturing that will make things faster, cheaper, and easier. It's better to consider it as part of an ecosystem where it's applied in the appropriate context.
+
+Most clients will have a hard time conceptualizing how their products are made which makes it difficult to share progress throughout development.
+
+Before starting a project ask yourself: what is your client expecting to see along the way?
+
+###### Trying to sell complicated tools to consumers is a bad idea. Focus on B2B.
+
+Everyone can own a hammer, but not everyone is capable of building a birdhouse. This applies equally well to computers and software too.
+
+Both hardware and software startups have a knack for thinking that they can take a generally complex process and distill it down to a consumer-facing product.
+
+We saw this as MakerBot shifted from "everyone should own one" to "this is for professionals and educators".
+
+The same is true of 3D printing marketplaces that originally catered to the consumer/hobbyist crowd who then later reposition their platforms to professionals.
+
+Before launching a product or service, do a clear audit of the different use cases of how it can be used.
+
+Ask yourself: who will this benefit most?
+
+###### The media is irresponsible when it comes to new technology.
+
+All new technology goes through a hype cycle.
+
+When computers were first hooked up to the internet there was mass hysteria that everything would be hacked. Drones were hot then the media told us to fear them. 3D printing was the darling technology meant to help kids with their physical handicaps, then the media turned their attention to a megalomaniac wielding a 3D printed weapon.
+
+Then last year they were saying Bitcoin was going to replace money, and all of a sudden it was for criminals.
+
+Control the narrative of your technology/product/industry before someone tells it for you.
+
+###### Large OEM's have their hands tied when it comes to innovation.
+
+In 2014 GM's 3D printing facility in Southfield, Michigan, flooded and destroyed $30M of equipment. Their engineering team approached me at Manulith asking if I could help with their backlog of prototypes they still needed to produce.
+
+Exactly the work we were set up for, however, we didn't get the job.
+
+It all came down to the purchasing department requiring a Dun and Bradstreet score and other qualifications to allow us into their system.
+
+Be prepared to run into politics and policies where you have no control.
+
+###### It's never been easier to start, but it's never been harder to scale.
+
+It's incredibly expensive and burdensome to run a product development and fabrication service. When starting our fabrication businesses, we easily acquired everything we needed to get started. But, little did we know about the storm we would have to go through to scale our operations.
+
+It's going to be your job to find efficiencies in everything you do.
+
+This was our process and from our research, this is how most product based services operate.
+
+###### Marketplaces don't work for you. You work for the marketplace.
+
+Sites like Upwork or Fiverr have made it easier to begin or sustain a career as an independent contractor. The trouble, however, is that these marketplaces put you up against thousands of other people with similar skills and those early adopters or "highly" rated get all the business. The platforms don't care who gets the work, so long as work is getting done so they can make their cut on each transaction.
+
+A sense of professionalism is needed for people to move beyond the marketplaces. To grow, you'll need to expand your capabilities and be a part of a supplier network that allows you to leverage the skillsets of others.
+
+The key to survival is to do things that scale your business automatically.
+
+###### Network like hell.
+
+The last and more important thing is to network like hell.
+
+It's dangerous to try any of this alone. Communities, incubators, meetups, anything you can do to expand your network will benefit you in the long run. Be someone that helps other people tell their story. Become their go-to person as someone who helped them become successful. Learn how to play the game. Politics are everywhere and the sooner you're able to learn how to navigate them the better off you'll be.
+
+###
+
+### About the Author, Mike Moceri 
+Mike Moceri has deep experience in manufacturing, design, and software. In 2013, he co-founded the world's first 3D printing retail service bureau in Chicago. In 2014 he founded Manulith, a 3D printing and product design agency, where his clientele included Fortune 500 companies within the aerospace, automotive, and medical industries. Mike is also a mentor at Stanley+Techstars Additive Manufacturing Accelerator, a mentor at WeWork Labs in NYC, and formerly a mentor at TechTown Detroit. He's previously been featured on MSN, Make Magazine, NBC, and the Encyclopedia Britannica. D-Business Magazine called him the "Face of 3D printing," and 3Dnatives named Mike one of "The Most Influential Personalities of Additive Manufacturing in 2020." Mike was the founder and CEO of MakerOS, an all-in-one business operating software for manufacturers, engineers, designers, and fabricators to facilitate modern product development. Shapeways acquired MakerOS in April 2022.
     `
   },
   {
-    title: "5 Tips for a Standout Developer Portfolio",
-    date: "2025-02-10",
-    excerpt: "Learn how to make your developer portfolio stand out from the crowd.",
-    author: "Alex Johnson",
-    category: "Career",
-    tags: ["Portfolio", "Career", "Web Development"],
-    coverImage: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8",
-    slug: "portfolio-tips",
+    title: "How to Make More Money at Your 3D Printing Shop",
+    date: "2023-07-11",
+    excerpt: "From a high-level perspective, you can categorize clients of 3D printing service shops into one of two buckets: transactional clients and relationship-based clients.",
+    author: "Michael Moceri",
+    category: "Business",
+    tags: ["3D Printing", "Business Strategy", "Client Management", "Revenue", "Manufacturing"],
+    coverImage: "https://static.wixstatic.com/media/0baac8_eebb3d0d3bf74ab4aa6e1575dafc7130~mv2.jpg/v1/fill/w_900,h_600,al_c,q_85,enc_avif,quality_auto/0baac8_eebb3d0d3bf74ab4aa6e1575dafc7130~mv2.jpg",
+    slug: "make-more-money-3d-printing-shop",
     content: `
-# 5 Tips for a Standout Developer Portfolio
+# How to Make More Money at Your 3D Printing Shop
 
-Your portfolio is often the first impression potential employers have of you. Here's how to make it count.
+Originally published at [3dprint.com](https://3dprint.com/277592/how-to-make-more-money-at-your-3d-printing-shop/) on December 18, 2020. Written by Mike Moceri.
 
-## 1. Showcase Your Best Work
+![](https://static.wixstatic.com/media/0baac8_eebb3d0d3bf74ab4aa6e1575dafc7130~mv2.jpg/v1/fill/w_900,h_600,al_c,q_85,enc_avif,quality_auto/0baac8_eebb3d0d3bf74ab4aa6e1575dafc7130~mv2.jpg)
 
-Quality over quantity. Include 3-5 projects that demonstrate your range of skills.
+From a high-level perspective, you can categorize clients of 3D printing service shops into one of two buckets.
 
-## 2. Tell a Story
+Some clients tend to be more transactional in how they conduct business. They prefer to submit new projects through your project submission portal, they share quick notes, they review and accept your quotes, they confirm their project has been received, and then it's off to the races with their order.
 
-For each project, explain:
-- The problem you were solving
-- Your approach
-- Challenges you overcame
-- The results
+Transactional clients are efficient and nice to have in bulk (they're great if you're a print farm or specialize in bridge manufacturing) but they also tend to be price-sensitive and may not stick with you for too long if they decide to shop around and find a cheaper alternative.
 
-## 3. Make it Visually Appealing
+Then there are clients who may require more consultation and tend to be more hands-on in the process. They ask more questions, they require status updates, they seek a better understanding of your process, they want to tap into your expertise. They are prone to be more collaborative, and over time as you work more and more together, you develop a mutual partnership. These are relationship-based clients, and these are the types of clients you should seek out and cultivate. Here is why.
 
-A clean, responsive design shows attention to detail.
+Relationship-based clients tend to be high-value ones because you'll most likely retain them over a longer period of time, and as is the case in any industry, high retention rates are good for business. High-value clients don't want to be transactional, they want to collaborate and work with a partner. In growth marketing, there's a metric called "Lifetime Value," or LTV, which is a calculated dollar amount for how much a customer will pay you over the course of their patronage to your business. Taking that concept and applying it to machine shops, the LTV of relationship-based clients is high.
 
-## 4. Include a Strong About Section
+Those two client distinctions became apparent to me while running 3D printing service bureaus in Chicago and Detroit for several years. My best clients in terms of both financial gain and project success were the ones that I developed strong business relationships with over time.
 
-Let your personality shine through. Explain your journey and what drives you.
+The challenge was in balancing those relationship-based, high-value clients with my transactional ones. I wanted to allocate more of my time to my relationship-based clients, but providing quotes and estimates to transactional clients was an equally tedious task and took up almost an equal amount of time and maintenance. I was limited by the software tools at my disposal: my project intake forms, my file-sharing system, email for communication, and others. These tools were disparate and time-consuming and in order to grow my business, I need something better.
 
-## 5. Make it Easy to Contact You
+I wanted to cultivate better relationships with clients to grow my service bureaus but was hindered by technology. I knew that in order to grow my business, I needed a solution that enabled me to cater to both relationship-based and transactional clients, and this was a big part of why I created MakerOS.
 
-Include multiple ways for people to reach you.
+![](https://static.wixstatic.com/media/0baac8_8245490bb3254b3fa35d0cf917602416~mv2.png/v1/fill/w_925,h_579,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/0baac8_8245490bb3254b3fa35d0cf917602416~mv2.png)
 
-Remember, your portfolio is a living document. Keep it updated with your latest work!
-    `
-  },
-  {
-    title: "TypeScript Best Practices for 2025",
-    date: "2025-03-05",
-    excerpt: "Discover the latest TypeScript best practices that will make your code more maintainable and robust.",
-    author: "Emily Chen",
-    category: "TypeScript",
-    tags: ["TypeScript", "JavaScript", "Best Practices"],
-    coverImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c",
-    slug: "typescript-best-practices",
-    content: `
-# TypeScript Best Practices for 2025
+MakerOS is an all-in-one business operating software for manufacturers, engineers, designers, and fabricators to facilitate modern product development. In regards to managing client relationships, the platform is built for seamless and efficient management of both transactional and relationship-based clients because of the Client Portal.
 
-TypeScript continues to evolve, and so do the best practices around it. Here's what you need to know in 2025.
+The Client Portal allows any client to start a project, upload files, see project statuses, and communicate with your team. What makes our Client Portal unique is how flexible its capabilities are when managing transactional and relationship-based clients.
 
-## Use Strict Mode
+For transactional clients, you can quickly create quotes via the Autoquoter, upload and comment on files, message back and forth, and get projects started. You can save quotes and estimates that either you, as the administrator, or your client via the Client Portal, can reference and use later. You can even send them a link to an invoice that does not require your client to create an account and log in to pay you if they prefer not to. The Client Portal is designed to give a lot of autonomy to your client if they prefer to do more themselves, allowing you to be more hands-off in the process.
 
-Always enable strict mode in your \`tsconfig.json\`:
+For relationship-based clients, the platform's flexibility allows you to do the exact opposite. You can be more consultative, communicate more frequently, and develop the relationship all within the Client Portal. MakerOS allows for natural conversations, and those conversations are synced in the same project with all previous records. The paper trail is there; the conversations, files, updates, and billing are all in one place. The client does not need to search for anything in their inbox or shared folders, everything is centralized and easily accessible. With that quality of service, it's less complex for a client to collaborate with a partner who uses MakerOS. They will keep coming back to you as a recurring client. You're more than likely going to retain their business and build the relationship if you have a client within MakerOS as opposed to outside of it.
 
-\`\`\`json
-{
-  "compilerOptions": {
-    "strict": true
-  }
-}
-\`\`\`
+MakerOS is the best value for growing businesses that need to maintain transactional and relationship-based clients. Try MakerOS for free for 30 days, or contact us with any questions, we'd be more than happy to talk shop.
 
-This enables a suite of type-checking flags that catch more potential errors.
+###
 
-## Leverage Type Inference
+About the Author, Mike Moceri
 
-TypeScript's type inference is powerful. Don't add type annotations when they're unnecessary:
+Mike Moceri has deep experience in manufacturing, design, and software. In 2013, he co-founded the world's first 3D printing retail service bureau in Chicago. In 2014 he founded Manulith, a 3D printing and product design agency, where his clientele included Fortune 500 companies within the aerospace, automotive, and medical industries. Mike is also a mentor at Stanley+Techstars Additive Manufacturing Accelerator, a mentor at WeWork Labs in NYC, and formerly a mentor at TechTown Detroit. He's previously been featured on MSN, Make Magazine, NBC, and the Encyclopedia Britannica. D-Business Magazine called him the "Face of 3D printing," and 3Dnatives named Mike one of "The Most Influential Personalities of Additive Manufacturing in 2020."
 
-\`\`\`typescript
-// Unnecessary
-const name: string = "John";
-
-// Better - type is inferred
-const name = "John";
-\`\`\`
-
-## Use Discriminated Unions
-
-Discriminated unions are a powerful pattern for modeling complex states:
-
-\`\`\`typescript
-type LoadingState = { status: 'loading' };
-type SuccessState = { status: 'success', data: string[] };
-type ErrorState = { status: 'error', error: Error };
-
-type State = LoadingState | SuccessState | ErrorState;
-
-function handleState(state: State) {
-  switch (state.status) {
-    case 'loading':
-      return <Spinner />;
-    case 'success':
-      return <DataTable data={state.data} />;
-    case 'error':
-      return <ErrorMessage error={state.error} />;
-  }
-}
-\`\`\`
-
-## Use \`unknown\` Instead of \`any\`
-
-The \`unknown\` type is a type-safe alternative to \`any\`:
-
-\`\`\`typescript
-// Bad
-function processData(data: any) {
-  data.forEach(item => console.log(item)); // No error checking
-}
-
-// Good
-function processData(data: unknown) {
-  if (Array.isArray(data)) {
-    data.forEach(item => console.log(item)); // Safe
-  }
-}
-\`\`\`
-
-## Prefer Interfaces for Public APIs
-
-Use interfaces for public APIs and type aliases for complex types:
-
-\`\`\`typescript
-// Public API
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
-
-// Complex internal type
-type UserState = 
-  | { status: 'active', lastLogin: Date }
-  | { status: 'inactive', inactiveSince: Date };
-\`\`\`
-
-## Use Utility Types
-
-TypeScript provides many utility types that can save you time:
-
-\`\`\`typescript
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
-}
-
-// Create a type without the password field
-type PublicUser = Omit<User, 'password'>;
-
-// Create a type with only the id and name
-type UserPreview = Pick<User, 'id' | 'name'>;
-
-// Create a type where all fields are optional
-type PartialUser = Partial<User>;
-\`\`\`
-
-By following these best practices, you'll write more maintainable and robust TypeScript code in 2025 and beyond.
-    `
-  },
-  {
-    title: "10 AI Tools Every Developer Should Use in 2025",
-    date: "2025-04-12",
-    excerpt: "Discover the AI-powered tools that are revolutionizing software development workflows.",
-    author: "Marcus Wong",
-    category: "Tools",
-    tags: ["AI", "Productivity", "Development Tools"],
-    coverImage: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485",
-    slug: "ai-tools-for-developers",
-    content: `
-# 10 AI Tools Every Developer Should Use in 2025
-
-Artificial intelligence has transformed how we write, debug, and optimize code. Here are the top AI tools that should be in every developer's toolkit in 2025.
-
-## 1. CodePilot Pro
-
-The evolution of GitHub Copilot has become even more powerful, now offering:
-- Full function implementations based on comments
-- Automated test generation
-- Security vulnerability detection
-- Performance optimization suggestions
-
-\`\`\`javascript
-// CodePilot Pro can generate entire functions like this:
-// Function that takes an array of transactions and returns the total amount spent per category
-function calculateCategoryTotals(transactions) {
-  return transactions.reduce((totals, transaction) => {
-    const { category, amount } = transaction;
-    totals[category] = (totals[category] || 0) + amount;
-    return totals;
-  }, {});
-}
-\`\`\`
-
-## 2. DebugGPT
-
-This AI debugging assistant can:
-- Analyze stack traces and suggest fixes
-- Identify logical errors by analyzing code flow
-- Explain complex bugs in simple language
-- Generate minimal reproduction cases
-
-## 3. ArchitectAI
-
-Design entire system architectures with:
-- Interactive diagrams that generate infrastructure code
-- Automatic scaling recommendations
-- Cost optimization analysis
-- Security compliance checking
-
-## 4. TestSage
-
-AI-powered testing that:
-- Generates comprehensive test suites
-- Identifies edge cases humans might miss
-- Maintains tests as your code evolves
-- Provides test coverage recommendations
-
-## 5. DocuMentor
-
-Documentation generation that:
-- Creates human-readable documentation from code
-- Keeps documentation in sync with code changes
-- Generates examples and use cases
-- Supports multiple documentation formats
-
-## 6. PerformanceProbe
-
-Performance optimization that:
-- Identifies bottlenecks in your code
-- Suggests specific optimizations
-- Benchmarks before and after changes
-- Predicts scaling issues before they occur
-
-## 7. SecuritySentinel
-
-AI security assistant that:
-- Scans code for vulnerabilities in real-time
-- Suggests secure alternatives
-- Provides detailed explanations of security risks
-- Keeps up with the latest security threats
-
-## 8. DataVizGenius
-
-Data visualization assistant that:
-- Recommends the best visualization for your data
-- Generates visualization code
-- Optimizes for accessibility
-- Creates interactive dashboards
-
-## 9. APIForge
-
-API development assistant that:
-- Designs RESTful and GraphQL APIs
-- Generates OpenAPI specifications
-- Creates mock servers for testing
-- Suggests performance optimizations
-
-## 10. DevOpsOracle
-
-DevOps automation that:
-- Optimizes CI/CD pipelines
-- Suggests infrastructure improvements
-- Automates routine maintenance tasks
-- Predicts and prevents deployment issues
-
-By incorporating these AI tools into your workflow, you'll not only save time but also improve the quality of your code and systems. The key is to use AI as a collaborator, not a replacement for your expertise and judgment.
-    `
-  },
-  {
-    title: "Web Performance Optimization Techniques for 2025",
-    date: "2025-05-20",
-    excerpt: "Learn the latest techniques to make your websites lightning fast in 2025.",
-    author: "Sarah Johnson",
-    category: "Performance",
-    tags: ["Web Performance", "Optimization", "Frontend"],
-    coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f",
-    slug: "web-performance-optimization",
-    content: `
-# Web Performance Optimization Techniques for 2025
-
-Web performance continues to be a critical factor in user experience and SEO. Here are the most effective optimization techniques for 2025.
-
-## Core Web Vitals in 2025
-
-Google's Core Web Vitals have evolved. The current metrics to focus on are:
-
-1. **Largest Contentful Paint (LCP)**: Should occur within 2.0 seconds
-2. **First Input Delay (FID)**: Should be less than 50 milliseconds
-3. **Cumulative Layout Shift (CLS)**: Should be less than 0.1
-4. **Interaction to Next Paint (INP)**: Should be less than 150 milliseconds
-
-## Image Optimization
-
-### Next-Gen Formats
-
-Use modern image formats with better compression:
-
-\`\`\`html
-<picture>
-  <source srcset="image.avif" type="image/avif">
-  <source srcset="image.webp" type="image/webp">
-  <img src="image.jpg" alt="Description" loading="lazy">
-</picture>
-\`\`\`
-
-### Responsive Images
-
-Serve appropriately sized images:
-
-\`\`\`html
-<img 
-  srcset="image-320w.jpg 320w, image-480w.jpg 480w, image-800w.jpg 800w" 
-  sizes="(max-width: 320px) 280px, (max-width: 480px) 440px, 800px" 
-  src="image-800w.jpg" 
-  alt="Description"
-  loading="lazy"
->
-\`\`\`
-
-## JavaScript Optimization
-
-### Code Splitting
-
-Split your JavaScript bundles to load only what's needed:
-
-\`\`\`javascript
-// React example with dynamic imports
-import React, { lazy, Suspense } from 'react';
-
-const HeavyComponent = lazy(() => import('./HeavyComponent'));
-
-function App() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <HeavyComponent />
-    </Suspense>
-  );
-}
-\`\`\`
-
-### Web Workers
-
-Offload heavy computations to web workers:
-
-\`\`\`javascript
-// main.js
-const worker = new Worker('worker.js');
-
-worker.postMessage({ data: complexData });
-worker.onmessage = (event) => {
-  const result = event.data;
-  updateUI(result);
-};
-
-// worker.js
-self.onmessage = (event) => {
-  const data = event.data;
-  const result = performComplexCalculation(data);
-  self.postMessage(result);
-};
-\`\`\`
-
-## CSS Optimization
-
-### Critical CSS
-
-Inline critical CSS and defer non-critical CSS:
-
-\`\`\`html
-<head>
-  <!-- Inline critical CSS -->
-  <style>
-    /* Critical styles needed for above-the-fold content */
-  </style>
-  
-  <!-- Defer non-critical CSS -->
-  <link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="styles.css"></noscript>
-</head>
-\`\`\`
-
-### Container Queries
-
-Use container queries for more efficient responsive designs:
-
-\`\`\`css
-.container {
-  container-type: inline-size;
-}
-
-@container (min-width: 400px) {
-  .card {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-  }
-}
-\`\`\`
-
-## Network Optimization
-
-### HTTP/3 and QUIC
-
-Ensure your server supports HTTP/3 and QUIC for faster connections.
-
-### Resource Hints
-
-Use resource hints to optimize resource loading:
-
-\`\`\`html
-<link rel="preconnect" href="https://api.example.com">
-<link rel="preload" href="critical-font.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="prefetch" href="next-page.html">
-\`\`\`
-
-## Rendering Optimization
-
-### Partial Hydration
-
-Only hydrate interactive parts of your page:
-
-\`\`\`jsx
-import { Island } from 'your-framework';
-
-function Page() {
-  return (
-    <div>
-      <StaticContent />
-      <Island component={InteractiveComponent} />
-      <MoreStaticContent />
-    </div>
-  );
-}
-\`\`\`
-
-### Streaming Server Rendering
-
-Stream HTML to the browser for faster initial rendering:
-
-\`\`\`javascript
-// Node.js example with React 18+
-app.get('/', (req, res) => {
-  const { pipe } = renderToPipeableStream(<App />, {
-    bootstrapScripts: ['/client.js'],
-    onShellReady() {
-      res.setHeader('content-type', 'text/html');
-      pipe(res);
-    }
-  });
-});
-\`\`\`
-
-By implementing these techniques, you'll create websites that not only load faster but also provide a smoother user experience, leading to better engagement, conversion rates, and search engine rankings.
-    `
-  },
-  {
-    title: "The Complete Guide to Freelance Development in 2025",
-    date: "2025-06-15",
-    excerpt: "Everything you need to know to succeed as a freelance developer in today's market.",
-    author: "David Rodriguez",
-    category: "Career",
-    tags: ["Freelancing", "Career", "Business"],
-    coverImage: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
-    slug: "freelance-developer-guide",
-    content: `
-# The Complete Guide to Freelance Development in 2025
-
-Freelance development offers unprecedented flexibility and earning potential, but it also comes with unique challenges. This guide will help you navigate the freelance landscape in 2025.
-
-## Getting Started
-
-### Define Your Niche
-
-Specializing in a specific area will help you stand out:
-
-- Frontend development (React, Vue, Angular)
-- Backend development (Node.js, Python, Ruby)
-- Mobile development (React Native, Flutter)
-- DevOps and cloud infrastructure
-- AI/ML integration
-
-### Build Your Portfolio
-
-Your portfolio is your most important marketing tool:
-
-1. Include 3-5 high-quality projects
-2. Showcase problem-solving abilities
-3. Highlight measurable results (e.g., "Improved site performance by 40%")
-4. Include case studies with before/after comparisons
-
-## Finding Clients
-
-### Modern Platforms
-
-Beyond traditional freelance platforms, consider:
-
-- **DevMatch**: AI-powered matching for developers and clients
-- **BlockWork**: Blockchain-based contracting with escrow protection
-- **SpecNet**: Specialized network for niche development skills
-- **GuildCraft**: Cooperative platform owned by freelancers
-
-### Direct Outreach
-
-Cold outreach still works when done right:
-
-\`\`\`
-Subject: Solving [Company]'s [Specific Problem]
-
-Hi [Name],
-
-I noticed that [Company]'s website is [specific observation about a problem or opportunity].
-
-I've helped [similar company] solve this by [brief solution], resulting in [specific result].
-
-Would you be open to a 15-minute call to discuss how I might help [Company] achieve similar results?
-
-Best,
-[Your Name]
-\`\`\`
-
-## Pricing Your Services
-
-### Value-Based Pricing
-
-Instead of hourly rates, consider value-based pricing:
-
-1. Determine the business value of the project
-2. Price based on a percentage of that value
-3. Present multiple pricing tiers
-
-Example pricing structure:
-
-\`\`\`
-Basic Package: $X
-- Core functionality
-- Basic design
-- 30 days of support
-
-Premium Package: $Y
-- Core functionality
-- Premium design
-- 90 days of support
-- Performance optimization
-
-Enterprise Package: $Z
-- All Premium features
-- Custom integrations
-- 1 year of support
-- SEO optimization
-\`\`\`
-
-## Managing Projects
-
-### Contracts
-
-Every project needs a solid contract that includes:
-
-- Detailed scope of work
-- Milestone-based payments
-- Change request process
-- Intellectual property rights
-- Limitation of liability
-
-### Client Communication
-
-Set clear expectations:
-
-- Weekly progress updates
-- Dedicated communication channel
-- Response time expectations
-- Demo/review schedule
-
-## Tools of the Trade
-
-### Project Management
-
-- **TaskWeave**: AI-assisted project management
-- **ClientPortal**: Client collaboration and approval system
-- **TimeTrail**: Time tracking with automatic invoicing
-
-### Finance Management
-
-- **InvoiceAI**: Automated invoicing and payment reminders
-- **TaxPilot**: Real-time tax calculation and filing assistance
-- **ContractForge**: AI-powered contract generation and management
-
-## Scaling Your Freelance Business
-
-### Building a Team
-
-When you're ready to scale:
-
-1. Start with project-based collaborators
-2. Create standardized onboarding processes
-3. Develop clear communication protocols
-4. Implement quality control systems
-
-### Productizing Services
-
-Transform custom services into products:
-
-- Create service packages with fixed scopes and prices
-- Develop reusable components and templates
-- Build micro-SaaS products based on client needs
-
-## Work-Life Balance
-
-### Setting Boundaries
-
-Protect your time and energy:
-
-- Define working hours and stick to them
-- Create a dedicated workspace
-- Use time blocking for deep work
-- Schedule regular breaks and vacations
-
-### Continuous Learning
-
-Stay relevant in a rapidly changing field:
-
-- Dedicate 5 hours per week to learning
-- Join developer communities
-- Attend virtual conferences
-- Contribute to open source projects
-
-By following this guide, you'll be well-equipped to thrive as a freelance developer in 2025's competitive landscape. Remember that success comes not just from technical skills, but from treating your freelance work as a business with strategic planning, professional client relationships, and sustainable practices.
+Mike was the founder and CEO of MakerOS, an all-in-one business operating software for manufacturers, engineers, designers, and fabricators to facilitate modern product development. Shapeways acquired MakerOS in April 2022.
     `
   }
 ];

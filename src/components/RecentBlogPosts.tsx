@@ -12,7 +12,7 @@ const RecentBlogPosts: React.FC = () => {
     .slice(0, 3); // Get only the 3 most recent posts
 
   return (
-    <section className="py-20 bg-gray-50 dark:bg-gray-900">
+    <section className="py-20 bg-ide-bg-secondary">
       <div className="container mx-auto max-w-6xl px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">Recent Blog Posts</h2>

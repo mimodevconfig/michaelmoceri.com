@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Footer } from './blocks/footer';
 import { 
   Github, 
@@ -15,6 +16,36 @@ import {
 } from 'lucide-react';
 
 export default function AppFooter() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Handle navigation to anchor links
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    
+    // Check if it's an anchor link
+    if (href.startsWith('#')) {
+      const targetId = href.substring(1);
+      
+      // If we're already on the home page
+      if (location.pathname === '/') {
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      } else {
+        // Navigate to home page with the anchor
+        navigate('/', { state: { scrollToId: targetId } });
+      }
+    } else {
+      // For non-anchor links, navigate normally
+      window.location.href = href;
+    }
+  };
+
   return (
     <Footer
       brand={{
@@ -34,7 +65,7 @@ export default function AppFooter() {
           name: "YouTube",
           href: "https://youtube.com",
         },
-				{
+        {
           name: "Instagram",
           href: "https://instagram.com",
         },
@@ -47,26 +78,31 @@ export default function AppFooter() {
               name: "Projects",
               Icon: Blocks,
               href: "#projects",
+              onClick: (e) => handleAnchorClick(e, "#projects"),
             },
             {
               name: "Skills",
               Icon: Code2,
               href: "#skills",
+              onClick: (e) => handleAnchorClick(e, "#skills"),
             },
             {
               name: "Experience",
               Icon: Briefcase,
               href: "#experience",
+              onClick: (e) => handleAnchorClick(e, "#experience"),
             },
             {
               name: "About",
               Icon: Users,
               href: "#about",
+              onClick: (e) => handleAnchorClick(e, "#about"),
             },
             {
               name: "Contact",
               Icon: MessageSquare,
               href: "#contact",
+              onClick: (e) => handleAnchorClick(e, "#contact"),
             },
           ],
         },

@@ -3,22 +3,22 @@ import { Quote } from 'lucide-react';
 
 const testimonials = [
   {
-    quote: "An exceptional AI developer who consistently delivers innovative solutions. Their work on our ML infrastructure transformed our capabilities.",
-    author: "Sarah Chen",
-    role: "CTO, TechCorp",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330"
+    quote: "One of the most influential personalities of Additive Manufacturing",
+    author: "3D Natives",
+    role: "Industry Publication",
+    image: "https://images.crunchbase.com/image/upload/c_pad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_2/cvg5ttuibssqfpkd3ddz"
   },
   {
-    quote: "Rare combination of technical expertise and business acumen. They don't just build AI systems; they create value.",
-    author: "Michael Rodriguez",
-    role: "VP Engineering, DataTech",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
+    quote: "Entrepreneur Becomes The Face Of 3D Printing Through Innovation & Excellent Company Presentation",
+    author: "CBS News",
+    role: "Online News Outlet",
+    image: "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/55/29/48/5529487a-af9f-9892-302b-d9954ec42273/CBSTVEAppIcon-0-0-1x_U007emarketing-0-10-0-85-220.png/60x60bb.jpg"
   },
   {
-    quote: "Their leadership in AI product development has been instrumental in our success. Highly recommended for complex AI initiatives.",
-    author: "Emily Watson",
-    role: "Product Director, AI Innovations",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80"
+    quote: "Moceri realized that 3D printing’s labor-intensive steps—file handling, mesh validation, pricing, manufacturing, logistics, and billing—happen outside the printer. Such a process would greatly benefit from automation.",
+    author: "Engineering.com",
+    role: "Engineering Publication",
+    image: "https://www.engineering.com/wp-content/uploads/2024/05/eng2.png"
   }
 ];
 
@@ -27,9 +27,9 @@ export default function Testimonials() {
     <section className="py-20 bg-ide-bg-primary">
       <div className="container mx-auto max-w-6xl px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Client Testimonials</h2>
+          <h2 className="text-4xl font-bold mb-4">Quotes & Accolades</h2>
           <p className="text-ide-text-secondary max-w-2xl mx-auto">
-            Trusted by industry leaders to deliver exceptional AI solutions.
+            Recognized by industry leaders to deliver exceptional solutions.
           </p>
         </div>
         

@@ -4,24 +4,19 @@ import { GooeyText } from './ui/gooey-text-morphing';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Magnetic } from './ui/magnetic';
 import { Button } from './ui/button';
-import { getAvatarUrl } from '../lib/imageUtils';
 
 const SOCIAL_LINKS = [
   {
     label: 'Github',
-    link: 'https://github.com',
+    link: 'https://github.com/mimodevconfig',
   },
   {
     label: 'LinkedIn',
-    link: 'https://linkedin.com',
-  },
-  {
-    label: 'YouTube',
-    link: 'mailto:contact@example.com',
+    link: 'https://www.linkedin.com/in/mocerimike',
   },
   {
     label: 'Instagram',
-    link: '/resume.pdf',
+    link: 'https://www.instagram.com/mocerimike/?hl=en',
   },
 ];
 
@@ -36,6 +31,8 @@ function MagneticSocialLink({
     <Magnetic springOptions={{ bounce: 0 }} intensity={0.3}>
       <a
         href={link}
+				target="_blank"
+				rel="noopener noreferrer"
         className="group relative inline-flex shrink-0 items-center gap-[1px] rounded-full bg-ide-bg-dropdown px-2.5 py-1 text-sm text-ide-text-primary transition-colors duration-200 hover:bg-ide-text-link hover:text-ide-bg-primary"
       >
         {children}
@@ -75,11 +72,14 @@ export default function Hero() {
   // Function to handle image errors and use fallback
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.target as HTMLImageElement;
-    const fallbackSrc = 'https://images.unsplash.com/photo-1633332755192-727a05c4013d';
+    const fallbackSrc = 'https://static.wixstatic.com/media/0baac8_faabf241c8254c2d93ffc9832f9fe260~mv2.jpg/v1/crop/x_0,y_2,w_400,h_396/fill/w_400,h_396,al_c,q_80,enc_avif,quality_auto/W_85udg__400x400.jpg';
     if (target.src !== fallbackSrc) {
       target.src = fallbackSrc;
     }
   };
+
+  // Avatar image URL
+  const avatarImageUrl = 'https://static.wixstatic.com/media/0baac8_faabf241c8254c2d93ffc9832f9fe260~mv2.jpg/v1/crop/x_0,y_2,w_400,h_396/fill/w_400,h_396,al_c,q_80,enc_avif,quality_auto/W_85udg__400x400.jpg';
 
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-ide-bg-primary py-20 px-4 pt-24">
@@ -165,7 +165,7 @@ export default function Hero() {
               <div className="relative scale-[3]">
                 <Avatar className="w-32 h-32 border-4 border-ide-text-link">
                   <AvatarImage 
-                    src={getAvatarUrl('profile.jpg')} 
+                    src={avatarImageUrl} 
                     alt="Mike Moceri" 
                     onError={handleImageError}
                   />

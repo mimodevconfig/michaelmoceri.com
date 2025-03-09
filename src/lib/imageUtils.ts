@@ -1,60 +1,66 @@
-/**
- * Image utility functions for managing and referencing images
- */
+// Utility functions for handling images
 
 /**
- * Get the URL for an image in the public directory
- * @param path Path to the image relative to the /public/images directory
- * @returns Full path to the image
+ * Get the URL for a project image
+ * @param projectId The ID of the project
+ * @param imageName The name of the image file (default: 'cover.jpg')
+ * @returns The URL to the project image
  */
-export function getImageUrl(path: string): string {
-  return `/images/${path}`;
+export function getProjectImageUrl(projectId: string, imageName: string = 'cover.jpg'): string {
+  return `/images/projects/${projectId}/${imageName}`;
 }
 
 /**
- * Get project image URL
- * @param projectId The project ID
- * @param filename The image filename
- * @returns Full path to the project image
- */
-export function getProjectImageUrl(projectId: string, filename: string): string {
-  return getImageUrl(`projects/${projectId}/${filename}`);
-}
-
-/**
- * Get blog cover image URL
- * @param slug The blog post slug
- * @returns Full path to the blog cover image
+ * Get the URL for a blog cover image
+ * @param slug The slug of the blog post
+ * @returns The URL to the blog cover image
  */
 export function getBlogCoverUrl(slug: string): string {
-  return getImageUrl(`blog/covers/${slug}.jpg`);
+  return `/images/blog/covers/${slug}.jpg`;
 }
 
 /**
- * Get blog content image URL
- * @param slug The blog post slug
- * @param filename The image filename
- * @returns Full path to the blog content image
+ * Get the URL for a blog content image
+ * @param slug The slug of the blog post
+ * @param imageName The name of the image file
+ * @returns The URL to the blog content image
  */
-export function getBlogContentImageUrl(slug: string, filename: string): string {
-  return getImageUrl(`blog/content/${slug}/${filename}`);
+export function getBlogContentImageUrl(slug: string, imageName: string): string {
+  return `/images/blog/content/${slug}/${imageName}`;
 }
 
 /**
- * Get avatar image URL
- * @param filename The avatar image filename
- * @returns Full path to the avatar image
+ * Get the URL for a testimonial avatar
+ * @param id The ID of the testimonial
+ * @returns The URL to the testimonial avatar
  */
-export function getAvatarUrl(filename: string = 'default.jpg'): string {
-  return getImageUrl(`avatar/${filename}`);
+export function getTestimonialAvatarUrl(id: string): string {
+  return `/images/testimonials/${id}.jpg`;
 }
 
 /**
- * Default image URLs to use as fallbacks
+ * Get the URL for a skill icon
+ * @param skill The name of the skill
+ * @returns The URL to the skill icon
  */
-export const defaultImages = {
-  avatar: getAvatarUrl(),
-  projectCover: getImageUrl('projects/default-project.jpg'),
-  blogCover: getImageUrl('blog/covers/default.jpg'),
-  hero: getImageUrl('hero/default.jpg'),
-};
+export function getSkillIconUrl(skill: string): string {
+  return `/images/skills/${skill.toLowerCase().replace(/\s+/g, '-')}.svg`;
+}
+
+/**
+ * Get the URL for a company logo
+ * @param company The name of the company
+ * @returns The URL to the company logo
+ */
+export function getCompanyLogoUrl(company: string): string {
+  return `/images/experience/${company.toLowerCase().replace(/\s+/g, '-')}.svg`;
+}
+
+/**
+ * Generic function to get image URL (alias for backward compatibility)
+ * @param path The path to the image
+ * @returns The URL to the image
+ */
+export function getImageUrl(path: string): string {
+  return `/${path}`;
+}

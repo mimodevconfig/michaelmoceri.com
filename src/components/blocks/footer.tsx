@@ -15,6 +15,7 @@ interface FooterLink {
   href?: string;
   target?: string;
   rel?: string;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
 interface FooterColumn {
@@ -72,12 +73,13 @@ export const Footer = React.forwardRef<HTMLDivElement, FooterProps>(
                 <div key={title} className="last:mt-12 md:last:mt-0">
                   <h3 className="text-sm font-semibold">{title}</h3>
                   <ul className="mt-4 space-y-2.5">
-                    {links.map(({ name, Icon, href, target, rel }) => (
+                    {links.map(({ name, Icon, href, target, rel, onClick }) => (
                       <li key={name}>
                         <a
                           href={href || "#"}
                           target={target}
                           rel={rel}
+                          onClick={onClick}
                           className="text-sm transition-all text-foreground/60 hover:text-foreground/90 group"
                         >
                           <Icon className="inline stroke-2 h-4 mr-1.5 transition-all stroke-foreground/60 group-hover:stroke-foreground/90" />

@@ -5,12 +5,12 @@ import { projects } from './Projects';
 import { getProjectImageUrl } from '../lib/imageUtils';
 
 export default function ProjectDetail() {
-  const { id } = useParams();
+  const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const location = useLocation();
   
   // Find current project and its index
-  const currentIndex = projects.findIndex(p => p.id === id);
+  const currentIndex = projects.findIndex(p => p.id === slug);
   const project = projects[currentIndex];
   
   // Calculate previous and next project indices
@@ -48,6 +48,8 @@ export default function ProjectDetail() {
 
   // Handle keyboard navigation
   useEffect(() => {
+    if (!project) return; // Don't set up keyboard navigation if no project is found
+    
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') {
         navigate(`/project/${prevProject.id}`);
@@ -58,7 +60,7 @@ export default function ProjectDetail() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [navigate, prevProject.id, nextProject.id]);
+  }, [navigate, prevProject?.id, nextProject?.id, project]);
 
   // Function to handle image errors and use fallback
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>, fallbackSrc: string) => {
@@ -68,15 +70,28 @@ export default function ProjectDetail() {
     }
   };
 
+  // Function to handle navigation back to projects section
+  const handleBackToProjects = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    navigate('/', { state: { scrollToId: 'projects' } });
+  };
+
   if (!project) {
+    console.log("Project not found with slug:", slug);
+    console.log("Available projects:", projects.map(p => p.id));
+    
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center pt-16">
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4">Project not found</h1>
-          <Link to="/" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-2 justify-center">
+          <a 
+            href="/#projects" 
+            onClick={handleBackToProjects}
+            className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-2 justify-center"
+          >
             <ArrowLeft className="w-5 h-5" />
-            Back to Home
-          </Link>
+            Back to Projects
+          </a>
         </div>
       </div>
     );
@@ -85,10 +100,14 @@ export default function ProjectDetail() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 pt-24">
       <div className="container mx-auto max-w-4xl px-4">
-        <Link to="/#projects" className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 mb-8">
+        <a 
+          href="/#projects" 
+          onClick={handleBackToProjects}
+          className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 mb-8"
+        >
           <ArrowLeft className="w-5 h-5" />
           Back to Projects
-        </Link>
+        </a>
 
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
           <div className="h-64 sm:h-80 overflow-hidden relative">

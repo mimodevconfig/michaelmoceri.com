@@ -1,17 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getAllCategories, getAllTags, getRecentPosts, PostMeta } from '../../lib/mdx';
+import { getAllCategories, getAllTags, getRecentPosts, getAllPosts, PostMeta } from '../../lib/mdx';
 
 const BlogSidebar: React.FC = () => {
   const [categories, setCategories] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const [recentPosts, setRecentPosts] = useState<PostMeta[]>([]);
+  const [categoryCounts, setCategoryCounts] = useState<Record<string, number>>({});
 
   useEffect(() => {
     try {
-      setCategories(getAllCategories());
+      const allCategories = getAllCategories();
+      const allPosts = getAllPosts();
+      
+      // Count posts per category
+      const counts: Record<string, number> = {};
+      allCategories.forEach(category => {
+        counts[category] = allPosts.filter(post => post.category === category).length;
+      });
+      
+      setCategories(allCategories);
       setTags(getAllTags());
       setRecentPosts(getRecentPosts(5));
+      setCategoryCounts(counts);
     } catch (error) {
       console.error('Error loading sidebar data:', error);
     }
@@ -31,8 +42,7 @@ const BlogSidebar: React.FC = () => {
               >
                 <span>{category}</span>
                 <span className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs font-semibold px-2 py-1 rounded-full">
-                  {/* Count would be implemented in a real app */}
-                  {Math.floor(Math.random() * 10) + 1}
+                  {categoryCounts[category] || 0}
                 </span>
               </Link>
             </li>
