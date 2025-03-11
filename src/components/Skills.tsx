@@ -399,8 +399,9 @@ export default function Skills() {
         </div>
         
         {/* Controls and Legend Panel */}
-        <div className="bg-gray-800 rounded-t-xl p-4 flex flex-col md:flex-row items-center justify-between">
-          <div className="flex flex-wrap gap-6 mb-4 md:mb-0">
+        <div className="bg-gray-800 rounded-t-xl p-4">
+          {/* Legend - Full width on mobile, wrapped row on desktop */}
+          <div className="flex flex-wrap gap-4 mb-6">
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-blue-500"></span>
               <span>Management Skills</span>
@@ -419,7 +420,9 @@ export default function Skills() {
             </div>
           </div>
           
-          <div className="flex items-center gap-6">
+          {/* Controls - Stacked on mobile, flex row on desktop */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Show Labels Control */}
             <div className="flex items-center gap-2">
               <input 
                 type="checkbox" 
@@ -431,20 +434,21 @@ export default function Skills() {
               <label htmlFor="showLabels">Show all labels</label>
             </div>
             
-            <div className="flex items-center gap-2">
-              <span>Node spacing:</span>
+            {/* Node Spacing Slider - Full width on mobile */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+              <span className="whitespace-nowrap">Node spacing:</span>
               <input 
                 type="range" 
                 min="100" 
                 max="500" 
                 value={nodeSpacing} 
                 onChange={(e) => handleSpacingChange(parseInt(e.target.value))}
-                className="w-24"
+                className="w-full sm:w-32"
               />
             </div>
             
-            {/* Zoom controls */}
-            <div className="flex items-center gap-2">
+            {/* Zoom controls - Centered on mobile */}
+            <div className="flex items-center justify-center sm:justify-end gap-2">
               <button 
                 onClick={handleZoomIn}
                 className="p-1.5 bg-gray-700 rounded-md hover:bg-gray-600 transition-colors"

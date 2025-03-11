@@ -10,7 +10,7 @@ const experiences = [
     role: 'Founder',
     period: 'December 2022 - Present',
     location: 'New York City, Metro-Detroit',
-    image: 'https://images.unsplash.com/photo-1661956602944-249bcd04b63f?q=80&w=2670&auto=format&fit=crop',
+    image: '/images/experience/config_ai.jpg?q=80&w=2670&auto=format&fit=crop',
     highlights: [
       'Developing innovative applications in AI and advanced manufacturing',
       'Building scalable solutions for enterprise clients'
@@ -21,7 +21,7 @@ const experiences = [
     role: 'VP of Real Estate Development, IT, & Marketing',
     period: 'December 2023 - November 2024',
     location: 'Metro-Detroit',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop',
+    image: '/images/experience/moceri_mystic_cove.jpg?q=80&w=2670&auto=format&fit=crop',
     highlights: [
       'Implemented operational frameworks boosting productivity across departments',
       'Pioneered AI-first approach to community master planning using LoRA methods',
@@ -35,7 +35,7 @@ const experiences = [
     role: 'Head of Software GTM; Director of Product, Strategy, and Co-Innovation',
     period: 'April 2022 - April 2023',
     location: 'New York City',
-    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2670&auto=format&fit=crop',
+    image: '/images/experience/shapeways.jpg?q=80&w=2670&auto=format&fit=crop',
     highlights: [
       'Led post-acquisition integration of MakerOS and MFG.com, onboarding 20+ employees',
       'Managed P&L for Software organization, merging legacy systems into OTTO Software',
@@ -48,7 +48,7 @@ const experiences = [
     role: 'Founder & CEO, Chairman of the Board',
     period: 'December 2018 - April 2022',
     location: 'New York City',
-    image: 'https://images.unsplash.com/photo-1581092335397-9583eb92d232?q=80&w=2670&auto=format&fit=crop',
+    image: '/images/blog/content/makeros_product1.avif?q=80&w=2670&auto=format&fit=crop',
     highlights: [
       'Grew to 10,000+ business accounts worldwide with innovative SaaS platform',
       'Led operations including product planning, GTM, hiring, and enterprise sales',
@@ -62,7 +62,7 @@ const experiences = [
     role: 'Founder & CEO',
     period: 'April 2014 - December 2018',
     location: 'New York City, Metro-Detroit',
-    image: 'https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?q=80&w=2670&auto=format&fit=crop',
+    image: '/images/experience/manulith.jpg?q=80&w=2670&auto=format&fit=crop',
     highlights: [
       'Bootstrapped hardware product development service for Automotive, Medical, and Aerospace',
       'Developed internal platform that evolved into MakerOS'
@@ -73,7 +73,7 @@ const experiences = [
     role: 'Co-Founder, Head of Production',
     period: 'December 2012 - April 2014',
     location: 'Chicago',
-    image: 'https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?q=80&w=2670&auto=format&fit=crop',
+    image: 'public/images/blog/content/3dpx_shop_floor.avif?q=80&w=2670&auto=format&fit=crop',
     highlights: [
       'Established world\'s first retail 3D printing service bureau in Downtown Chicago',
       'Designed production facility and led team of design and production engineers'
@@ -84,7 +84,7 @@ const experiences = [
     role: 'Distributor, Community Development, Consulting',
     period: '2010 - 2012',
     location: 'Chicago',
-    image: 'https://images.unsplash.com/photo-1615840287214-7ff58936c4cf?q=80&w=2670&auto=format&fit=crop',
+    image: '/images/blog/covers/mag_covers.avif?q=80&w=2670&auto=format&fit=crop',
     highlights: [
       'First Midwest distributor for MakerBot Industries',
       'Consulted with Art Institute of Chicago and Northwestern University',

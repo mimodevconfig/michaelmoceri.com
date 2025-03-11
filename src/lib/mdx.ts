@@ -10,7 +10,7 @@ const blogPosts: Post[] = [
     author: "Michael Moceri",
     category: "Manufacturing",
     tags: ["3D Printing", "Supply Chain", "COVID-19", "Manufacturing", "Business"],
-    coverImage: "https://static.wixstatic.com/media/0baac8_8d1053caa2c44b6784577b36889046bd~mv2.jpg/v1/fill/w_925,h_519,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/0baac8_8d1053caa2c44b6784577b36889046bd~mv2.jpg",
+    coverImage: "/images/blog/covers/ship1.avif",
     slug: "ready-for-new-supply-chain",
     content: `
 # ARE YOU READY FOR THE NEW SUPPLY CHAIN?
@@ -19,9 +19,9 @@ Originally published at [3dprintingindustry.com](https://3dprintingindustry.com/
 
 Big companies may come knocking at your door as supply chains adjust after COVID-19. Will your 3D printing business be ready?
 
-_By Mike Moceri, founder and CEO,_ [_MakerOS_](https://makeros.com/)
+_By Mike Moceri, founder and CEO,_ _MakerOS_
 
-![](https://static.wixstatic.com/media/0baac8_8d1053caa2c44b6784577b36889046bd~mv2.jpg/v1/fill/w_925,h_519,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/0baac8_8d1053caa2c44b6784577b36889046bd~mv2.jpg)
+![](/images/blog/covers/ship1.avif)
 
 Earlier this month during a Saturday press conference, Governor Andrew Cuomo of New York State said this:
 
@@ -73,7 +73,7 @@ Mike was the founder and CEO of MakerOS, an all-in-one business operating softwa
     author: "Michael Moceri",
     category: "Entrepreneurship",
     tags: ["3D Printing", "Business", "Startup", "Manufacturing", "Technology"],
-    coverImage: "https://static.wixstatic.com/media/0baac8_d723e6fef6e94a97ae160953899a1043~mv2.png/v1/fill/w_925,h_405,al_c,lg_1,q_90,enc_avif,quality_auto/0baac8_d723e6fef6e94a97ae160953899a1043~mv2.png",
+    coverImage: "/images/blog/covers/mag_covers.avif",
     slug: "3d-printing-business-in-bubble",
     content: `
 # How I Built a 3D Printing Business in a Bubble and Survived
@@ -86,7 +86,7 @@ Magazine covers, Netflix documentaries, and daily news segments talking about ho
 
 The ways 3D printing could be applied to modern problems seemed limitless.
 
-![](https://static.wixstatic.com/media/0baac8_d723e6fef6e94a97ae160953899a1043~mv2.png/v1/fill/w_925,h_405,al_c,lg_1,q_90,enc_avif,quality_auto/0baac8_d723e6fef6e94a97ae160953899a1043~mv2.png)
+![](/images/blog/covers/mag_covers.avif)
 
 This was everywhere in 2013.
 
@@ -102,7 +102,7 @@ As all of this was bubbling up, people were sent into a frenzy as the media told
 
 In 2013, I co-founded 3DPX in Chicago with an eclectic group of passionate dreamers that were hellbent on bringing this technology to the masses. Then in 2014, I founded Manulith in Detroit to service the automotive, aerospace and medical industries and help them rapidly prototype new technologies. Throughout both of those businesses, I was taking the lessons learned and bootstrapping what would ultimately become MakerOS.
 
-![](https://static.wixstatic.com/media/0baac8_0680f274da224a6ab9e770a44af543f6~mv2.jpg/v1/fill/w_925,h_574,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/0baac8_0680f274da224a6ab9e770a44af543f6~mv2.jpg)
+![](/images/blog/content/3dpx_shop_floor.avif)
 
 The 3DPX Showroom in Chicago
 
@@ -187,14 +187,14 @@ Mike Moceri has deep experience in manufacturing, design, and software. In 2013,
     author: "Michael Moceri",
     category: "Business",
     tags: ["3D Printing", "Business Strategy", "Client Management", "Revenue", "Manufacturing"],
-    coverImage: "https://static.wixstatic.com/media/0baac8_eebb3d0d3bf74ab4aa6e1575dafc7130~mv2.jpg/v1/fill/w_900,h_600,al_c,q_85,enc_avif,quality_auto/0baac8_eebb3d0d3bf74ab4aa6e1575dafc7130~mv2.jpg",
+    coverImage: "/images/blog/covers/mos_dash1.avif",
     slug: "make-more-money-3d-printing-shop",
     content: `
 # How to Make More Money at Your 3D Printing Shop
 
 Originally published at [3dprint.com](https://3dprint.com/277592/how-to-make-more-money-at-your-3d-printing-shop/) on December 18, 2020. Written by Mike Moceri.
 
-![](https://static.wixstatic.com/media/0baac8_eebb3d0d3bf74ab4aa6e1575dafc7130~mv2.jpg/v1/fill/w_900,h_600,al_c,q_85,enc_avif,quality_auto/0baac8_eebb3d0d3bf74ab4aa6e1575dafc7130~mv2.jpg)
+![](/images/blog/covers/mos_dash1.avif)
 
 From a high-level perspective, you can categorize clients of 3D printing service shops into one of two buckets.
 
@@ -212,7 +212,7 @@ The challenge was in balancing those relationship-based, high-value clients with
 
 I wanted to cultivate better relationships with clients to grow my service bureaus but was hindered by technology. I knew that in order to grow my business, I needed a solution that enabled me to cater to both relationship-based and transactional clients, and this was a big part of why I created MakerOS.
 
-![](https://static.wixstatic.com/media/0baac8_8245490bb3254b3fa35d0cf917602416~mv2.png/v1/fill/w_925,h_579,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/0baac8_8245490bb3254b3fa35d0cf917602416~mv2.png)
+![](/images/blog/content/makeros_product1.avif)
 
 MakerOS is an all-in-one business operating software for manufacturers, engineers, designers, and fabricators to facilitate modern product development. In regards to managing client relationships, the platform is built for seamless and efficient management of both transactional and relationship-based clients because of the Client Portal.
 

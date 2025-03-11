@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
+  <url>
+    <loc>https://michaelmoceri.com/</loc>
+    <lastmod>2025-03-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Project Pages -->
+  <url>
+    <loc>https://michaelmoceri.com/project/3d-printing-calculator</loc>
+    <lastmod>2025-03-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://michaelmoceri.com/project/local-ai-inference-server</loc>
+    <lastmod>2025-03-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://michaelmoceri.com/project/ai-research-platform</loc>
+    <lastmod>2025-03-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Blog Section -->
+  <url>
+    <loc>https://michaelmoceri.com/blog</loc>
+    <lastmod>2025-03-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Blog Posts -->
+  <url>
+    <loc>https://michaelmoceri.com/blog/post/ready-for-new-supply-chain</loc>
+    <lastmod>2023-07-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://michaelmoceri.com/blog/post/3d-printing-business-in-bubble</loc>
+    <lastmod>2023-07-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://michaelmoceri.com/blog/post/make-more-money-3d-printing-shop</loc>
+    <lastmod>2023-07-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Blog Categories -->
+  <url>
+    <loc>https://michaelmoceri.com/blog/category/manufacturing</loc>
+    <lastmod>2023-07-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://michaelmoceri.com/blog/category/entrepreneurship</loc>
+    <lastmod>2023-07-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://michaelmoceri.com/blog/category/business</loc>
+    <lastmod>2023-07-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Blog Tags -->
+  <url>
+    <loc>https://michaelmoceri.com/blog/tag/3d-printing</loc>
+    <lastmod>2023-07-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://michaelmoceri.com/blog/tag/supply-chain</loc>
+    <lastmod>2023-07-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://michaelmoceri.com/blog/tag/business</loc>
+    <lastmod>2023-07-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://michaelmoceri.com/blog/tag/startup</loc>
+    <lastmod>2023-07-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://michaelmoceri.com/blog/tag/manufacturing</loc>
+    <lastmod>2023-07-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <!-- Legal Pages -->
+  <url>
+    <loc>https://michaelmoceri.com/privacy-policy</loc>
+    <lastmod>2025-03-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://michaelmoceri.com/terms-of-service</loc>
+    <lastmod>2025-03-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+</urlset>

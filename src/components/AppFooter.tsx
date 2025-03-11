@@ -1,19 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Footer } from './blocks/footer';
-import { 
-  Github, 
-  Linkedin, 
-  FileText, 
-  Blocks, 
-  Code2, 
-  Briefcase,
-  Users,
-  MessageSquare,
-  Scale,
-  Handshake,
-  Instagram
-} from 'lucide-react';
+import { Github, Linkedin, FileText, Blocks, Code2, Briefcase, Users, MessageSquare, Scale, Handshake, Instagram, MapIcon as SitemapIcon } from 'lucide-react';
 
 export default function AppFooter() {
   const navigate = useNavigate();
@@ -130,6 +118,11 @@ export default function AppFooter() {
               href: "https://www.instagram.com/mocerimike/?hl=en",
               target: "_blank",
               rel: "noopener noreferrer"
+            },
+            {
+              name: "Sitemap",
+              Icon: SitemapIcon,
+              href: "/sitemap-html",
             },
           ],
         },
