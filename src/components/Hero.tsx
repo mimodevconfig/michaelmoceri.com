@@ -79,7 +79,7 @@ export default function Hero() {
   };
 
   // Avatar image URL
-  const avatarImageUrl = 'https://static.wixstatic.com/media/0baac8_faabf241c8254c2d93ffc9832f9fe260~mv2.jpg/v1/crop/x_0,y_2,w_400,h_396/fill/w_400,h_396,al_c,q_80,enc_avif,quality_auto/W_85udg__400x400.jpg';
+  const avatarImageUrl = '/images/avatar/michael moceri profile pic 1.avif';
 
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-ide-bg-primary py-20 px-4 pt-24">
@@ -121,10 +121,11 @@ export default function Hero() {
                   texts={[
                     "3D Printing",
                     "Entrepreneur",
-                    "Product Developer",
-                    "AI Strategist",
+                    "Product Dev",
+                    "AI Strategy",
                     "GTM Leader",
-                    "Network Engineering"
+                    "Team Building",
+                    "Networking"
                   ]}
                   morphTime={2}
                   cooldownTime={1}

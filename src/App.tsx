@@ -12,6 +12,7 @@ import Testimonials from './components/Testimonials';
 import AppFooter from './components/AppFooter';
 import RecentBlogPosts from './components/RecentBlogPosts';
 import NotFound from './components/NotFound';
+import HTMLSitemap from './components/HTML-Sitemap';
 
 // Blog components
 import BlogLayout from './components/blog/BlogLayout';
@@ -58,6 +59,9 @@ function App() {
         {/* Legal pages */}
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-of-service" element={<TermsOfService />} />
+        
+        {/* HTML Sitemap */}
+        <Route path="/sitemap-html" element={<HTMLSitemap />} />
         
         {/* 404 route - must be last */}
         <Route path="*" element={<NotFound />} />
