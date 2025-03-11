@@ -1,0 +1,12 @@
+# robots.txt for michaelmoceri.com
+# Instruct web crawlers on how to crawl the website
+
+User-agent: *
+Allow: /
+
+# Disallow any potential admin areas if they exist in the future
+Disallow: /admin/
+Disallow: /private/
+
+# Sitemap location
+Sitemap: https://michaelmoceri.com/sitemap.xml

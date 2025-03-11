@@ -73,7 +73,7 @@ const experiences = [
     role: 'Co-Founder, Head of Production',
     period: 'December 2012 - April 2014',
     location: 'Chicago',
-    image: 'public/images/blog/content/3dpx_shop_floor.avif?q=80&w=2670&auto=format&fit=crop',
+    image: '/images/experience/3dpx_shop_floor.avif?q=80&w=2670&auto=format&fit=crop',
     highlights: [
       'Established world\'s first retail 3D printing service bureau in Downtown Chicago',
       'Designed production facility and led team of design and production engineers'
@@ -104,6 +104,13 @@ export default function Experience() {
         behavior: 'smooth'
       });
     }
+  };
+
+  // This function has been fixed to use an inline fallback image URL instead of a path
+  // that would cause additional network requests if the image failed to load
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    // Use inline data URI for a minimal placeholder image instead of requesting another file
+    e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23252526'/%3E%3Ctext x='50' y='50' font-family='Arial' font-size='14' text-anchor='middle' fill='%23569CD6' dominant-baseline='middle'%3EExperience%3C/text%3E%3C/svg%3E";
   };
 
   return (
@@ -164,9 +171,7 @@ export default function Experience() {
                           src={exp.image} 
                           alt={`${exp.company}`}
                           className="w-full h-full object-cover"
-                          onError={(e) => {
-                            e.currentTarget.src = getImageUrl('experience/default.webp');
-                          }}
+                          onError={handleImageError}
                         />
                       </div>
                       
@@ -218,9 +223,7 @@ export default function Experience() {
                   src={exp.image} 
                   alt={`${exp.company}`}
                   className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.currentTarget.src = getImageUrl('experience/default.webp');
-                  }}
+                  onError={handleImageError}
                 />
               </div>
               
