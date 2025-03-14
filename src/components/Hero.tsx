@@ -84,7 +84,7 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-ide-bg-primary py-20 px-4 pt-24">
       <div className="absolute inset-0 opacity-10 overflow-hidden">
-        <div className="absolute inset-0 min-w-[100vw] min-h-[100vh]">
+        <div className="absolute inset-0 w-full h-full" style={{ aspectRatio: "2/1" }}>
         <WorldMap
           dots={[
             {
@@ -104,8 +104,8 @@ export default function Hero() {
               end: { lat: 38.1157, lng: 13.3615 }, // Palermo
             },
             {
-              start: { lat: 41.8101, lng: 68.9063 }, // Patagonia
-              end: { lat: 4.0435, lng: 39.6682 }, // Mombasa
+              start: { lat: -50.0, lng: -70.0 }, // Patagonia (corrected coordinates)
+              end: { lat: -4.0435, lng: 39.6682 }, // Mombasa (corrected for Southern Hemisphere)
             },
           ]}
           lineColor="#569CD6" // Using IDE theme link color
