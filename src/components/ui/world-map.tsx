@@ -17,8 +17,8 @@ export function WorldMap({
   const svgRef = useRef<SVGSVGElement>(null);
   const map = new DottedMap({ height: 100, grid: "diagonal" });
 
-  // Since we don't have next-themes, we'll use the IDE theme colors
-  const isDark = true; // We're using dark mode by default for the IDE theme
+  // Always use dark mode
+  const isDark = true; // Force dark mode regardless of system theme
 
   const svgMap = map.getSVG({
     radius: 0.22,

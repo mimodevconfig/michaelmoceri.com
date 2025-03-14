@@ -5,6 +5,9 @@ import App from './App.tsx';
 import ScrollToTop from './components/ScrollToTop';
 import './index.css';
 
+// Force dark mode regardless of system preferences
+document.documentElement.classList.add('dark');
+
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
