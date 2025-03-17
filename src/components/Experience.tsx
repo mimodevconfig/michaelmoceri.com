@@ -8,7 +8,7 @@ const experiences = [
   {
     company: 'Config Holdings',
     role: 'Founder',
-    period: 'December 2022 - Present',
+    period: '2022 - Present',
     location: 'New York City, Metro-Detroit',
     image: '/images/experience/config_ai.jpg?q=80&w=2670&auto=format&fit=crop',
     highlights: [
@@ -19,7 +19,7 @@ const experiences = [
   {
     company: 'Moceri Companies',
     role: 'VP of Real Estate Development, IT, & Marketing',
-    period: 'December 2023 - November 2024',
+    period: '2023 - 2024',
     location: 'Metro-Detroit',
     image: '/images/experience/moceri_mystic_cove.jpg?q=80&w=2670&auto=format&fit=crop',
     highlights: [
@@ -33,7 +33,7 @@ const experiences = [
   {
     company: 'Shapeways',
     role: 'Head of Software GTM; Director of Product, Strategy, and Co-Innovation',
-    period: 'April 2022 - April 2023',
+    period: '2022 - 2023',
     location: 'New York City',
     image: '/images/experience/shapeways.jpg?q=80&w=2670&auto=format&fit=crop',
     highlights: [
@@ -46,7 +46,7 @@ const experiences = [
   {
     company: 'MakerOS (Acquired by Shapeways)',
     role: 'Founder & CEO, Chairman of the Board',
-    period: 'December 2018 - April 2022',
+    period: '2018 - 2022',
     location: 'New York City',
     image: '/images/blog/content/makeros_product1.avif?q=80&w=2670&auto=format&fit=crop',
     highlights: [
@@ -60,7 +60,7 @@ const experiences = [
   {
     company: 'Manulith',
     role: 'Founder & CEO',
-    period: 'April 2014 - December 2018',
+    period: '2014 - 2018',
     location: 'New York City, Metro-Detroit',
     image: '/images/experience/manulith.jpg?q=80&w=2670&auto=format&fit=crop',
     highlights: [
@@ -71,7 +71,7 @@ const experiences = [
   {
     company: '3DPX',
     role: 'Co-Founder, Head of Production',
-    period: 'December 2012 - April 2014',
+    period: '2012 - 2014',
     location: 'Chicago',
     image: '/images/experience/3dpx_shop_floor.avif?q=80&w=2670&auto=format&fit=crop',
     highlights: [
