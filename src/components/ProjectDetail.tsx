@@ -3,6 +3,8 @@ import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
 import { projects } from './Projects';
 import { getProjectImageUrl } from '../lib/imageUtils';
+import Lightbox from 'yet-another-react-lightbox';
+import 'yet-another-react-lightbox/styles.css';
 
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -21,25 +23,22 @@ export default function ProjectDetail() {
   const prevProject = projects[prevIndex];
   const nextProject = projects[nextIndex];
 
-  // State for additional project images
+  // State for additional project images and lightbox
   const [additionalImages, setAdditionalImages] = useState<string[]>([]);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   // Load additional images if they exist
   useEffect(() => {
-    if (project) {
-      // This would typically be an API call or dynamic import
-      // For now, we'll just check if there are any additional images in the project folder
-      const potentialImages = ['detail1.jpg', 'detail2.jpg', 'detail3.jpg'];
-      
-      // In a real implementation, you would check if these files exist
-      // For now, we'll just use the project ID to simulate having different images
-      const projectImages = potentialImages
-        .slice(0, (currentIndex + 1) % 3 + 1) // Simulate 1-3 images based on project index
-        .map(img => getProjectImageUrl(project.id, img));
+    if (project && project.detailImages) {
+      // Use the project-specific detail images
+      const projectImages = project.detailImages.map(img => 
+        getProjectImageUrl(project.id, img)
+      );
       
       setAdditionalImages(projectImages);
     }
-  }, [project, currentIndex]);
+  }, [project]);
 
   // Scroll to top when component mounts or when the URL changes
   useEffect(() => {
@@ -133,7 +132,14 @@ export default function ProjectDetail() {
             <div className="p-6 pt-0">
               <div className="grid grid-cols-3 gap-2 mt-2">
                 {additionalImages.map((img, index) => (
-                  <div key={index} className="h-24 overflow-hidden rounded-lg">
+                  <div 
+                    key={index} 
+                    className="h-24 overflow-hidden rounded-lg cursor-pointer"
+                    onClick={() => {
+                      setLightboxIndex(index);
+                      setLightboxOpen(true);
+                    }}
+                  >
                     <img 
                       src={img} 
                       alt={`${project.title} detail ${index + 1}`}
@@ -145,6 +151,14 @@ export default function ProjectDetail() {
               </div>
             </div>
           )}
+          
+          {/* Lightbox for project images */}
+          <Lightbox
+            open={lightboxOpen}
+            close={() => setLightboxOpen(false)}
+            index={lightboxIndex}
+            slides={additionalImages.map(src => ({ src }))}
+          />
           
           <div className="p-6 sm:p-8">
             <div className="space-y-8">

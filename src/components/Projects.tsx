@@ -9,11 +9,13 @@ export const projects = [
     title: '3D Printing Pricing Calculator',
     description: 'An accurate and intuitive 3D printing pricing tool with hobbyist, small business, and enterprise levels of complexity.',
     impact: 'Thousands of users, and $Millions worth of projects quoted',
-    tech: ['Bolt.diy', 'React', 'Supabase', 'Netlify', 'Stripe', '3.7 Sonnet', 'HubSpot'],
+    tech: ['Bolt.diy', 'Cline', 'Tailwind', 'React', 'Supabase', 'Netlify', 'Stripe', '3.7 Sonnet', 'HubSpot'],
     icon: Calculator,
-    image: getProjectImageUrl('3d-printing-calculator', 'cover.jpg'),
+    image: getProjectImageUrl('3d-printing-calculator', '3d-printing-calculator-main.webp'),
     // Fallback to Unsplash image if the local image doesn't exist yet
     imageFallback: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12',
+    // Detail images specific to this project
+    detailImages: ['3d-printing-calculator-main.webp', '3d-printing-calculator-cost-breakdown.webp', '3d-printing-calculator-machine-costs.webp', '3d-printing-calculator-post-processing.webp', '3d-printing-calculator-labor-facility.webp', '3d-printing-calculator-margins.webp'],
     challenges: [
       'First example of a deployable and monetizable web application using AI coding workflows and agents.',
       'A custom Supabase connection for persistent user data across HubSpot and Stripe.',
@@ -32,6 +34,8 @@ export const projects = [
     image: getProjectImageUrl('local-ai-inference-server', 'cover.jpg'),
     // Fallback to Unsplash image if the local image doesn't exist yet
     imageFallback: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31',
+    // Detail images specific to this project
+    detailImages: [],
     challenges: [
       'Hardware sourcing; finding water blocks and loop components to cool the x4 Nvidia RTX 3090 Founder\'s Edition GPUs, 128GB of fast 6400 MT/s ram, 5GHz Threadripper PRO 32 core/64 thread processor, gen 5 nvme, and dual 1600 watt PSUs, NVLINK bridges for the GPUs.',
       'Custom 30amp circuit installation to handle the full load and future expansion of the system and accessories.',
@@ -43,21 +47,23 @@ export const projects = [
   },
   {
     id: 'ai-research-platform',
-    title: 'AI Research Platform (Unnamed)',
+    title: 'AI Research Platform',
     description: 'Exploring and prototyping agentic human in the loop workflows to define, research, and crowdsource problem solving.',
-    impact: 'Stealth Prototype',
+    impact: 'Prototype Phase',
     tech: ['MCP', 'RAG', 'Vector DB', 'React', 'Tailwind', 'Ollama', 'VLLM', 'Bolt.diy'],
     icon: Brain,
-    image: getProjectImageUrl('ai-research-platform', 'cover.jpg'),
+    image: getProjectImageUrl('ai-research-platform', 'ai-research-platform-main.webp'),
     // Fallback to Unsplash image if the local image doesn't exist yet
     imageFallback: 'https://images.unsplash.com/photo-1507146153580-69a1fe6d8aa1',
+    // Detail images specific to this project
+    detailImages: ['ai-research-platform-main.webp', 'ai-research-platform-problem.webp', 'ai-research-platform-settings.webp'],
     challenges: [
       'Tools like OpenAI "Deep Research", are limited in their scope and practicality when it comes to organizing, connecting, and interacting with research.',
       'A plethora of libraries and packages that are in their infancy and constantly changing to try to keep up and experiment with. Vetting early tech and ideas to apply their promised potential is a fun puzzle to solve while trying to remain objective and strategic.',
       'UX research and discovery'
     ],
     solution: 'Still in active stealth prototyping mode. Contact for more info...',
-    futureNotes: 'N/A'
+    futureNotes: 'Currently in prototyping phase; future release coming soon...'
   }
 ];
 
