@@ -4,6 +4,7 @@ import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
 import { projects } from './Projects';
 import { getProjectImageUrl } from '../lib/imageUtils';
 import Lightbox from 'yet-another-react-lightbox';
+import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 import 'yet-another-react-lightbox/styles.css';
 
 export default function ProjectDetail() {
@@ -158,6 +159,24 @@ export default function ProjectDetail() {
             close={() => setLightboxOpen(false)}
             index={lightboxIndex}
             slides={additionalImages.map(src => ({ src }))}
+            plugins={[Zoom]}
+            zoom={{
+              maxZoomPixelRatio: 5,
+              zoomInMultiplier: 2,
+              doubleTapDelay: 300,
+              doubleClickDelay: 300,
+              scrollToZoom: true
+            }}
+            carousel={{
+              finite: false,
+              preload: 2
+            }}
+            controller={{ closeOnBackdropClick: true }}
+            styles={{
+              container: { backgroundColor: 'rgba(0, 0, 0, 0.3)', backdropFilter: 'blur(8px)' },
+              root: { backdropFilter: 'blur(8px)' }
+            }}
+            animation={{ fade: 300 }}
           />
           
           <div className="p-6 sm:p-8">
