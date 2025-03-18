@@ -4,6 +4,134 @@ import { PostMeta, Post } from '../types/blog';
 // Sample blog posts data (in a real app, this would be fetched from an API)
 const blogPosts: Post[] = [
   {
+    title: "Getting Started with Ollama and OpenWebUI on Windows: A Powerful Local AI Stack",
+    date: "2025-03-18",
+    excerpt: "In my journey to set up an efficient local AI environment, I've experimented extensively with Ollama's native Windows installation and OpenWebUI as my preferred web interface.",
+    author: "Michael Moceri",
+    category: "Technology",
+    tags: ["AI", "Local AI", "Ollama", "OpenWebUI", "Windows", "GPU", "RAG", "Machine Learning", "NVIDIA"],
+    coverImage: "/images/blog/covers/local_ai_pt_1.jpg",
+    slug: "getting-started-ollama-openwebui-windows",
+    content: `
+# Getting Started with Ollama and OpenWebUI on Windows: A Powerful Local AI Stack
+
+In my journey to set up an efficient local AI environment, I've experimented extensively with Ollama's native Windows installation and OpenWebUI as my preferred web interface. My hardware setup currently includes two Nvidia RTX 3090 Founder's Edition GPUs, but I'm planning an expansion soon—I have two more RTX 3090 cards waiting in the wings that I intend to install, connect via NVLINK, water cool, and power using dual 1600-watt PSUs. To accommodate this significant power draw, I've set up a dedicated 30 Amp circuit in my apartment. Eventually, I'll upgrade further with GPUs offering higher VRAM capacities, but my current setup already handles very demanding workloads impressively well.
+
+In this blog post, I'll walk through my comprehensive, hands-on experience setting up Ollama and OpenWebUI directly (without Docker) and showcase how to configure advanced model settings, enable powerful Retrieval-Augmented Generation (RAG), and leverage hybrid API integrations like OpenAI.
+
+## Why Ollama Native Installation (No Docker)?
+
+Initially, I experimented with Docker Desktop on Windows, but for performance and simplicity reasons, I shifted to a native Ollama Windows binary installation. Avoiding the overhead and complexity of Docker and Nvidia's Container Toolkit on Windows simplified things considerably. Ollama's native binary offers:
+
+- Better native GPU utilization.
+- Easier management and less complexity for updates and debugging.
+- Seamless integration with OpenWebUI through a simple API endpoint.
+
+Installation on Windows couldn't be simpler:
+
+1. Download Ollama: Get the official Windows installer from [Ollama's downloads page](https://ollama.com/download).
+2. Install and Launch: Execute the installer and start the Ollama service with just a few clicks.
+3. Verify GPU Utilization: After installation, verify GPUs have been properly detected by running from PowerShell:
+
+\`\`\`powershell
+ollama run llama3
+\`\`\`
+
+Use nvidia-smi to confirm your GPUs are engaged as expected.
+
+## Setting Up and Connecting OpenWebUI to Ollama
+
+Next, I configured OpenWebUI as my chat interface. Since OpenWebUI also runs well natively or via Docker, I opted for the Docker route here simply because it offers a cleaner sandboxed environment for the web interface itself—this won't negatively affect Ollama's native GPU performance:
+
+\`\`\`powershell
+docker run -d \`
+  -v open-webui:/app/backend/data \`
+  -p 3000:8080 \`
+  --name open-webui \`
+  ghcr.io/open-webui/open-webui:main
+\`\`\`
+
+After launching OpenWebUI, integrating it with my native Ollama installation was straightforward:
+
+1. Navigate to OpenWebUI Admin Panel → Settings → Connections
+2. Add Ollama with the API URL:
+
+\`\`\`
+http://host.docker.internal:11434
+\`\`\`
+
+On Windows, host.docker.internal ensures that Docker communicates properly with the native Windows Ollama installation. Once connected, all models downloaded or built via Ollama immediately become available in OpenWebUI.
+
+## Custom Models, Context Sizes, and Advanced Parameters
+
+I use two primary models frequently in my workflow:
+
+- R1-1776 Llama 3.3 Distil 70B (Q4): I run this comfortably with a 7K token context size and kv_cache quantization set to q8. This dramatically reduces VRAM usage without sacrificing significant quality.
+- QWQ 32B (Q4): This smaller model comfortably supports very large contexts, up to a staggering 70K tokens, making it suitable for long-form conversations or complex debugging sessions.
+
+Configuring advanced settings in OpenWebUI is critical for handling these large contexts effectively. My typical parameters look something like this:
+
+- Temperature: 0.8 (slight creativity without too much randomness)
+- Top_p: 0.95 (diverse yet coherent responses)
+- Max Tokens: 2048+
+- Context Length: 7000 (for my 70B models) or 70000 (for QWQ-32B)
+
+To fine-tune these settings, I navigate to:
+
+\`\`\`
+Admin Panel → Models → Edit Model → Advanced Parameters
+\`\`\`
+
+By adjusting these settings, I can precisely control how detailed or expansive the model outputs become, significantly improving productivity and adaptability in various tasks.
+
+## Leveraging Retrieval-Augmented Generation (RAG)
+
+Perhaps the most valuable aspect of my setup is my extensive use of Retrieval-Augmented Generation (RAG). RAG allows models to reference external knowledge bases customized for my specific needs. In OpenWebUI, implementing RAG is intuitive:
+
+1. Navigate to Workspace → Knowledge and create a new knowledge base.
+2. Upload relevant documents in your preferred format (PDF, Markdown, text files, Word documents, etc.).
+3. Link this knowledge base directly to each chosen model under Workspace → Models → Edit Model → Documents/Knowledge Collections.
+
+I've experimented with several embedding models to power my retrieval pipeline, such as:
+
+- SBERT: Very strong semantic embeddings for general document search and retrieval.
+- Snowflake Embeddings: Efficient for structured and semi-structured data.
+- IBM Granite: Impressive performance with business-centric terminology and concepts.
+- OpenAI Embeddings API: Currently my primary choice because of excellent accuracy, semantic relevance, and strong multilingual support.
+
+## A Hybrid Model and API Approach
+
+I also maintain active API integrations through OpenWebUI's connections with OpenAI's suite (O1, O3, GPT-4.5 Preview, and Embeddings API). This hybrid approach offers unique flexibility:
+
+- Local Models: Provide complete privacy, zero data leakage, reduced costs over time, and maximal control over deployment and usage.
+- API Integrations (OpenAI, Groq, Anthropic, Gemini): Enable rapid prototyping, access to very large or cutting-edge (closed-source) models, and scalable inference power when my local resources become saturated.
+
+## Private Business Considerations
+
+Deploying such a setup in a private business setting provides significant benefits:
+
+- Data Privacy: Sensitive data remains within your infrastructure—essential for compliance or intellectual property protection.
+- Cost Control: Reduce recurring API expenses substantially by investing upfront in hardware and local models.
+- Customization: Tailor the AI models directly for specific business needs, fine-tuned with company-specific data.
+
+A hybrid model (local + API services) strikes an optimal balance for many practical business situations, offering speed, privacy, cost-effectiveness, and access to state-of-the-art external models exactly when needed.
+
+## Real-World Usage: My Coding Workflow
+
+I've been extensively using my local Ollama + OpenWebUI setup for developing new coding projects. Particularly, for integration into VS Code, I use tools like Bolt.diy and Cline, which significantly streamline my coding workflow and development speed. From quickly bootstrapping projects to debugging complex scenarios, these AI-driven tools in conjunction with my powerful local GPU setup dramatically enhance my productivity and coding efficiency. I'll share more insights and detailed use cases of my coding experiences in upcoming dedicated posts.
+
+## Future Plans & Hardware Upgrades
+
+Currently, my two RTX 3090s provide excellent performance. However, soon I'll expand to all four GPUs, coupled with custom water-cooling loops, NVLINK connections, and dual power supply setups. These upgrades will let me run even larger models, higher contexts, and concurrent instances—plus serve multiple AI applications simultaneously without performance sacrifice. Eventually, upgrading to GPUs that offer higher VRAM capacities, such as Nvidia A100 or H100, might be necessary.
+
+## Conclusion
+
+The native Ollama Windows setup paired with OpenWebUI has proven extremely capable—offering both performance and flexibility. The addition of RAG and a hybrid API approach makes this setup an exceptional solution for coding, research, personal projects, and even enterprise applications. If you're aiming for a powerful, fully customizable, and private AI stack, directly installing Ollama and pairing it with OpenWebUI is truly a robust choice.
+
+Stay tuned for my upcoming posts covering practical coding projects and deeper dives into specific models and optimization techniques!
+    `
+  },
+  {
     title: "ARE YOU READY FOR THE NEW SUPPLY CHAIN?",
     date: "2023-07-11",
     excerpt: "Big companies may come knocking at your door as supply chains adjust after COVID-19. Will your 3D printing business be ready?",
