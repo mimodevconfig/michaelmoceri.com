@@ -16,15 +16,15 @@ export default function About() {
       icon: Building
     },
     {
-      year: "2016",
+      year: "2018",
       title: "Founded MakerOS",
-      description: "Industry-leading SaaS platform serving 10,000+ users globally",
+      description: "Industry-leading SaaS platform serving 10,000+ businesses globally",
       icon: Rocket
     },
     {
       year: "2022",
       title: "Shapeways Acquisition",
-      description: "Director of Product, Strategy, and Co-Innovation",
+      description: "Shapeways acquires MakerOS",
       icon: Target
     }
   ];
@@ -63,13 +63,13 @@ export default function About() {
               </h3>
               <div className="space-y-4 text-ide-text-secondary">
                 <p>
-                  Mike Moceri's journey began in 2012 when he co-founded 3DPX, the world's first 3D printing retail service bureau. This Chicago-based startup gained global recognition for its unique blend of retail and production, signifying a new era in 3D printing services, on-demand manufacturing, and product design.
+                  Mike Moceri's career catapulted in 2012 when he co-founded 3DPX, the world's first 3D printing retail service bureau. This Chicago-based startup gained global recognition for its unique blend of retail and production, signifying a new era in 3D printing services, on-demand manufacturing, and product design.
                 </p>
                 <p>
                   Building on this success, Moceri ventured into Detroit's manufacturing industry by establishing Manulith in 2014. Manulith offered a comprehensive suite of services ranging from design and rapid prototyping to production for the automotive, aerospace, medical, consumer products, and industrial application sectors within the Great Lakes Region.
                 </p>
                 <p>
-                  In 2016, he expanded his footprint further by founding MakerOS. As an industry-leading software-as-a-service platform, MakerOS served small to mid-sized design, engineering, and manufacturing firms. It digitized their workflow from initial client interaction to project management, production, and payments. As of 2022, MakerOS proudly served over 10,000 users globally.
+                  In 2018, he expanded his footprint further by converting Manulith to MakerOS. As an industry-leading software-as-a-service platform, MakerOS served small to mid-sized design, engineering, and manufacturing firms. It digitized their workflow from initial client interaction to project management, production, and payments. As of 2022, MakerOS proudly served over 10,000 businesses globally.
                 </p>
               </div>
             </div>
@@ -86,10 +86,10 @@ export default function About() {
                   Following the acquisition of MakerOS by Shapeways (NYSE: SHPW) in April 2022, Mike took on the role of Head of Software GTM and then later assumed a broader role as the Director of Product, Strategy, and Co-Innovation, further solidifying his leadership in the sector.
                 </p>
                 <p>
-                  Moceri now resides in New York City, working on a new problem set and challenges from which multiple new ventures and areas of research and development are forming while maintaining and collaborating with his robust connections across North America.
+                  Moceri now resides in Metro Detroit, working on a new problem set and challenges from which multiple new ventures and areas of research and development are forming via the founding of Config Holdings.
                 </p>
                 <p>
-                  His diverse interests span across energy, manufacturing, micro-industrial automation, product design, AI, new media development for fine arts, storage/data processing related blockchains, and geopolitics, reflecting his commitment to continuous learning and innovation. His professional journey and interests showcase his capacity as a leader at the intersection of technology and business to develop products, solutions, and strategies for the emerging challenges of today and the future.
+                  His diverse interests span across energy, manufacturing, micro-industrial automation, product design, AI, new media development for fine arts, storage/data processing related blockchains, and geopolitics, reflecting his commitment to continuous learning and innovation. Mike is currently focusing his 15+ years of management and entrepreneurial experience to new horizons with R&D in AI application development, the integration of advanced manufacturing workflows, and scalable business ventures in the new AI paradigm.
                 </p>
               </div>
             </div>

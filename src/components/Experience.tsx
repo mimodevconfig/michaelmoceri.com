@@ -13,7 +13,7 @@ const experiences = [
     image: '/images/experience/config_ai.jpg?q=80&w=2670&auto=format&fit=crop',
     highlights: [
       'Developing innovative applications in AI and advanced manufacturing',
-      'Building scalable solutions for enterprise clients'
+      'Building and consulting on scalable solutions for enterprise clients'
     ],
   },
   {
@@ -27,7 +27,7 @@ const experiences = [
       'Pioneered AI-first approach to community master planning using LoRA methods',
       'Modernized IT infrastructure for 10+ locations including HQ and sales offices',
       'Built marketing team focused on proven GTM strategies and HubSpot implementation',
-      'Developed masterplan concepts worth $250MM+ and sales pipeline of $30MM+'
+      'Developed masterplan concepts that were approved and valued $2B+'
     ],
   },
   {
