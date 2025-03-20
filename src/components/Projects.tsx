@@ -1,9 +1,88 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calculator, Server, Brain } from 'lucide-react';
+import { Calculator, Server, Brain, Home, Satellite, CircleUser } from 'lucide-react';
 import { getProjectImageUrl } from '../lib/imageUtils';
 
 export const projects = [
+  {
+    id: 'ai-real-estate-development',
+    title: 'AI Real Estate Development',
+    description: 'Rapid iteration of legacy and new architectural elevation renderings.',
+    impact: 'Over 50X faster and affordable than legacy methods. Leading to new masterplan developments valued over $2B.',
+    tech: ['LoRA', 'Image Generation', 'Photoshop', 'Midjourney', 'Flux Dev'],
+    icon: Home,
+    featured: false,
+    image: getProjectImageUrl('ai-real-estate-development', 'cover.jpg'),
+    // Fallback to Unsplash image if the local image doesn't exist yet
+    imageFallback: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716',
+    // Detail images specific to this project
+    detailImages: [],
+    challenges: [
+      'A legacy library of hand drawn architectural plans spanning from the late 80\'s-2024 that needed to be updated and iterated to modern styling standards.',
+      'Working with multiple engineering, architectural, municipal, and senior leadership requirements.'
+    ],
+    solution: 'There were several projects where we needed to create new architectural renderings for new community master plan developments that needed to adhere to our portfolio of floor-plans, municipal, and senior leadership approval. These master plans range from 50-200+ units of mixed multifamily and single family homes with varying styles and eras of architectural design. I trained a LoRA to intake our plans, legacy renderings, and even hand drawn source material to create an array of new plans and architectural language that fit these new communities. These new plans were completed in record time and budget, which showcases the potential applications and value of this type of process in a proto-digitized business.',
+    futureNotes: 'TODO: produce a tutorial, documentation, and video covering the whole process for all stakeholders.'
+  },
+  {
+    id: 'art-config',
+    title: 'art.config',
+    description: 'Exploring the possibilities between advanced manufacturing, AI generative media creation, and fine art production.',
+    impact: 'Launched a NY art gallery, production lab, original works, and newly discovered art production supply/tool chains.',
+    tech: ['3D Printing', 'Laser CNC', 'Midjourney', 'Blender', 'Fusion 360', 'Meshmixer', 'Photoshop', 'Dall-e'],
+    icon: CircleUser,
+    featured: false,
+    image: getProjectImageUrl('art-config', 'cover.jpg'),
+    // Fallback to Unsplash image if the local image doesn't exist yet
+    imageFallback: 'https://images.unsplash.com/photo-1547891654-e66ed7ebb968',
+    // Detail images specific to this project
+    detailImages: [],
+    challenges: [
+      'Setting up two productions labs in NYC and Yonkers, NY with a mixture of technologies, footprint restrictions, and capability requirements.',
+      'Co-organizing the build out and launch of Gallery 10 West in Yonkers, NY.',
+      'Creating new digital and production workflows to go from AI generated concept to physically produced product.'
+    ],
+    solution: 'The long held tradition of artists being among the first to fully adopt new mediums and the technologies that enable new modalities of creation was the primary inspiration behind creating "art.config". This venture was the first branded collection of experiments, businesses, and challenges that Config Holdings aims to engage in. In 2022, right after I sold MakerOS, a new 3D printing vendor entered the industry, Bambu Labs, which surprised with it\'s quality and production output beyond anything I had experienced out of the box. So naturally, I backed their Kickstarter to be among the first to grab a machine and right at launch, I bought 12 more machines to be used for this venture. At the same time, I received beta access to ChatGPT, Dall-e, and Midjourney before their official launches. Combining both digital and physical modalities has always been my go-to for product creation and was the third iteration of this process for me with my prior experience with starting art galleries and production studios in Chicago between 2011-2013. art.config still continues as an experimental platform and innovation brand where new methods of creation are formed and then later applied to other ventures and applications.',
+    futureNotes: 'Provide documentation and updated branding on this site and other platforms.'
+  },
+  {
+    id: 'ai-osint-platform',
+    title: 'AI OSINT Platform',
+    description: 'Experimental AI powered open source intelligence platform to identify, understand, and counter disinformation threats.',
+    impact: 'Experimental Prototype',
+    tech: ['AI', 'OSINT', 'Research'],
+    icon: Satellite,
+    featured: false,
+    image: getProjectImageUrl('ai-osint-platform', 'cover.jpg'),
+    // Fallback to Unsplash image if the local image doesn't exist yet
+    imageFallback: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa',
+    // Detail images specific to this project
+    detailImages: [],
+    challenges: [
+      'It has never been harder for the general public to determine what is fact, fiction, opinion, helpful, or a hidden threat. Manipulative influence campaigns that drive public and civic action is at an all-time high with consequences beyond most individuals\' or governments\' understanding.'
+    ],
+    solution: 'Given the nature of this project, please contact for more information.',
+    futureNotes: 'N/A'
+  },
+  {
+    id: 'playboy-magazine-cover',
+    title: 'Playboy Magazine Cover',
+    description: 'Collaborative project with one of the most recognizable brands in the world.',
+    impact: 'A one of a kind art piece for the cover of Playboy Magazine.',
+    tech: ['3D Printing', 'Blender', 'Custom Materials'],
+    icon: CircleUser,
+    featured: false,
+    image: getProjectImageUrl('playboy-magazine-cover', 'cover.jpg'),
+    // Fallback to Unsplash image if the local image doesn't exist yet
+    imageFallback: 'https://images.unsplash.com/photo-1521731978332-9e9e714bdd20',
+    // Detail images specific to this project
+    detailImages: [],
+    challenges: [
+      'The project involved collaboration with internationally acclaimed creative director Aria Garcia, Playboy, and TV personality Janeisha John. The concept required the customized design and fabrication of a golden chest-plate crafted in the shape of St. Croix, an island in the U.S. Virgin Islands.'
+    ],
+    solution: 'To ensure precision in fit and function, we began by conducting a 3D scan of Janeisha\'s torso, capturing accurate body dimensions. I then utilized an SVG image of St. Croix and employed a "wrap simulation" technique in Blender to shape the chest plate perfectly to Janeisha\'s form. The plate was 3D printed in three distinct segments with my Bambu Lab machines. Afterward, these components were fused seamlessly together, and I applied a custom coating mixture of UV-curable resin and ceramic powder, creating a durable and smooth outer surface. To achieve the golden finish, I carefully applied genuine 23k gold leaf, sealing it with an additional protective clear coat of UV-curable resin. The finalized piece was proudly showcased by Janeisha on the cover of Playboy. This project represented much more than an opportunity to secure another magazine cover—it allowed me to demonstrate and enhance my skills in creative design, advanced fabrication techniques, project management, and effective collaborating with a highly experienced creative professional. Furthermore, I appreciated the impact that this publication had in highlighting the vibrant culture and significance of the Virgin Islands, notably St. Croix, to a broader audience.',
+    futureNotes: 'N/A'
+  },
   {
     id: '3d-printing-calculator',
     title: '3D Printing Pricing Calculator',

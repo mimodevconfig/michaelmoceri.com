@@ -54,20 +54,22 @@ export default function ProjectsPage() {
       // For now, using a simple includes check. In a real implementation,
       // you would have proper category assignments in the project data
       result = result.filter(project => {
-        if (selectedCategory === 'web') {
+      if (selectedCategory === 'web') {
           return project.tech.some(t => 
             ['React', 'Tailwind', 'Netlify', 'Supabase'].includes(t)
           );
         } else if (selectedCategory === 'ai') {
           return project.tech.some(t => 
-            ['Cline', 'RAG', 'Vector DB', 'Ollama', 'VLLM', 'Bolt.diy'].includes(t)
-          );
+            ['Cline', 'RAG', 'Vector DB', 'Ollama', 'VLLM', 'Bolt.diy', 'AI', 'LoRA', 'Image Generation', 'Midjourney', 'Flux Dev', 'OSINT', 'Research'].includes(t)
+          ) || project.id.includes('ai-');
         } else if (selectedCategory === 'hardware') {
           return project.tech.some(t => 
             ['Threadripper PRO', 'RTX 3090FE', '10G Networking', 'NAS', 'CUDA'].includes(t)
           );
         } else if (selectedCategory === 'manufacturing') {
-          return project.id.includes('3d-printing');
+          return project.tech.some(t => 
+            ['3D Printing', 'Laser CNC', 'Custom Materials'].includes(t)
+          ) || project.id.includes('3d-printing');
         }
         return true;
       });
