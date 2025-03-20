@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import { projects } from './Projects';
 import { getProjectImageUrl } from '../lib/imageUtils';
 import Lightbox from 'yet-another-react-lightbox';
@@ -126,6 +126,25 @@ export default function ProjectDetail() {
                 <p className="text-white/80 max-w-2xl">{project.description}</p>
               </div>
             </div>
+            
+            {/* Live Demo Button - positioned absolutely in the top right */}
+            {project.liveDemo && (
+              <div className="absolute top-4 right-4">
+                <a 
+                  href={project.liveDemo} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="bg-black/40 dark:bg-black/60 backdrop-blur-sm rounded-full px-4 py-2 text-white flex items-center gap-2 hover:bg-black/60 transition-colors"
+                >
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75 animate-[ping_1.5s_cubic-bezier(0,0,0.2,1)_infinite]"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  </span>
+                  <span>Launch Live Demo</span>
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+            )}
           </div>
           
           {/* Additional project images gallery (if any) */}

@@ -16,6 +16,7 @@ export const projects = [
     imageFallback: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12',
     // Detail images specific to this project
     detailImages: ['3d-printing-calculator-main.webp', '3d-printing-calculator-cost-breakdown.webp', '3d-printing-calculator-machine-costs.webp', '3d-printing-calculator-post-processing.webp', '3d-printing-calculator-labor-facility.webp', '3d-printing-calculator-margins.webp'],
+    liveDemo: 'https://mimo-3dp-calc.netlify.app/',
     challenges: [
       'First example of a deployable and monetizable web application using AI coding workflows and agents.',
       'A custom Supabase connection for persistent user data across HubSpot and Stripe.',
@@ -57,6 +58,7 @@ export const projects = [
     imageFallback: 'https://images.unsplash.com/photo-1507146153580-69a1fe6d8aa1',
     // Detail images specific to this project
     detailImages: ['ai-research-platform-main.webp', 'ai-research-platform-problem.webp', 'ai-research-platform-settings.webp'],
+    liveDemo: 'https://mimo-research.netlify.app/',
     challenges: [
       'Tools like OpenAI "Deep Research", are limited in their scope and practicality when it comes to organizing, connecting, and interacting with research.',
       'A plethora of libraries and packages that are in their infancy and constantly changing to try to keep up and experiment with. Vetting early tech and ideas to apply their promised potential is a fun puzzle to solve while trying to remain objective and strategic.',
@@ -92,13 +94,24 @@ export default function Projects() {
               key={index}
               className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-transform hover:scale-105"
             >
-              <div className="h-48 overflow-hidden">
+              <div className="h-48 overflow-hidden relative">
                 <img 
                   src={project.image} 
                   alt={project.title}
                   className="w-full h-full object-cover"
                   onError={(e) => handleImageError(e, project.imageFallback)}
                 />
+                {project.liveDemo && (
+                  <div className="absolute top-3 right-3">
+                    <div className="bg-black/40 dark:bg-black/60 backdrop-blur-sm rounded-full px-3 py-1 text-white flex items-center gap-2">
+                      <span className="relative flex h-2 w-2">
+                        <span className="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75 animate-[ping_1.5s_cubic-bezier(0,0,0.2,1)_infinite]"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                      </span>
+                      <span className="text-sm font-medium">Live Demo</span>
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="p-6">
                 <div className="flex items-center gap-3 mb-4">
