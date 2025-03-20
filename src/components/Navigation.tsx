@@ -66,7 +66,7 @@ const Navigation: React.FC = () => {
   const navItems = [
     { name: 'Home', path: '/' },
     { name: 'About', path: '/#about', targetId: 'about' },
-    { name: 'Projects', path: '/#projects', targetId: 'projects' },
+    { name: 'Projects', path: '/projects' },
     { name: 'Experience', path: '/#experience', targetId: 'experience' },
     { name: 'Blog', path: '/blog' },
     { name: 'Contact', path: '/#contact', targetId: 'contact' },

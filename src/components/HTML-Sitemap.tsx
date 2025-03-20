@@ -19,7 +19,7 @@ const HTMLSitemap: React.FC = () => {
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Projects</h2>
           <ul className="space-y-2 text-blue-600 dark:text-blue-400">
-            <li><Link to="/#projects" className="hover:underline">All Projects</Link></li>
+            <li><Link to="/projects" className="hover:underline">All Projects</Link></li>
             <li><Link to="/project/3d-printing-calculator" className="hover:underline">3D Printing Pricing Calculator</Link></li>
             <li><Link to="/project/local-ai-inference-server" className="hover:underline">Local AI Inference Server</Link></li>
             <li><Link to="/project/ai-research-platform" className="hover:underline">AI Research Platform</Link></li>

@@ -11,6 +11,7 @@ export const projects = [
     impact: 'Thousands of users, and $Millions worth of projects quoted',
     tech: ['Bolt.diy', 'Cline', 'Tailwind', 'React', 'Supabase', 'Netlify', 'Stripe', '3.7 Sonnet', 'HubSpot'],
     icon: Calculator,
+    featured: true,
     image: getProjectImageUrl('3d-printing-calculator', '3d-printing-calculator-main.webp'),
     // Fallback to Unsplash image if the local image doesn't exist yet
     imageFallback: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12',
@@ -32,6 +33,7 @@ export const projects = [
     impact: 'Fast local AI inference and development environment',
     tech: ['Threadripper PRO', '4x RTX 3090FE', '10G Networking', 'NAS', 'CUDA', 'Ollama'],
     icon: Server,
+    featured: true,
     image: getProjectImageUrl('local-ai-inference-server', 'cover.jpg'),
     // Fallback to Unsplash image if the local image doesn't exist yet
     imageFallback: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31',
@@ -53,6 +55,7 @@ export const projects = [
     impact: 'Prototype Phase',
     tech: ['MCP', 'RAG', 'Vector DB', 'React', 'Tailwind', 'Ollama', 'VLLM', 'Bolt.diy'],
     icon: Brain,
+    featured: true,
     image: getProjectImageUrl('ai-research-platform', 'ai-research-platform-main.webp'),
     // Fallback to Unsplash image if the local image doesn't exist yet
     imageFallback: 'https://images.unsplash.com/photo-1507146153580-69a1fe6d8aa1',
@@ -88,7 +91,7 @@ export default function Projects() {
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+          {projects.filter(project => project.featured).map((project, index) => (
             <Link
               to={`/project/${project.id}`}
               key={index}
@@ -142,6 +145,14 @@ export default function Projects() {
               </div>
             </Link>
           ))}
+        </div>
+        <div className="flex justify-center mt-10">
+          <Link 
+            to="/projects"
+            className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background border border-white text-white bg-transparent hover:bg-white hover:text-gray-900 h-10 py-2 px-4"
+          >
+            View More Projects
+          </Link>
         </div>
       </div>
     </section>
