@@ -61,8 +61,7 @@ export default function AppFooter() {
             {
               name: "Projects",
               Icon: Blocks,
-              href: "#projects",
-              onClick: (e) => handleAnchorClick(e, "#projects"),
+              href: "/projects",
             },
             {
               name: "Skills",

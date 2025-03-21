@@ -4,6 +4,7 @@ import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import Projects from './components/Projects';
 import ProjectDetail from './components/ProjectDetail';
+import ProjectsPage from './components/ProjectsPage';
 import Skills from './components/Skills';
 import Experience from './components/Experience';
 import About from './components/About';
@@ -46,6 +47,7 @@ function App() {
       <Navigation />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/project/:slug" element={<ProjectDetail />} />
         
         {/* Blog routes */}
