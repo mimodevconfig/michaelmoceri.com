@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, ChevronLeft, ChevronRight, ExternalLink, Tag, TagsIcon, Star } from 'lucide-react';
-import { projects } from './Projects';
+import { ArrowLeft, ChevronLeft, ChevronRight, ExternalLink, Tag, TagsIcon, Star, Play, X } from 'lucide-react';
+import { projects, ProjectMediaItem } from './Projects';
 import { getProjectImageUrl } from '../lib/imageUtils';
 import Lightbox from 'yet-another-react-lightbox';
 import Zoom from 'yet-another-react-lightbox/plugins/zoom';
@@ -27,22 +27,49 @@ export default function ProjectDetail() {
   // Get featured projects for sidebar
   const featuredProjects = projects.filter(p => p.featured && p.id !== project?.id).slice(0, 3);
 
-  // State for additional project images and lightbox
-  const [additionalImages, setAdditionalImages] = useState<string[]>([]);
+  // State for gallery, lightbox and video modal
+  const [mediaItems, setMediaItems] = useState<ProjectMediaItem[]>([]);
+  const [selectedVideoMedia, setSelectedVideoMedia] = useState<ProjectMediaItem | null>(null);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
-  // Load additional images if they exist
+  // Reset media-related state when project changes
   useEffect(() => {
-    if (project && project.detailImages) {
-      // Use the project-specific detail images
-      const projectImages = project.detailImages.map(img => 
-        getProjectImageUrl(project.id, img)
-      );
-      
-      setAdditionalImages(projectImages);
-    }
-  }, [project]);
+    // Clear media items, selected media, and close modals when project changes
+    setMediaItems([]);
+    setSelectedVideoMedia(null);
+    setIsVideoModalOpen(false);
+    setLightboxOpen(false);
+    
+    if (!project) return;
+    
+    // Set a small timeout to ensure clean state transition
+    const timer = setTimeout(() => {
+      if (project.media) {
+        // Use the new media format but make sure it's properly typed
+        setMediaItems(project.media as ProjectMediaItem[]);
+      } else if (project.detailImages && project.detailImages.length > 0) {
+        // Convert old detailImages to new format
+        const convertedMedia: ProjectMediaItem[] = project.detailImages.map(img => ({
+          type: 'image' as 'image', // Explicitly type as 'image'
+          src: img,
+          alt: `${project.title} detail`
+        }));
+        setMediaItems(convertedMedia);
+      }
+    }, 50);
+    
+    return () => clearTimeout(timer);
+  }, [project?.id]); // Depend on project ID instead of the entire project object
+
+  // Prepare slides for lightbox library
+  const lightboxSlides = mediaItems
+    .filter(item => item.type === 'image')
+    .map(item => ({
+      src: getProjectImageUrl(project?.id || '', item.src),
+      alt: item.alt
+    }));
 
   // Scroll to top when component mounts or when the URL changes
   useEffect(() => {
@@ -58,12 +85,14 @@ export default function ProjectDetail() {
         navigate(`/project/${prevProject.id}`);
       } else if (e.key === 'ArrowRight') {
         navigate(`/project/${nextProject.id}`);
+      } else if (e.key === 'Escape' && isVideoModalOpen) {
+        setIsVideoModalOpen(false);
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [navigate, prevProject?.id, nextProject?.id, project]);
+  }, [navigate, prevProject?.id, nextProject?.id, project, isVideoModalOpen]);
 
   // Function to handle image errors and use fallback
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>, fallbackSrc: string) => {
@@ -91,6 +120,22 @@ export default function ProjectDetail() {
     return categories.filter(category => 
       project?.tech.some(tech => category.matches.includes(tech) || project.id.includes(category.id))
     );
+  };
+
+  // Handle media item click
+  const handleMediaClick = (item: ProjectMediaItem, index: number) => {
+    if (item.type === 'video' && item.youtubeUrl) {
+      setSelectedVideoMedia(item);
+      setIsVideoModalOpen(true);
+    } else {
+      // Find index among image-only items
+      const imageOnlyIndex = mediaItems
+        .filter(m => m.type === 'image')
+        .findIndex(m => m === item);
+      
+      setLightboxIndex(imageOnlyIndex >= 0 ? imageOnlyIndex : 0);
+      setLightboxOpen(true);
+    }
   };
 
   if (!project) {
@@ -147,9 +192,9 @@ export default function ProjectDetail() {
                   </div>
                 </div>
                 
-                {/* Live Demo Button - positioned absolutely in the top right */}
-                {project.liveDemo && (
-                  <div className="absolute top-4 right-4">
+                {/* Buttons positioned absolutely in the top right */}
+                <div className="absolute top-4 right-4 flex flex-col gap-2">
+                  {project.liveDemo && (
                     <a 
                       href={project.liveDemo} 
                       target="_blank" 
@@ -163,41 +208,68 @@ export default function ProjectDetail() {
                       <span>Launch Live Demo</span>
                       <ExternalLink className="w-4 h-4" />
                     </a>
-                  </div>
-                )}
+                  )}
+                  
+                  {/* Watch Video Button */}
+                  {mediaItems.some(item => item.type === 'video') && (
+                    <button 
+                      onClick={() => {
+                        const videoMedia = mediaItems.find(item => item.type === 'video');
+                        if (videoMedia) {
+                          setSelectedVideoMedia(videoMedia);
+                          setIsVideoModalOpen(true);
+                        }
+                      }}
+                      className="bg-black/40 dark:bg-black/60 backdrop-blur-sm rounded-full px-4 py-2 text-white flex items-center gap-2 hover:bg-black/60 transition-colors"
+                    >
+                      <span className="relative flex h-2 w-2">
+                        <span className="absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75 animate-[ping_1.5s_cubic-bezier(0,0,0.2,1)_infinite]"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                      </span>
+                      <span>Watch Video</span>
+                      <Play className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
               </div>
               
-              {/* Additional project images gallery (if any) */}
-              {additionalImages.length > 0 && (
+              {/* Media gallery (images and videos) */}
+              {mediaItems.length > 0 && (
                 <div className="p-6 pt-0">
                   <div className="grid grid-cols-3 gap-2 mt-2">
-                    {additionalImages.map((img, index) => (
+                    {mediaItems.map((item, index) => (
                       <div 
                         key={index} 
-                        className="h-24 overflow-hidden rounded-lg cursor-pointer"
-                        onClick={() => {
-                          setLightboxIndex(index);
-                          setLightboxOpen(true);
-                        }}
+                        className="h-24 overflow-hidden rounded-lg cursor-pointer relative"
+                        onClick={() => handleMediaClick(item, index)}
                       >
                         <img 
-                          src={img} 
-                          alt={`${project.title} detail ${index + 1}`}
+                          src={item.type === 'image' 
+                            ? getProjectImageUrl(project.id, item.src) 
+                            : item.src}
+                          alt={item.alt}
                           className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
                           onError={(e) => handleImageError(e, project.imageFallback)}
                         />
+                        
+                        {/* Play button overlay for videos */}
+                        {item.type === 'video' && (
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                            <Play className="w-8 h-8 text-white" />
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
                 </div>
               )}
               
-              {/* Lightbox for project images */}
+              {/* Lightbox for images */}
               <Lightbox
                 open={lightboxOpen}
                 close={() => setLightboxOpen(false)}
                 index={lightboxIndex}
-                slides={additionalImages.map(src => ({ src }))}
+                slides={lightboxSlides}
                 plugins={[Zoom]}
                 zoom={{
                   maxZoomPixelRatio: 5,
@@ -217,6 +289,39 @@ export default function ProjectDetail() {
                 }}
                 animation={{ fade: 300 }}
               />
+              
+              {/* Modal for videos - click anywhere outside to close */}
+              {isVideoModalOpen && selectedVideoMedia && selectedVideoMedia.youtubeUrl && (
+                <div 
+                  className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+                  onClick={() => setIsVideoModalOpen(false)}
+                >
+                  <div className="absolute top-4 right-4">
+                    <button 
+                      onClick={() => setIsVideoModalOpen(false)}
+                      className="text-white bg-black/40 p-2 rounded-full hover:bg-black/60"
+                    >
+                      <X className="w-6 h-6" />
+                    </button>
+                  </div>
+                  
+                  <div 
+                    className="max-w-4xl w-full"
+                    onClick={(e) => e.stopPropagation()} // Prevent clicks on video from closing modal
+                  >
+                    <div className="relative pb-[56.25%] h-0 overflow-hidden">
+                      <iframe 
+                        src={selectedVideoMedia.youtubeUrl}
+                        title={selectedVideoMedia.alt}
+                        className="absolute top-0 left-0 w-full h-full"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
+                    </div>
+                  </div>
+                </div>
+              )}
               
               <div className="p-6 sm:p-8">
                 <div className="space-y-8">

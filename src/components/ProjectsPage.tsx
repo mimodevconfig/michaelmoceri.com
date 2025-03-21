@@ -126,8 +126,8 @@ export default function ProjectsPage() {
                       className="w-full h-full object-cover"
                       onError={(e) => handleImageError(e, project.imageFallback)}
                     />
-                    {project.liveDemo && (
-                      <div className="absolute top-3 right-3">
+                    <div className="absolute top-3 right-3 flex flex-col gap-2">
+                      {project.liveDemo && (
                         <div className="bg-black/40 dark:bg-black/60 backdrop-blur-sm rounded-full px-3 py-1 text-white flex items-center gap-2">
                           <span className="relative flex h-2 w-2">
                             <span className="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75 animate-ping"></span>
@@ -135,8 +135,17 @@ export default function ProjectsPage() {
                           </span>
                           <span className="text-sm font-medium">Live Demo</span>
                         </div>
-                      </div>
-                    )}
+                      )}
+                      {project.media && project.media.some(item => item.type === 'video') && (
+                        <div className="bg-black/40 dark:bg-black/60 backdrop-blur-sm rounded-full px-3 py-1 text-white flex items-center gap-2">
+                          <span className="relative flex h-2 w-2">
+                            <span className="absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75 animate-ping"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                          </span>
+                          <span className="text-sm font-medium">Watch Video</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
                   <div className="p-4">
                     <div className="flex items-center gap-2 mb-2">
@@ -346,8 +355,8 @@ export default function ProjectsPage() {
                         className="w-full h-full object-cover"
                         onError={(e) => handleImageError(e, project.imageFallback)}
                       />
-                      {project.liveDemo && (
-                        <div className="absolute top-3 right-3">
+                      <div className="absolute top-3 right-3 flex flex-col gap-2">
+                        {project.liveDemo && (
                           <div className="bg-black/40 dark:bg-black/60 backdrop-blur-sm rounded-full px-3 py-1 text-white flex items-center gap-2">
                             <span className="relative flex h-2 w-2">
                               <span className="absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75 animate-ping"></span>
@@ -355,8 +364,17 @@ export default function ProjectsPage() {
                             </span>
                             <span className="text-sm font-medium">Live Demo</span>
                           </div>
-                        </div>
-                      )}
+                        )}
+                        {project.media && project.media.some(item => item.type === 'video') && (
+                          <div className="bg-black/40 dark:bg-black/60 backdrop-blur-sm rounded-full px-3 py-1 text-white flex items-center gap-2">
+                            <span className="relative flex h-2 w-2">
+                              <span className="absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75 animate-ping"></span>
+                              <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                            </span>
+                            <span className="text-sm font-medium">Watch Video</span>
+                          </div>
+                        )}
+                      </div>
                     </div>
                     <div className="p-4">
                       <div className="flex items-center gap-2 mb-2">

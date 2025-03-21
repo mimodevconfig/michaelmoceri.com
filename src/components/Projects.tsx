@@ -3,6 +3,33 @@ import { Link } from 'react-router-dom';
 import { Calculator, Server, Brain, Home, Satellite, CircleUser } from 'lucide-react';
 import { getProjectImageUrl } from '../lib/imageUtils';
 
+// Define media types for project detail
+export type ProjectMediaItem = {
+  type: 'image' | 'video';
+  src: string;
+  alt: string;
+  youtubeUrl?: string; // Only used for video type
+};
+
+// Project type definition
+type Project = {
+  id: string;
+  title: string;
+  description: string;
+  impact: string;
+  tech: string[];
+  icon: React.ComponentType<any>;
+  featured: boolean;
+  image: string;
+  imageFallback: string;
+  detailImages: string[]; // Legacy support
+  media?: ProjectMediaItem[];
+  liveDemo?: string;
+  challenges: string[];
+  solution: string;
+  futureNotes: string;
+};
+
 export const projects = [
   {
     id: 'ai-real-estate-development',
@@ -32,11 +59,11 @@ export const projects = [
     tech: ['3D Printing', 'Laser CNC', 'Midjourney', 'Blender', 'Fusion 360', 'Meshmixer', 'Photoshop', 'Dall-e'],
     icon: CircleUser,
     featured: false,
-    image: getProjectImageUrl('art-config', 'cover.jpg'),
+    image: getProjectImageUrl('art-config', 'minerva-green.webp'),
     // Fallback to Unsplash image if the local image doesn't exist yet
     imageFallback: 'https://images.unsplash.com/photo-1547891654-e66ed7ebb968',
     // Detail images specific to this project
-    detailImages: [],
+    detailImages: ['flower-boy.jpg', 'minerva-green.webp', 'minerva-supports.jpg', 'minerva-pink.webp', 'carbon-fiber-eagle.webp', 'golden-drip.jpg', 'skull-supports.jpg', 'skull.jpg', 'bambu.jpg'],
     challenges: [
       'Setting up two productions labs in NYC and Yonkers, NY with a mixture of technologies, footprint restrictions, and capability requirements.',
       'Co-organizing the build out and launch of Gallery 10 West in Yonkers, NY.',
@@ -62,7 +89,7 @@ export const projects = [
       'It has never been harder for the general public to determine what is fact, fiction, opinion, helpful, or a hidden threat. Manipulative influence campaigns that drive public and civic action is at an all-time high with consequences beyond most individuals\' or governments\' understanding.'
     ],
     solution: 'Given the nature of this project, please contact for more information.',
-    futureNotes: 'N/A'
+    futureNotes: 'Contact for details.'
   },
   {
     id: 'playboy-magazine-cover',
@@ -72,10 +99,39 @@ export const projects = [
     tech: ['3D Printing', 'Blender', 'Custom Materials'],
     icon: CircleUser,
     featured: false,
-    image: getProjectImageUrl('playboy-magazine-cover', 'cover.jpg'),
+    image: getProjectImageUrl('playboy-magazine-cover', 'Janeisha-John-Playboy-main.jpg'),
     // Fallback to Unsplash image if the local image doesn't exist yet
     imageFallback: 'https://images.unsplash.com/photo-1521731978332-9e9e714bdd20',
-    // Detail images specific to this project
+    // Media items including YouTube video and images
+    media: [
+      { 
+        type: 'video', 
+        src: 'https://img.youtube.com/vi/JJmqTVE6Y8I/maxresdefault.jpg',
+        alt: 'St. Croix Golden Chest Plate for Playboy Magazine Cover',
+        youtubeUrl: 'https://www.youtube.com/embed/JJmqTVE6Y8I'
+      },
+      {
+        type: 'image',
+        src: 'Janeisha_John_Playboy_Denmark.jpg',
+        alt: 'Janeisha John Playboy Denmark'
+      },
+      {
+        type: 'image',
+        src: 'janeisha-john-cover-no-text.jpg',
+        alt: 'Janeisha John Cover without text'
+      },
+      {
+        type: 'image',
+        src: 'janeisha-instagram.jpg',
+        alt: 'Janeisha Instagram'
+      },
+      {
+        type: 'image',
+        src: 'chestplate-gif.gif',
+        alt: 'Chestplate GIF'
+      }
+    ],
+    // Keeping detailImages for backward compatibility
     detailImages: [],
     challenges: [
       'The project involved collaboration with internationally acclaimed creative director Aria Garcia, Playboy, and TV personality Janeisha John. The concept required the customized design and fabrication of a golden chest-plate crafted in the shape of St. Croix, an island in the U.S. Virgin Islands.'
@@ -94,7 +150,7 @@ export const projects = [
     image: getProjectImageUrl('3d-printing-calculator', '3d-printing-calculator-main.webp'),
     // Fallback to Unsplash image if the local image doesn't exist yet
     imageFallback: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12',
-    // Detail images specific to this project
+    // For backward compatibility
     detailImages: ['3d-printing-calculator-main.webp', '3d-printing-calculator-cost-breakdown.webp', '3d-printing-calculator-machine-costs.webp', '3d-printing-calculator-post-processing.webp', '3d-printing-calculator-labor-facility.webp', '3d-printing-calculator-margins.webp'],
     liveDemo: 'https://mimo-3dp-calc.netlify.app/',
     challenges: [
@@ -191,6 +247,17 @@ export default function Projects() {
                         <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                       </span>
                       <span className="text-sm font-medium">Live Demo</span>
+                    </div>
+                  </div>
+                )}
+                {project.media && project.media.some(item => item.type === 'video') && (
+                  <div className="absolute top-3 right-3">
+                    <div className="bg-black/40 dark:bg-black/60 backdrop-blur-sm rounded-full px-3 py-1 text-white flex items-center gap-2">
+                      <span className="relative flex h-2 w-2">
+                        <span className="absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75 animate-[ping_1.5s_cubic-bezier(0,0,0.2,1)_infinite]"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                      </span>
+                      <span className="text-sm font-medium">Watch Video</span>
                     </div>
                   </div>
                 )}
