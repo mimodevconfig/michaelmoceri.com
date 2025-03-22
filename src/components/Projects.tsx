@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calculator, Server, Brain, Home, Satellite, CircleUser } from 'lucide-react';
+import { Calculator, Server, Brain, Home, Satellite, CircleUser, Rabbit, Palette } from 'lucide-react';
 import { getProjectImageUrl } from '../lib/imageUtils';
 
 // Define media types for project detail
@@ -57,7 +57,7 @@ export const projects = [
     description: 'Exploring the possibilities between advanced manufacturing, AI generative media creation, and fine art production.',
     impact: 'Launched a NY art gallery, production lab, original works, and newly discovered art production supply/tool chains.',
     tech: ['3D Printing', 'Laser CNC', 'Midjourney', 'Blender', 'Fusion 360', 'Meshmixer', 'Photoshop', 'Dall-e'],
-    icon: CircleUser,
+    icon: Palette,
     featured: false,
     image: getProjectImageUrl('art-config', 'minerva-green.webp'),
     // Fallback to Unsplash image if the local image doesn't exist yet
@@ -97,7 +97,7 @@ export const projects = [
     description: 'Collaborative project with one of the most recognizable brands in the world.',
     impact: 'A one of a kind art piece for the cover of Playboy Magazine.',
     tech: ['3D Printing', 'Blender', 'Custom Materials'],
-    icon: CircleUser,
+    icon: Rabbit,
     featured: false,
     image: getProjectImageUrl('playboy-magazine-cover', 'Janeisha-John-Playboy-main.jpg'),
     // Fallback to Unsplash image if the local image doesn't exist yet
