@@ -3,7 +3,7 @@
   <!-- Homepage -->
   <url>
     <loc>https://michaelmoceri.com/</loc>
-    <lastmod>2025-03-15</lastmod>
+    <lastmod>2025-03-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -11,19 +11,61 @@
   <!-- Project Pages -->
   <url>
     <loc>https://michaelmoceri.com/project/3d-printing-calculator</loc>
-    <lastmod>2025-03-15</lastmod>
+    <lastmod>2025-03-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://michaelmoceri.com/project/local-ai-inference-server</loc>
-    <lastmod>2025-03-15</lastmod>
+    <lastmod>2025-03-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://michaelmoceri.com/project/ai-research-platform</loc>
-    <lastmod>2025-03-15</lastmod>
+    <lastmod>2025-03-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://michaelmoceri.com/project/ai-real-estate-development</loc>
+    <lastmod>2025-03-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://michaelmoceri.com/project/art-config</loc>
+    <lastmod>2025-03-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://michaelmoceri.com/project/ai-osint-platform</loc>
+    <lastmod>2025-03-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://michaelmoceri.com/project/playboy-magazine-cover</loc>
+    <lastmod>2025-03-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://michaelmoceri.com/project/fabrication-labs</loc>
+    <lastmod>2025-03-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://michaelmoceri.com/project/sustainable-3d-printing-challenge</loc>
+    <lastmod>2025-03-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://michaelmoceri.com/project/crypto-datacenter-farm</loc>
+    <lastmod>2025-03-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -31,12 +73,18 @@
   <!-- Blog Section -->
   <url>
     <loc>https://michaelmoceri.com/blog</loc>
-    <lastmod>2025-03-15</lastmod>
+    <lastmod>2025-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Blog Posts -->
+  <url>
+    <loc>https://michaelmoceri.com/blog/post/getting-started-ollama-openwebui-windows</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
   <url>
     <loc>https://michaelmoceri.com/blog/post/ready-for-new-supply-chain</loc>
     <lastmod>2023-07-11</lastmod>
@@ -75,6 +123,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
+  <url>
+    <loc>https://michaelmoceri.com/blog/category/technology</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
 
   <!-- Blog Tags -->
   <url>
@@ -104,6 +158,18 @@
   <url>
     <loc>https://michaelmoceri.com/blog/tag/manufacturing</loc>
     <lastmod>2023-07-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://michaelmoceri.com/blog/tag/ai</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://michaelmoceri.com/blog/tag/local-ai</loc>
+    <lastmod>2025-03-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>

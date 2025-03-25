@@ -347,23 +347,71 @@ export default function ProjectDetail() {
                   </section>
 
                   <section>
-                    <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Challenges Faced</h2>
-                    <ul className="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-400">
-                      {project.challenges.map((challenge, index) => (
-                        <li key={index}>{challenge}</li>
-                      ))}
-                    </ul>
+                    <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Project Brief</h2>
+                    <p className="text-gray-600 dark:text-gray-400">{project.projectBrief}</p>
+                  </section>
+
+                  <section>
+                    <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Challenges</h2>
+                    <div className="text-gray-600 dark:text-gray-400">
+                      {project.challenges.map((challenge, index) => {
+                        // Check if this is a numbered list item (starts with a digit followed by dot)
+                        if (/^\d+\.\s/.test(challenge)) {
+                          return (
+                            <p key={index} className="ml-5 mb-2">{challenge}</p>
+                          );
+                        }
+                        // Check if this is an introduction paragraph for a list (ends with "include:" or similar)
+                        else if (challenge.trim().endsWith('include:') || challenge.trim().endsWith('includes:')) {
+                          return <p key={index} className="mb-2">{challenge}</p>;
+                        }
+                        // Regular bullet point item
+                        else {
+                          return (
+                            <div key={index} className="flex mb-2">
+                              <span className="mr-2">•</span>
+                              <span>{challenge}</span>
+                            </div>
+                          );
+                        }
+                      })}
+                    </div>
                   </section>
 
                   <section>
                     <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Solution</h2>
-                    <p className="text-gray-600 dark:text-gray-400">{project.solution}</p>
+                    <div className="text-gray-600 dark:text-gray-400">
+                      {/* Split solution by double line breaks to identify paragraphs */}
+                      {project.solution.split('\n\n').map((paragraph, index) => {
+                        // Check if this paragraph has numbered items (lines starting with digits)
+                        if (paragraph.split('\n').some(line => /^\d+\.\s/.test(line))) {
+                          // This is a numbered list - split by newlines and render each item
+                          const items = paragraph.split('\n');
+                          return (
+                            <div key={index} className="mb-4">
+                              {items.map((item, itemIndex) => {
+                                // If it's a numbered item, render with proper spacing
+                                if (/^\d+\.\s/.test(item)) {
+                                  return <p key={itemIndex} className="ml-5 mb-2">{item}</p>;
+                                }
+                                // Otherwise, it's a regular paragraph
+                                return <p key={itemIndex} className="mb-2">{item}</p>;
+                              })}
+                            </div>
+                          );
+                        }
+                        // Regular paragraph
+                        return <p key={index} className="mb-4">{paragraph}</p>;
+                      })}
+                    </div>
                   </section>
 
-                  <section>
-                    <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Future Development</h2>
-                    <p className="text-gray-600 dark:text-gray-400">{project.futureNotes}</p>
-                  </section>
+                  {project.futureNotes && project.futureNotes !== "N/A" && (
+                    <section>
+                      <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Future Development</h2>
+                      <p className="text-gray-600 dark:text-gray-400">{project.futureNotes}</p>
+                    </section>
+                  )}
                 </div>
               </div>
             </div>
