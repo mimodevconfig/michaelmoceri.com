@@ -81,18 +81,24 @@ export default function ProjectDetail() {
     if (!project) return; // Don't set up keyboard navigation if no project is found
     
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') {
-        navigate(`/project/${prevProject.id}`);
-      } else if (e.key === 'ArrowRight') {
-        navigate(`/project/${nextProject.id}`);
-      } else if (e.key === 'Escape' && isVideoModalOpen) {
+      // Only handle left/right arrow navigation between projects when lightbox is closed
+      if (!lightboxOpen) {
+        if (e.key === 'ArrowLeft') {
+          navigate(`/project/${prevProject.id}`);
+        } else if (e.key === 'ArrowRight') {
+          navigate(`/project/${nextProject.id}`);
+        }
+      }
+      
+      // Always handle escape key for video modal
+      if (e.key === 'Escape' && isVideoModalOpen) {
         setIsVideoModalOpen(false);
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [navigate, prevProject?.id, nextProject?.id, project, isVideoModalOpen]);
+  }, [navigate, prevProject?.id, nextProject?.id, project, isVideoModalOpen, lightboxOpen]);
 
   // Function to handle image errors and use fallback
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>, fallbackSrc: string) => {
