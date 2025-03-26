@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, ChevronLeft, ChevronRight, ExternalLink, Tag, TagsIcon, Star, Play, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, ExternalLink, LayoutGrid, Tag, TagsIcon, Star, Play, X } from 'lucide-react';
 import { projects, ProjectMediaItem } from './Projects';
 import { getProjectImageUrl } from '../lib/imageUtils';
 import Lightbox from 'yet-another-react-lightbox';
@@ -551,6 +551,93 @@ export default function ProjectDetail() {
                 </div>
               </div>
             )}
+
+            {/* Related Projects */}
+            {(() => {
+              // Get relevant projects based on matching tech
+              const getRelevantProjects = () => {
+                // Skip the current project and only get non-featured projects
+                const candidateProjects = projects.filter(p => p.id !== project.id && !p.featured);
+                
+                // Calculate relevance scores based on matching tech
+                const projectsWithScores = candidateProjects.map(p => {
+                  const matchingTech = p.tech.filter(tech => project.tech.includes(tech));
+                  return {
+                    project: p,
+                    relevanceScore: matchingTech.length
+                  };
+                });
+                
+                // Sort by relevance score (highest first)
+                projectsWithScores.sort((a, b) => b.relevanceScore - a.relevanceScore);
+                
+                // Get projects with any matches (score > 0)
+                let relevantProjects = projectsWithScores
+                  .filter(item => item.relevanceScore > 0)
+                  .map(item => item.project);
+                  
+                // If we don't have 3 relevant projects, add random ones to reach 3
+                if (relevantProjects.length < 3) {
+                  const randomProjects = projectsWithScores
+                    .filter(item => item.relevanceScore === 0)
+                    .map(item => item.project)
+                    .sort(() => 0.5 - Math.random()); // Shuffle
+                    
+                  // Fill up to 3 projects
+                  while (relevantProjects.length < 3 && randomProjects.length > 0) {
+                    relevantProjects.push(randomProjects.pop()!);
+                  }
+                }
+                
+                // Return at most 3 projects
+                return relevantProjects.slice(0, 3);
+              };
+
+              const otherProjects = getRelevantProjects();
+              
+              return otherProjects.length > 0 ? (
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+                  <h3 className="font-semibold mb-3 flex items-center">
+                    <LayoutGrid className="w-4 h-4 mr-2 text-purple-500" />
+                    Related Projects
+                  </h3>
+                  <div className="space-y-3">
+                    {otherProjects.map((otherProject) => (
+                      <Link
+                        key={otherProject.id}
+                        to={`/project/${otherProject.id}`}
+                        className="flex gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                      >
+                        <div className="w-14 h-14 rounded overflow-hidden flex-shrink-0">
+                          <img 
+                            src={otherProject.image} 
+                            alt={otherProject.title}
+                            className="w-full h-full object-cover"
+                            onError={(e) => handleImageError(e, otherProject.imageFallback)}
+                          />
+                        </div>
+                        <div>
+                          <h4 className="font-medium text-gray-900 dark:text-white text-sm leading-tight">
+                            {otherProject.title}
+                          </h4>
+                          <p className="text-gray-600 dark:text-gray-400 text-xs mt-1 line-clamp-2">
+                            {otherProject.description}
+                          </p>
+                        </div>
+                      </Link>
+                    ))}
+                    <div className="mt-3 text-center">
+                      <Link 
+                        to="/projects"
+                        className="inline-flex items-center justify-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm"
+                      >
+                        View All Projects <ArrowRight className="w-4 h-4 ml-1" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ) : null;
+            })()}
           </div>
         </div>
       </div>

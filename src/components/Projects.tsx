@@ -103,7 +103,7 @@ export const projects: Project[] = [
     title: 'AI OSINT Platform',
     description: 'Experimental AI powered open source intelligence platform to identify, understand, and counter disinformation threats.',
     impact: 'Experimental Prototype',
-    tech: ['AI', 'OSINT', 'Research'],
+    tech: ['AI', 'OSINT', 'Research', 'RAG', 'MCP', "Vector DB"],
     icon: Satellite,
     featured: false,
     image: getProjectImageUrl('ai-osint-platform', 'cover.jpg'),
@@ -217,8 +217,8 @@ export const projects: Project[] = [
   {
     id: 'ai-research-platform',
     title: 'AI Research Platform',
-    description: 'Exploring and prototyping agentic human in the loop workflows to define, research, and crowdsource problem solving.',
-    impact: 'Prototype Phase',
+    description: 'Developing and prototyping advanced agent-driven, human-in-the-loop workflows to collaboratively leverage collective intelligence.',
+    impact: 'Stealth Prototype; exploring innovative frameworks for accelerated and enhanced research capabilities.',
     tech: ['MCP', 'RAG', 'Vector DB', 'React', 'Tailwind', 'Ollama', 'VLLM', 'Bolt.diy'],
     icon: Brain,
     featured: true,
@@ -228,14 +228,14 @@ export const projects: Project[] = [
     // Detail images specific to this project
     detailImages: ['ai-research-platform-main.webp', 'ai-research-platform-problem.webp', 'ai-research-platform-settings.webp'],
     liveDemo: 'https://mimo-research.netlify.app/',
-    projectBrief: "A stealth prototype aimed at pioneering human-agent collaborative workflows to deepen and accelerate complex research processes. Currently exploring and integrating emerging AI technologies and UX methodologies.",
+    projectBrief: "A stealth prototype aimed at pioneering networked human-agent collaborative workflows to deepen and accelerate complex research processes. Currently exploring and integrating emerging AI technologies and UX methodologies.",
     challenges: [
-      'Tools like OpenAI "Deep Research", are limited in their scope and practicality when it comes to organizing, connecting, and interacting with research.',
-      'A plethora of libraries and packages that are in their infancy and constantly changing to try to keep up and experiment with. Vetting early tech and ideas to apply their promised potential is a fun puzzle to solve while trying to remain objective and strategic.',
-      'UX research and discovery'
+      'Existing research tools, such as OpenAI\'s "Deep Research," are constrained by limited capabilities in organization, contextual connectivity, and interactive usability within research processes.',
+      'Navigating the rapidly evolving landscape of emerging AI libraries and experimental frameworks, assessing their real-world practicality, and systematically integrating promising technologies while maintaining strategic objectivity.',
+      'Conducting extensive UX research and discovery to ensure intuitive and productive human-agent interactions.'
     ],
-    solution: 'Still in active stealth prototyping mode. Contact for more info...',
-    futureNotes: 'Currently in prototyping phase; future release coming soon...'
+    solution: '1. Knowledge work meets GitHub, Reddit, LinkedIn, Obsidian, N8N, and native AI interactivity.\n\n2. Combining RAG, MCP servers, with multi-component prompting to effectively structure and enhance research processes.\n\n3. Incorporating high-performance vector databases, cloud or locally hosted AI models and data, and options for third party data integrations.\n\n4. Role based permissions and "responsibilities" for autonomous agents.\n\n5. An intuitive and context optimized front-end interface with variable context loading for the multiple AI agents the user will interreact with.',
+    futureNotes: 'Ongoing stealth development—contact for more details, collaboration, and funding details. View the early conceptual frontend build by visiting the demo at the top.'
   },
   {
     id: 'fabrication-labs',
