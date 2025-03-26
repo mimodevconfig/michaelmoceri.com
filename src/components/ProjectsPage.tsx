@@ -28,10 +28,11 @@ export default function ProjectsPage() {
 
   // Categories are main areas or types of projects
   const categories = [
-    { id: 'web', name: 'Web Development' },
+    { id: 'web', name: 'Software Development' },
     { id: 'ai', name: 'AI & Machine Learning' },
     { id: 'hardware', name: 'Hardware & Infrastructure' },
-    { id: 'manufacturing', name: '3D Printing & Manufacturing' }
+    { id: 'manufacturing', name: '3D Printing & Manufacturing' },
+    { id: 'art', name: 'Art & Culture' }
   ];
 
   // Filter projects based on search, category, and tag
@@ -70,6 +71,10 @@ export default function ProjectsPage() {
           return project.tech.some(t => 
             ['3D Printing', 'Laser CNC', 'Custom Materials'].includes(t)
           ) || project.id.includes('3d-printing');
+        } else if (selectedCategory === 'art') {
+          return project.tech.some(t => 
+            ['Art Accelerator', 'New Media Lab', 'Program Development', 'Fundraising'].includes(t)
+          ) || project.id.includes('art') || project.id === '100mm-art-foundation' || project.id === 'playboy-magazine-cover' || project.id === 'art-config';
         }
         return true;
       });

@@ -117,10 +117,11 @@ export default function ProjectDetail() {
   // Extract unique categories from project tech
   const getCategories = () => {
     const categories = [
-      { id: 'web', name: 'Web Development', matches: ['React', 'Tailwind', 'Netlify', 'Supabase'] },
+      { id: 'web', name: 'Software Development', matches: ['React', 'Tailwind', 'Netlify', 'Supabase'] },
       { id: 'ai', name: 'AI & Machine Learning', matches: ['Cline', 'RAG', 'Vector DB', 'Ollama', 'VLLM', 'Bolt.diy'] },
       { id: 'hardware', name: 'Hardware', matches: ['Threadripper PRO', 'RTX 3090FE', '10G Networking', 'NAS', 'CUDA'] },
-      { id: 'manufacturing', name: '3D Printing', matches: ['3D Printing'] }
+      { id: 'manufacturing', name: '3D Printing', matches: ['3D Printing'] },
+      { id: 'art', name: 'Art & Culture', matches: ['Art Accelerator', 'New Media Lab', 'Program Development', 'Fundraising'] }
     ];
     
     return categories.filter(category => 
@@ -446,7 +447,7 @@ export default function ProjectDetail() {
             </div>
 
             {/* Project Navigation */}
-            <div className="mt-8 grid grid-cols-2 gap-4">
+            <div className="mt-8 hidden md:grid md:grid-cols-2 md:gap-4">
               <Link 
                 to={`/project/${prevProject.id}`}
                 className="bg-white dark:bg-gray-800 rounded-xl shadow p-4 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
@@ -470,8 +471,8 @@ export default function ProjectDetail() {
               </Link>
             </div>
 
-            {/* Mobile-friendly swipe navigation hint */}
-            <div className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400 md:hidden">
+            {/* Desktop navigation hint */}
+            <div className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400 hidden md:block">
               <p>Use left/right arrow keys to navigate between projects</p>
             </div>
           </div>
