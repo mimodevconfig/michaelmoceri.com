@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
+import SEO from './SEO';
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, ExternalLink, LayoutGrid, Tag, TagsIcon, Star, Play, X } from 'lucide-react';
 import { projects, ProjectMediaItem } from './Projects';
 import { getProjectImageUrl } from '../lib/imageUtils';
@@ -168,6 +169,11 @@ export default function ProjectDetail() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 pt-24">
+      <SEO 
+        title={project.title}
+        description={project.description}
+        ogImage={project.image.startsWith('http') ? project.image : `/images/projects/${project.id}/${project.image.split('/').pop()}`}
+      />
       <div className="container mx-auto px-4">
         <a 
           href="/projects" 

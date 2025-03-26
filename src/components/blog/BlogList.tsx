@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAllPosts } from '../../lib/mdx';
+import SEO from '../SEO';
 
 const BlogList: React.FC = () => {
   const posts = getAllPosts();
@@ -16,6 +17,10 @@ const BlogList: React.FC = () => {
 
   return (
     <div>
+      <SEO 
+        title="Blog" 
+        description="Read about AI product development, manufacturing technology, and entrepreneurship. Insights from 15+ years of experience in building innovative solutions."
+      />
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
         <h1 className="text-3xl font-bold">Blog</h1>
         <div className="mt-4 md:mt-0">

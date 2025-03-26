@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getPostBySlug, serializeMdx } from '../../lib/mdx';
+import SEO from '../SEO';
 import { motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -80,6 +81,14 @@ const BlogPost: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-16">
+      {postData && (
+        <SEO 
+          title={postData.title}
+          description={postData.excerpt}
+          ogImage={postData.coverImage}
+          ogType="article"
+        />
+      )}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

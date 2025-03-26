@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { getPostsByCategory } from '../../lib/mdx';
+import SEO from '../SEO';
 
 const CategoryPage: React.FC = () => {
   const { category } = useParams<{ category: string }>();
@@ -21,6 +22,10 @@ const CategoryPage: React.FC = () => {
 
   return (
     <div>
+      <SEO 
+        title={`${category.charAt(0).toUpperCase() + category.slice(1)} Articles`}
+        description={`Explore Michael Moceri's articles and insights about ${category}. Learn from 15+ years of experience in product development, AI strategy, and entrepreneurship.`}
+      />
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
         <h1 className="text-3xl font-bold">Category: {category}</h1>
         <div className="mt-4 md:mt-0">
