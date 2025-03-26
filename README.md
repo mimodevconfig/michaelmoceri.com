@@ -1,5 +1,7 @@
 # Michael Moceri's Portfolio Website
 
+![Michael Moceri](./public/images/michael_moceri_social_share.png)
+
 This is my personal portfolio website showcasing my projects, skills, and blog. Feel free to use this as a template for your own portfolio. This website is based on my other repository located at: [https://github.com/mimodevconfig/AI-Dev-Portfolio](https://github.com/mimodevconfig/AI-Dev-Portfolio).
 
 ## Table of Contents
@@ -25,7 +27,7 @@ This is my personal portfolio website showcasing my projects, skills, and blog. 
 
 ## Overview
 
-This portfolio website is built with React, TypeScript, and Tailwind CSS. It features a modern, responsive design with interactive elements like a skills network map, project showcases, and a blog system.
+This portfolio website is built with React, TypeScript, and Tailwind CSS. It features a modern, responsive design with interactive elements like a skills network map, project showcases, and a blog system. As a professional focused on 3D Printing, Entrepreneurship, Product Development, AI Strategy, and Team Building, this portfolio highlights my expertise and projects in these domains.
 
 ## Features
 
@@ -34,7 +36,10 @@ This portfolio website is built with React, TypeScript, and Tailwind CSS. It fea
 - **Interactive Skills Network**: Visual representation of skills and their relationships
 - **Project Showcase**: Highlight your best work with images and descriptions
 - **Blog System**: Share your thoughts and insights with a built-in blog
-- **SEO Friendly**: Optimized for search engines
+- **Dynamic World Map**: Visualize global connections and projects
+- **Magnetic UI Elements**: Interactive elements with subtle animations
+- **Gooey Text Morphing**: Eye-catching text transitions for key skills
+- **SEO Friendly**: Optimized for search engines with React Helmet
 - **Fast Performance**: Built with Vite for quick loading times
 - **TypeScript**: Type-safe code for better development experience
 - **Tailwind CSS**: Utility-first CSS framework for easy styling
@@ -43,15 +48,15 @@ This portfolio website is built with React, TypeScript, and Tailwind CSS. It fea
 
 ### Prerequisites
 
-- Node.js (v16 or higher)
+- Node.js (v18 or higher)
 - npm or yarn
 
 ### Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/your-portfolio.git
-   cd your-portfolio
+   git clone https://github.com/mimodevconfig/michaelmoceri.com.git
+   cd michaelmoceri.com
    ```
 
 2. Install dependencies:
@@ -92,22 +97,32 @@ yarn preview
 
 ```
 /
-├── public/               # Static assets
-│   └── images/           # Image assets (see Image Management section)
+├── public/                # Static assets
+│   ├── images/            # Image assets
+│   │   ├── avatar/        # Profile photos
+│   │   ├── blog/          # Blog images (covers and content)
+│   │   ├── experience/    # Experience-related images
+│   │   ├── projects/      # Project images organized by project
+│   ├── robots.txt         # Robots file for SEO
+│   └── sitemap.xml        # Sitemap for SEO
 ├── src/
-│   ├── components/       # React components
-│   │   ├── blocks/       # Reusable block components
-│   │   ├── blog/         # Blog-related components
-│   │   └── ui/           # UI components (buttons, inputs, etc.)
-│   ├── lib/              # Utility functions and helpers
-│   ├── types/            # TypeScript type definitions
-│   ├── App.tsx           # Main application component
-│   └── main.tsx          # Application entry point
-├── index.html            # HTML template
-├── package.json          # Project dependencies and scripts
-├── tsconfig.json         # TypeScript configuration
-├── vite.config.ts        # Vite configuration
-└── tailwind.config.js    # Tailwind CSS configuration
+│   ├── components/        # React components
+│   │   ├── blocks/        # Reusable block components
+│   │   ├── blog/          # Blog-related components
+│   │   ├── legal/         # Privacy policy and terms of service
+│   │   ├── ui/            # UI components (buttons, avatars, animations, etc.)
+│   │   └── various page components (Hero.tsx, About.tsx, etc.)
+│   ├── hooks/             # Custom React hooks
+│   ├── lib/               # Utility functions and helpers
+│   ├── types/             # TypeScript type definitions
+│   ├── App.tsx            # Main application component
+│   └── main.tsx           # Application entry point
+├── index.html             # HTML template
+├── package.json           # Project dependencies and scripts
+├── tsconfig.json          # TypeScript configuration
+├── vite.config.ts         # Vite configuration
+├── tailwind.config.js     # Tailwind CSS configuration
+└── postcss.config.js      # PostCSS configuration
 ```
 
 ## Customization Guide
@@ -118,6 +133,13 @@ Edit the Hero component to update your name, title, and introduction:
 ```
 src/components/Hero.tsx
 ```
+
+The Hero component includes:
+- Animated text showcasing your key skills and roles
+- Profile avatar with verification badge
+- Social links
+- Call-to-action buttons
+- Interactive world map background showing global connections
 
 ### Projects
 
@@ -133,6 +155,11 @@ For each project, you'll need:
 - Images (see Image Management section)
 - Links to live demo and source code (if available)
 
+Detailed project pages are handled by the ProjectDetail component:
+```
+src/components/ProjectDetail.tsx
+```
+
 ### Skills
 
 Customize your skills network in the Skills component:
@@ -140,7 +167,7 @@ Customize your skills network in the Skills component:
 src/components/Skills.tsx
 ```
 
-The skills are represented as nodes in a network graph, with related skills connected by links.
+The skills are represented as nodes in a network graph, with related skills connected by links using the react-force-graph-2d library.
 
 ### Experience
 
@@ -149,20 +176,33 @@ Update your work experience in the Experience component:
 src/components/Experience.tsx
 ```
 
+Each experience entry can include:
+- Company name and logo
+- Position title
+- Duration
+- Description
+- Technologies used
+- Image highlighting the experience
+
 ### Blog
 
-Blog posts are written in Markdown and stored in:
+Blog functionality is implemented through several components:
 ```
-src/content/blog/
+src/components/blog/BlogLayout.tsx
+src/components/blog/BlogList.tsx
+src/components/blog/BlogPost.tsx
+src/components/blog/BlogSearch.tsx
+src/components/blog/BlogSidebar.tsx
+src/components/blog/CategoryPage.tsx
+src/components/blog/TagPage.tsx
 ```
 
-Each blog post should include frontmatter with:
-- title
-- date
-- excerpt
-- category
-- tags
-- coverImage
+Blog posts support:
+- Markdown/MDX content with frontmatter
+- Code syntax highlighting
+- Categories and tags
+- Cover images
+- Responsive layouts
 
 ## Image Management
 
@@ -172,54 +212,20 @@ Images are organized in the following structure:
 /public
   /images
     /avatar           # Profile photos
-    /hero             # Hero section images
-    /projects         # Project thumbnails and detail images
-      /3d-printing-calculator
-      /local-ai-inference-server
-      /ai-research-platform
     /blog             # Blog post images
       /covers         # Blog post cover images
       /content        # Images used within blog posts
-    /testimonials     # Testimonial author images
-    /skills           # Skill/technology logos
+    /experience       # Company and work experience images
+    /projects         # Project images organized by project
+      /3d-printing-calculator
+      /100mm-art-foundation
+      /ai-research-platform
+      /art-config
+      /crypto-datacenter-farm
+      /fabrication-labs
+      /playboy-magazine-cover
+      /sustainable-3d-printing-challenge
 ```
-
-### How to Add Images
-
-#### Profile Avatar
-
-1. Add your profile photo to `/public/images/avatar/profile.jpg`
-2. The image will automatically be used in the Hero section
-
-#### Project Images
-
-For each project, add the following:
-
-1. Main cover image: `/public/images/projects/[project-id]/cover.jpg`
-2. Detail images (optional): `/public/images/projects/[project-id]/detail1.jpg`, `detail2.jpg`, etc.
-
-Where `[project-id]` is one of:
-- `3d-printing-calculator`
-- `local-ai-inference-server`
-- `ai-research-platform`
-
-#### Blog Post Images
-
-1. Cover images: `/public/images/blog/covers/[post-slug].jpg`
-2. Content images: `/public/images/blog/content/[post-slug]/[image-name].jpg`
-
-Where `[post-slug]` is the URL slug of your blog post.
-
-### Image Recommendations
-
-- **Profile Photo**: Square aspect ratio, at least 500x500px
-- **Project Covers**: 16:9 aspect ratio, at least 1200x675px
-- **Blog Covers**: 16:9 aspect ratio, at least 1200x675px
-- **Content Images**: Any size, but keep file sizes reasonable (< 500KB)
-
-### Fallback Images
-
-The website includes fallback images in case local images aren't found. This allows you to develop and deploy the site before adding all your images.
 
 ### Image Utility Functions
 
@@ -231,26 +237,23 @@ The `src/lib/imageUtils.ts` file contains helper functions for referencing image
 - `getBlogContentImageUrl(slug, filename)`: Get blog content image URL
 - `getAvatarUrl(filename)`: Get avatar image URL
 
-### Example Usage in Markdown
-
-When writing blog posts, reference images like this:
-
-```markdown
-![Image description](/images/blog/content/my-post-slug/image1.jpg)
-```
-
 ## Technologies Used
 
-- [React](https://reactjs.org/) - UI library
-- [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
-- [Vite](https://vitejs.dev/) - Build tool and development server
-- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
-- [React Router](https://reactrouter.com/) - Routing library
-- [Framer Motion](https://www.framer.com/motion/) - Animation library
-- [D3-Force](https://github.com/d3/d3-force) - Force simulation for the skills network
-- [React Force Graph](https://github.com/vasturiano/react-force-graph) - Graph visualization
-- [React Markdown](https://github.com/remarkjs/react-markdown) - Markdown rendering
-- [Gray Matter](https://github.com/jonschlinkert/gray-matter) - Frontmatter parsing
+- [React 18.3.1](https://reactjs.org/) - UI library
+- [TypeScript 5.5.3](https://www.typescriptlang.org/) - Type-safe JavaScript
+- [Vite 6.2.2](https://vitejs.dev/) - Build tool and development server
+- [Tailwind CSS 3.4.1](https://tailwindcss.com/) - Utility-first CSS framework
+- [React Router 6.22.3](https://reactrouter.com/) - Routing library
+- [Framer Motion 11.0.8](https://www.framer.com/motion/) - Animation library
+- [D3-Force 3.0.0](https://github.com/d3/d3-force) - Force simulation for the skills network
+- [React Force Graph 1.27.0](https://github.com/vasturiano/react-force-graph) - Graph visualization
+- [React Markdown 10.0.0](https://github.com/remarkjs/react-markdown) - Markdown rendering
+- [Next MDX Remote 5.0.0](https://github.com/hashicorp/next-mdx-remote) - MDX support
+- [Dotted Map 2.2.1](https://www.npmjs.com/package/dotted-map) - Interactive world map
+- [Radix UI](https://www.radix-ui.com/) - Headless UI components
+- [Lucide React 0.344.0](https://lucide.dev/) - Icon library
+- [ESLint 9.9.1](https://eslint.org/) - Code linting
+- [PostCSS 8.4.35](https://postcss.org/) - CSS processing
 
 ## Contributing
 

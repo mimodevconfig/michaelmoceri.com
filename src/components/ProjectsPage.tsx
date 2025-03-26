@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import SEO from './SEO';
 import { Search, Tag, TagsIcon, Star, SlidersHorizontal, Blocks } from 'lucide-react';
 import { projects } from './Projects';
 import { getProjectImageUrl } from '../lib/imageUtils';
@@ -28,10 +29,11 @@ export default function ProjectsPage() {
 
   // Categories are main areas or types of projects
   const categories = [
-    { id: 'web', name: 'Web Development' },
+    { id: 'web', name: 'Software Development' },
     { id: 'ai', name: 'AI & Machine Learning' },
     { id: 'hardware', name: 'Hardware & Infrastructure' },
-    { id: 'manufacturing', name: '3D Printing & Manufacturing' }
+    { id: 'manufacturing', name: '3D Printing & Manufacturing' },
+    { id: 'art', name: 'Art & Culture' }
   ];
 
   // Filter projects based on search, category, and tag
@@ -70,6 +72,10 @@ export default function ProjectsPage() {
           return project.tech.some(t => 
             ['3D Printing', 'Laser CNC', 'Custom Materials'].includes(t)
           ) || project.id.includes('3d-printing');
+        } else if (selectedCategory === 'art') {
+          return project.tech.some(t => 
+            ['Art Accelerator', 'New Media Lab', 'Program Development', 'Fundraising'].includes(t)
+          ) || project.id.includes('art') || project.id === '100mm-art-foundation' || project.id === 'playboy-magazine-cover' || project.id === 'art-config';
         }
         return true;
       });
@@ -97,6 +103,7 @@ export default function ProjectsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-24 pb-12">
+      <SEO title="Projects" description="Explore my portfolio of projects spanning AI, manufacturing, software development, and hardware solutions." />
       <div className="container mx-auto max-w-7xl px-4">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">Projects</h1>

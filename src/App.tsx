@@ -1,5 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+import SEO from './components/SEO';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import Projects from './components/Projects';
@@ -43,8 +45,10 @@ const HomePage = () => {
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      <Navigation />
+    <HelmetProvider>
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+        <SEO />
+        <Navigation />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/projects" element={<ProjectsPage />} />
@@ -68,8 +72,9 @@ function App() {
         {/* 404 route - must be last */}
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <AppFooter />
-    </div>
+        <AppFooter />
+      </div>
+    </HelmetProvider>
   );
 }
 

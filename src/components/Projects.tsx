@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calculator, Server, Brain, Home, Satellite, CircleUser, Rabbit, Palette, FlaskConical, Car, Sprout } from 'lucide-react';
+import { Calculator, Server, Brain, Home, Satellite, Rabbit, Palette, FlaskConical, Car, Sprout, Landmark } from 'lucide-react';
 import { getProjectImageUrl } from '../lib/imageUtils';
 
 // Define media types for project detail
@@ -32,6 +32,29 @@ type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    id: '100mm-art-foundation',
+    title: '$100MM Art Foundation',
+    description: 'Strategic development initiative to transform a historic landmark into an innovation center for contemporary multi-media and interactive arts.',
+    impact: 'Engaging city, donor, and development partners on future concepts.',
+    tech: ['Program Development', 'Fundraising', 'New Media Lab', 'Art Accelerator'],
+    icon: Landmark,
+    featured: false,
+    image: getProjectImageUrl('100mm-art-foundation', 'randolph-main.jpg'),
+    // Fallback to Unsplash image if the local image doesn't exist yet
+    imageFallback: 'https://images.unsplash.com/photo-1602934585418-41d770a50ca0',
+    // Detail images specific to this project
+    detailImages: ['the-canvas.jpg', 'status-quo.jpg', 'the-answer.jpg', 'past.jpg', 'present.jpg', 'future.jpg', 'programming-1.jpg', 'media-lab.jpg', 'accelerator.jpg', 'platform-1.jpg', 'platform-2.jpg'],
+    projectBrief: "A strategic design and planning initiative to transform one of Detroit's historic landmarks into an envisioned cultural epicenter, combining contemporary art experiences, innovative technology, and community-oriented programming aimed at artistic development, cultural enrichment, and economic stimulus. Cementing Detroit's purpose as an artistic, cultural, and technological monolith with programming featuring a New Media Lab, Art Accelerator, and more.",
+    challenges: [
+      'One of the most beautiful and historic buildings in Detroit sits unused in the epicenter of the City, where future activity for commercial development and public interest are destined to intersect.',
+      'Working with multiple of the largest stakeholders in the city including municipal, large family foundations, automotive OEMs, real estate developers, and operating partners to pull together a proposal and plan to transform the property to become the first in a series of country-wide launches.',
+      'Answering the critical questions of how to meaningfully activate a historical architectural icon and draw consistent public interest.',
+      'Determining effective ways to foster a vibrant artistic ecosystem capable of attracting and retaining both local and international talent.'
+    ],
+    solution: 'As project lead, I oversaw comprehensive strategic planning, program design, and stakeholder communication. Working collaboratively with a specialized internal team, we developed a detailed concept for activating the building through distinct yet interconnected elements: a cutting-edge New Media Lab, an innovative Art Accelerator, and immersive exhibits designed to captivate and engage diverse audiences. The program also included: \n\n1. Proposed community-centric programming focusing on artists-in-residence and mentorship-driven accelerators to nurture local artistic talent and elevate Detroit\'s position within the global arts community.\n\n2. Planned a forward-looking digital solutions toolkit such as interactive projection mapping, VR painting, and public digital installations designed to provide dynamic and engaging experiences for both physical and virtual visitors.\n\n3. Designed a centralized digital platform seamlessly integrating social networking, artist portfolios, fundraising opportunities, and dynamic space-activation events to connect artists, patrons, donors, and community programming.',
+    futureNotes: 'N/A'
+  },
   {
     id: 'ai-real-estate-development',
     title: 'AI Real Estate Development',
@@ -80,7 +103,7 @@ export const projects: Project[] = [
     title: 'AI OSINT Platform',
     description: 'Experimental AI powered open source intelligence platform to identify, understand, and counter disinformation threats.',
     impact: 'Experimental Prototype',
-    tech: ['AI', 'OSINT', 'Research'],
+    tech: ['AI', 'OSINT', 'Research', 'RAG', 'MCP', "Vector DB"],
     icon: Satellite,
     featured: false,
     image: getProjectImageUrl('ai-osint-platform', 'cover.jpg'),
@@ -147,7 +170,7 @@ export const projects: Project[] = [
   {
     id: '3d-printing-calculator',
     title: '3D Printing Pricing Calculator',
-    description: 'An accurate and intuitive 3D printing pricing tool with hobbyist, small business, and enterprise levels of complexity.',
+    description: 'An intuitive 3D printing pricing tool for revenue generating businesses with varying levels of complexity.',
     impact: 'Thousands of users, and $Millions worth of projects quoted',
     tech: ['Bolt.diy', 'Cline', 'Tailwind', 'React', 'Supabase', 'Netlify', 'Stripe', '3.7 Sonnet', 'HubSpot'],
     icon: Calculator,
@@ -158,14 +181,15 @@ export const projects: Project[] = [
     // For backward compatibility
     detailImages: ['3d-printing-calculator-main.webp', '3d-printing-calculator-cost-breakdown.webp', '3d-printing-calculator-machine-costs.webp', '3d-printing-calculator-post-processing.webp', '3d-printing-calculator-labor-facility.webp', '3d-printing-calculator-margins.webp'],
     liveDemo: 'https://mimo-3dp-calc.netlify.app/',
-    projectBrief: "An intuitive, dynamic, and scalable tool for accurately pricing 3D printing projects across various complexity and technological factors. Serving thousands of users, it has powered accurate estimates on projects collectively worth millions.",
+    projectBrief: "An intuitive, dynamic, and scalable tool for accurately pricing 3D printing projects across various complexities, services, machine and material types, and other factors. The concept originated from the first version of a calculator from MakerOS which served thousands of users and powered accurate estimates on projects collectively worth millions. This version is a rebirth and vast improvement from the original using modern techniques and learnings from my career.",
     challenges: [
-      'First example of a deployable and monetizable web application using AI coding workflows and agents.',
+      'The 3D printing community, regardless of competency, years of experience, or technical know how, usually fall short on understanding the unit economics of the underlying costs to run their business. This tool uncovers the hidden drivers than go into a comprehensive pricing methodology and unlocks value for the business operator.',
+      'An exploratory example of a deployable and monetizable web application using AI coding workflows and agents.',
       'A custom Supabase connection for persistent user data across HubSpot and Stripe.',
-      'Configuring a custom version of Bolt.diy with a larger context window and extended token outputs with Claude 3.7 API.'
+      'Configuring a custom version of Bolt.diy with a larger context window and extended token outputs with Claude 3.7 API. I also had to export the project out of my local Bolt.diy instance and into Cline where I could have more granular control and add MCP servers to further development.'
     ],
-    solution: 'Distilling my years worth of pricing methodologies learned from my career in 3D printing into an accessible and freemium product that enable those who charge for their 3D printing projects a way to demystify and learn a proven framework for commercializing their services. The platform allows a user to choose from multiple technologies and levels of complexity which dynamically adapt the pricing algorithm, save multiple projects, and more.',
-    futureNotes: 'Direct integration with slicer software including Orca Slicer/Bambu post processing scripts. Invoice creation and payment gateways with Stripe, PayPal, and others. Added pricing methods such as project based pricing with multiple parts, per build pricing, and production curve planning.'
+    solution: 'This product distills my many years of of experience building 3D printing production businesses, my time at MakerOS, and building other fabrication labs where I built custom pricing algorithms and methodologies. From those experiences I built this tool as an accessible and freemium product that enable those who charge for their 3D printing projects a way to demystify and learn a proven framework for commercializing their services. The platform allows a user to choose from multiple technologies and levels of complexity which dynamically adapt the pricing algorithm, save multiple projects and more.',
+    futureNotes: '\n\n 1. Direct integration with slicer software including Orca Slicer/Bambu post processing scripts. \n\n 2. Invoice creation and payment gateways with Stripe, PayPal, and others. \n\n 3. Add pricing methods such as project based pricing with multiple parts, per build pricing, and production curve planning.'
   },
   {
     id: 'local-ai-inference-server',
@@ -193,8 +217,8 @@ export const projects: Project[] = [
   {
     id: 'ai-research-platform',
     title: 'AI Research Platform',
-    description: 'Exploring and prototyping agentic human in the loop workflows to define, research, and crowdsource problem solving.',
-    impact: 'Prototype Phase',
+    description: 'Developing and prototyping advanced agent-driven, human-in-the-loop workflows to collaboratively leverage collective intelligence.',
+    impact: 'Stealth Prototype; exploring innovative frameworks for accelerated and enhanced research capabilities.',
     tech: ['MCP', 'RAG', 'Vector DB', 'React', 'Tailwind', 'Ollama', 'VLLM', 'Bolt.diy'],
     icon: Brain,
     featured: true,
@@ -204,14 +228,14 @@ export const projects: Project[] = [
     // Detail images specific to this project
     detailImages: ['ai-research-platform-main.webp', 'ai-research-platform-problem.webp', 'ai-research-platform-settings.webp'],
     liveDemo: 'https://mimo-research.netlify.app/',
-    projectBrief: "A stealth prototype aimed at pioneering human-agent collaborative workflows to deepen and accelerate complex research processes. Currently exploring and integrating emerging AI technologies and UX methodologies.",
+    projectBrief: "A stealth prototype aimed at pioneering networked human-agent collaborative workflows to deepen and accelerate complex research processes. Currently exploring and integrating emerging AI technologies and UX methodologies.",
     challenges: [
-      'Tools like OpenAI "Deep Research", are limited in their scope and practicality when it comes to organizing, connecting, and interacting with research.',
-      'A plethora of libraries and packages that are in their infancy and constantly changing to try to keep up and experiment with. Vetting early tech and ideas to apply their promised potential is a fun puzzle to solve while trying to remain objective and strategic.',
-      'UX research and discovery'
+      'Existing research tools, such as OpenAI\'s "Deep Research," are constrained by limited capabilities in organization, contextual connectivity, and interactive usability within research processes.',
+      'Navigating the rapidly evolving landscape of emerging AI libraries and experimental frameworks, assessing their real-world practicality, and systematically integrating promising technologies while maintaining strategic objectivity.',
+      'Conducting extensive UX research and discovery to ensure intuitive and productive human-agent interactions.'
     ],
-    solution: 'Still in active stealth prototyping mode. Contact for more info...',
-    futureNotes: 'Currently in prototyping phase; future release coming soon...'
+    solution: '1. Knowledge work meets GitHub, Reddit, LinkedIn, Obsidian, N8N, and native AI interactivity.\n\n2. Combining RAG, MCP servers, with multi-component prompting to effectively structure and enhance research processes.\n\n3. Incorporating high-performance vector databases, cloud or locally hosted AI models and data, and options for third party data integrations.\n\n4. Role based permissions and "responsibilities" for autonomous agents.\n\n5. An intuitive and context optimized front-end interface with variable context loading for the multiple AI agents the user will interreact with.',
+    futureNotes: 'Ongoing stealth development—contact for more details, collaboration, and funding details. View the early conceptual frontend build by visiting the demo at the top.'
   },
   {
     id: 'fabrication-labs',

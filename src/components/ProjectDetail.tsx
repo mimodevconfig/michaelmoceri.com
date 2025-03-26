@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, ChevronLeft, ChevronRight, ExternalLink, Tag, TagsIcon, Star, Play, X } from 'lucide-react';
+import SEO from './SEO';
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, ExternalLink, LayoutGrid, Tag, TagsIcon, Star, Play, X } from 'lucide-react';
 import { projects, ProjectMediaItem } from './Projects';
 import { getProjectImageUrl } from '../lib/imageUtils';
 import Lightbox from 'yet-another-react-lightbox';
@@ -81,18 +82,24 @@ export default function ProjectDetail() {
     if (!project) return; // Don't set up keyboard navigation if no project is found
     
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') {
-        navigate(`/project/${prevProject.id}`);
-      } else if (e.key === 'ArrowRight') {
-        navigate(`/project/${nextProject.id}`);
-      } else if (e.key === 'Escape' && isVideoModalOpen) {
+      // Only handle left/right arrow navigation between projects when lightbox is closed
+      if (!lightboxOpen) {
+        if (e.key === 'ArrowLeft') {
+          navigate(`/project/${prevProject.id}`);
+        } else if (e.key === 'ArrowRight') {
+          navigate(`/project/${nextProject.id}`);
+        }
+      }
+      
+      // Always handle escape key for video modal
+      if (e.key === 'Escape' && isVideoModalOpen) {
         setIsVideoModalOpen(false);
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [navigate, prevProject?.id, nextProject?.id, project, isVideoModalOpen]);
+  }, [navigate, prevProject?.id, nextProject?.id, project, isVideoModalOpen, lightboxOpen]);
 
   // Function to handle image errors and use fallback
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>, fallbackSrc: string) => {
@@ -111,10 +118,11 @@ export default function ProjectDetail() {
   // Extract unique categories from project tech
   const getCategories = () => {
     const categories = [
-      { id: 'web', name: 'Web Development', matches: ['React', 'Tailwind', 'Netlify', 'Supabase'] },
+      { id: 'web', name: 'Software Development', matches: ['React', 'Tailwind', 'Netlify', 'Supabase'] },
       { id: 'ai', name: 'AI & Machine Learning', matches: ['Cline', 'RAG', 'Vector DB', 'Ollama', 'VLLM', 'Bolt.diy'] },
       { id: 'hardware', name: 'Hardware', matches: ['Threadripper PRO', 'RTX 3090FE', '10G Networking', 'NAS', 'CUDA'] },
-      { id: 'manufacturing', name: '3D Printing', matches: ['3D Printing'] }
+      { id: 'manufacturing', name: '3D Printing', matches: ['3D Printing'] },
+      { id: 'art', name: 'Art & Culture', matches: ['Art Accelerator', 'New Media Lab', 'Program Development', 'Fundraising'] }
     ];
     
     return categories.filter(category => 
@@ -161,6 +169,11 @@ export default function ProjectDetail() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 pt-24">
+      <SEO 
+        title={project.title}
+        description={project.description}
+        ogImage={project.image.startsWith('http') ? project.image : `/images/projects/${project.id}/${project.image.split('/').pop()}`}
+      />
       <div className="container mx-auto px-4">
         <a 
           href="/projects" 
@@ -409,7 +422,30 @@ export default function ProjectDetail() {
                   {project.futureNotes && project.futureNotes !== "N/A" && (
                     <section>
                       <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Future Development</h2>
-                      <p className="text-gray-600 dark:text-gray-400">{project.futureNotes}</p>
+                      <div className="text-gray-600 dark:text-gray-400">
+                        {/* Split futureNotes by double line breaks to identify paragraphs */}
+                        {project.futureNotes.split('\n\n').map((paragraph, index) => {
+                          // Check if this paragraph has numbered items (lines starting with digits)
+                          if (paragraph.split('\n').some(line => /^\d+\.\s/.test(line))) {
+                            // This is a numbered list - split by newlines and render each item
+                            const items = paragraph.split('\n');
+                            return (
+                              <div key={index} className="mb-4">
+                                {items.map((item, itemIndex) => {
+                                  // If it's a numbered item, render with proper spacing
+                                  if (/^\d+\.\s/.test(item)) {
+                                    return <p key={itemIndex} className="ml-5 mb-2">{item}</p>;
+                                  }
+                                  // Otherwise, it's a regular paragraph
+                                  return <p key={itemIndex} className="mb-2">{item}</p>;
+                                })}
+                              </div>
+                            );
+                          }
+                          // Regular paragraph
+                          return <p key={index} className="mb-4">{paragraph}</p>;
+                        })}
+                      </div>
                     </section>
                   )}
                 </div>
@@ -417,7 +453,7 @@ export default function ProjectDetail() {
             </div>
 
             {/* Project Navigation */}
-            <div className="mt-8 grid grid-cols-2 gap-4">
+            <div className="mt-8 hidden md:grid md:grid-cols-2 md:gap-4">
               <Link 
                 to={`/project/${prevProject.id}`}
                 className="bg-white dark:bg-gray-800 rounded-xl shadow p-4 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
@@ -441,8 +477,8 @@ export default function ProjectDetail() {
               </Link>
             </div>
 
-            {/* Mobile-friendly swipe navigation hint */}
-            <div className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400 md:hidden">
+            {/* Desktop navigation hint */}
+            <div className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400 hidden md:block">
               <p>Use left/right arrow keys to navigate between projects</p>
             </div>
           </div>
@@ -522,6 +558,93 @@ export default function ProjectDetail() {
                 </div>
               </div>
             )}
+
+            {/* Related Projects */}
+            {(() => {
+              // Get relevant projects based on matching tech
+              const getRelevantProjects = () => {
+                // Skip the current project and only get non-featured projects
+                const candidateProjects = projects.filter(p => p.id !== project.id && !p.featured);
+                
+                // Calculate relevance scores based on matching tech
+                const projectsWithScores = candidateProjects.map(p => {
+                  const matchingTech = p.tech.filter(tech => project.tech.includes(tech));
+                  return {
+                    project: p,
+                    relevanceScore: matchingTech.length
+                  };
+                });
+                
+                // Sort by relevance score (highest first)
+                projectsWithScores.sort((a, b) => b.relevanceScore - a.relevanceScore);
+                
+                // Get projects with any matches (score > 0)
+                let relevantProjects = projectsWithScores
+                  .filter(item => item.relevanceScore > 0)
+                  .map(item => item.project);
+                  
+                // If we don't have 3 relevant projects, add random ones to reach 3
+                if (relevantProjects.length < 3) {
+                  const randomProjects = projectsWithScores
+                    .filter(item => item.relevanceScore === 0)
+                    .map(item => item.project)
+                    .sort(() => 0.5 - Math.random()); // Shuffle
+                    
+                  // Fill up to 3 projects
+                  while (relevantProjects.length < 3 && randomProjects.length > 0) {
+                    relevantProjects.push(randomProjects.pop()!);
+                  }
+                }
+                
+                // Return at most 3 projects
+                return relevantProjects.slice(0, 3);
+              };
+
+              const otherProjects = getRelevantProjects();
+              
+              return otherProjects.length > 0 ? (
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+                  <h3 className="font-semibold mb-3 flex items-center">
+                    <LayoutGrid className="w-4 h-4 mr-2 text-purple-500" />
+                    Related Projects
+                  </h3>
+                  <div className="space-y-3">
+                    {otherProjects.map((otherProject) => (
+                      <Link
+                        key={otherProject.id}
+                        to={`/project/${otherProject.id}`}
+                        className="flex gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                      >
+                        <div className="w-14 h-14 rounded overflow-hidden flex-shrink-0">
+                          <img 
+                            src={otherProject.image} 
+                            alt={otherProject.title}
+                            className="w-full h-full object-cover"
+                            onError={(e) => handleImageError(e, otherProject.imageFallback)}
+                          />
+                        </div>
+                        <div>
+                          <h4 className="font-medium text-gray-900 dark:text-white text-sm leading-tight">
+                            {otherProject.title}
+                          </h4>
+                          <p className="text-gray-600 dark:text-gray-400 text-xs mt-1 line-clamp-2">
+                            {otherProject.description}
+                          </p>
+                        </div>
+                      </Link>
+                    ))}
+                    <div className="mt-3 text-center">
+                      <Link 
+                        to="/projects"
+                        className="inline-flex items-center justify-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm"
+                      >
+                        View All Projects <ArrowRight className="w-4 h-4 ml-1" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ) : null;
+            })()}
           </div>
         </div>
       </div>
