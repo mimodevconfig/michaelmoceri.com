@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calculator, Server, Brain, Home, Satellite, CircleUser, Rabbit, Palette, FlaskConical, Car, Sprout } from 'lucide-react';
+import { Calculator, Server, Brain, Home, Satellite, Rabbit, Palette, FlaskConical, Car, Sprout } from 'lucide-react';
 import { getProjectImageUrl } from '../lib/imageUtils';
 
 // Define media types for project detail
@@ -147,7 +147,7 @@ export const projects: Project[] = [
   {
     id: '3d-printing-calculator',
     title: '3D Printing Pricing Calculator',
-    description: 'An accurate and intuitive 3D printing pricing tool with hobbyist, small business, and enterprise levels of complexity.',
+    description: 'An intuitive 3D printing pricing tool for revenue generating businesses with varying levels of complexity.',
     impact: 'Thousands of users, and $Millions worth of projects quoted',
     tech: ['Bolt.diy', 'Cline', 'Tailwind', 'React', 'Supabase', 'Netlify', 'Stripe', '3.7 Sonnet', 'HubSpot'],
     icon: Calculator,
@@ -158,14 +158,15 @@ export const projects: Project[] = [
     // For backward compatibility
     detailImages: ['3d-printing-calculator-main.webp', '3d-printing-calculator-cost-breakdown.webp', '3d-printing-calculator-machine-costs.webp', '3d-printing-calculator-post-processing.webp', '3d-printing-calculator-labor-facility.webp', '3d-printing-calculator-margins.webp'],
     liveDemo: 'https://mimo-3dp-calc.netlify.app/',
-    projectBrief: "An intuitive, dynamic, and scalable tool for accurately pricing 3D printing projects across various complexity and technological factors. Serving thousands of users, it has powered accurate estimates on projects collectively worth millions.",
+    projectBrief: "An intuitive, dynamic, and scalable tool for accurately pricing 3D printing projects across various complexities, services, machine and material types, and other factors. The concept originated from the first version of a calculator from MakerOS which served thousands of users and powered accurate estimates on projects collectively worth millions. This version is a rebirth and vast improvement from the original using modern techniques and learnings from my career.",
     challenges: [
-      'First example of a deployable and monetizable web application using AI coding workflows and agents.',
+      'The 3D printing community, regardless of competency, years of experience, or technical know how, usually fall short on understanding the unit economics of the underlying costs to run their business. This tool uncovers the hidden drivers than go into a comprehensive pricing methodology and unlocks value for the business operator.',
+      'An exploratory example of a deployable and monetizable web application using AI coding workflows and agents.',
       'A custom Supabase connection for persistent user data across HubSpot and Stripe.',
-      'Configuring a custom version of Bolt.diy with a larger context window and extended token outputs with Claude 3.7 API.'
+      'Configuring a custom version of Bolt.diy with a larger context window and extended token outputs with Claude 3.7 API. I also had to export the project out of my local Bolt.diy instance and into Cline where I could have more granular control and add MCP servers to further development.'
     ],
-    solution: 'Distilling my years worth of pricing methodologies learned from my career in 3D printing into an accessible and freemium product that enable those who charge for their 3D printing projects a way to demystify and learn a proven framework for commercializing their services. The platform allows a user to choose from multiple technologies and levels of complexity which dynamically adapt the pricing algorithm, save multiple projects, and more.',
-    futureNotes: 'Direct integration with slicer software including Orca Slicer/Bambu post processing scripts. Invoice creation and payment gateways with Stripe, PayPal, and others. Added pricing methods such as project based pricing with multiple parts, per build pricing, and production curve planning.'
+    solution: 'This product distills my many years of of experience building 3D printing production businesses, my time at MakerOS, and building other fabrication labs where I built custom pricing algorithms and methodologies. From those experiences I built this tool as an accessible and freemium product that enable those who charge for their 3D printing projects a way to demystify and learn a proven framework for commercializing their services. The platform allows a user to choose from multiple technologies and levels of complexity which dynamically adapt the pricing algorithm, save multiple projects and more.',
+    futureNotes: '\n\n 1. Direct integration with slicer software including Orca Slicer/Bambu post processing scripts. \n\n 2. Invoice creation and payment gateways with Stripe, PayPal, and others. \n\n 3. Add pricing methods such as project based pricing with multiple parts, per build pricing, and production curve planning.'
   },
   {
     id: 'local-ai-inference-server',

@@ -409,7 +409,30 @@ export default function ProjectDetail() {
                   {project.futureNotes && project.futureNotes !== "N/A" && (
                     <section>
                       <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Future Development</h2>
-                      <p className="text-gray-600 dark:text-gray-400">{project.futureNotes}</p>
+                      <div className="text-gray-600 dark:text-gray-400">
+                        {/* Split futureNotes by double line breaks to identify paragraphs */}
+                        {project.futureNotes.split('\n\n').map((paragraph, index) => {
+                          // Check if this paragraph has numbered items (lines starting with digits)
+                          if (paragraph.split('\n').some(line => /^\d+\.\s/.test(line))) {
+                            // This is a numbered list - split by newlines and render each item
+                            const items = paragraph.split('\n');
+                            return (
+                              <div key={index} className="mb-4">
+                                {items.map((item, itemIndex) => {
+                                  // If it's a numbered item, render with proper spacing
+                                  if (/^\d+\.\s/.test(item)) {
+                                    return <p key={itemIndex} className="ml-5 mb-2">{item}</p>;
+                                  }
+                                  // Otherwise, it's a regular paragraph
+                                  return <p key={itemIndex} className="mb-2">{item}</p>;
+                                })}
+                              </div>
+                            );
+                          }
+                          // Regular paragraph
+                          return <p key={index} className="mb-4">{paragraph}</p>;
+                        })}
+                      </div>
                     </section>
                   )}
                 </div>
