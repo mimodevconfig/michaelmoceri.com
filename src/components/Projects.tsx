@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calculator, Server, Brain, Home, Satellite, Rabbit, Palette, FlaskConical, Car, Sprout } from 'lucide-react';
+import { Calculator, Server, Brain, Home, Satellite, Rabbit, Palette, FlaskConical, Car, Sprout, Landmark } from 'lucide-react';
 import { getProjectImageUrl } from '../lib/imageUtils';
 
 // Define media types for project detail
@@ -32,6 +32,29 @@ type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    id: '100mm-art-foundation',
+    title: '$100MM Art Foundation',
+    description: 'Strategic development initiative to transform a historic landmark into an innovation center for contemporary multi-media and interactive arts.',
+    impact: 'Engaging city, donor, and development partners on future concepts.',
+    tech: ['Program Development', 'Fundraising', 'New Media Lab', 'Art Accelerator'],
+    icon: Landmark,
+    featured: false,
+    image: getProjectImageUrl('100mm-art-foundation', 'randolph-main.jpg'),
+    // Fallback to Unsplash image if the local image doesn't exist yet
+    imageFallback: 'https://images.unsplash.com/photo-1602934585418-41d770a50ca0',
+    // Detail images specific to this project
+    detailImages: ['the-canvas.jpg', 'status-quo.jpg', 'the-answer.jpg', 'past.jpg', 'present.jpg', 'future.jpg', 'programming-1.jpg', 'media-lab.jpg', 'accelerator.jpg', 'platform-1.jpg', 'platform-2.jpg'],
+    projectBrief: "A strategic design and planning initiative to transform one of Detroit's historic landmarks into an envisioned cultural epicenter, combining contemporary art experiences, innovative technology, and community-oriented programming aimed at artistic development, cultural enrichment, and economic stimulus. Cementing Detroit's purpose as an artistic, cultural, and technological monolith with programming featuring a New Media Lab, Art Accelerator, and more.",
+    challenges: [
+      'One of the most beautiful and historic buildings in Detroit sits unused in the epicenter of the City, where future activity for commercial development and public interest are destined to intersect.',
+      'Working with multiple of the largest stakeholders in the city including municipal, large family foundations, automotive OEMs, real estate developers, and operating partners to pull together a proposal and plan to transform the property to become the first in a series of country-wide launches.',
+      'Answering the critical questions of how to meaningfully activate a historical architectural icon and draw consistent public interest.',
+      'Determining effective ways to foster a vibrant artistic ecosystem capable of attracting and retaining both local and international talent.'
+    ],
+    solution: 'As project lead, I oversaw comprehensive strategic planning, program design, and stakeholder communication. Working collaboratively with a specialized internal team, we developed a detailed concept for activating the building through distinct yet interconnected elements: a cutting-edge New Media Lab, an innovative Art Accelerator, and immersive exhibits designed to captivate and engage diverse audiences. The program also included: \n\n1. Proposed community-centric programming focusing on artists-in-residence and mentorship-driven accelerators to nurture local artistic talent and elevate Detroit\'s position within the global arts community.\n\n2. Planned a forward-looking digital solutions toolkit such as interactive projection mapping, VR painting, and public digital installations designed to provide dynamic and engaging experiences for both physical and virtual visitors.\n\n3. Designed a centralized digital platform seamlessly integrating social networking, artist portfolios, fundraising opportunities, and dynamic space-activation events to connect artists, patrons, donors, and community programming.',
+    futureNotes: 'N/A'
+  },
   {
     id: 'ai-real-estate-development',
     title: 'AI Real Estate Development',
