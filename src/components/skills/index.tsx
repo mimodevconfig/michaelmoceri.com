@@ -368,33 +368,172 @@ const Skills: React.FC = () => {
     }
   }, []);
 
-  // Handle fullscreen toggle
+  // Handle fullscreen toggle with improved mobile support
   const handleFullscreenToggle = useCallback(() => {
-    if (!document.fullscreenElement) {
-      // Enter fullscreen
-      if (containerRef.current?.requestFullscreen) {
-        containerRef.current.requestFullscreen()
-          .then(() => {
-            setIsFullscreen(true);
-            // Adjust dimensions for fullscreen
-            setTimeout(() => {
+    // Check if fullscreen is currently active
+    const isCurrentlyFullscreen = Boolean(
+      document.fullscreenElement || 
+      (document as any).webkitFullscreenElement || 
+      (document as any).mozFullScreenElement || 
+      (document as any).msFullscreenElement
+    );
+
+    // Check if the browser supports fullscreen API
+    const isFullscreenSupported = Boolean(
+      document.documentElement.requestFullscreen || 
+      (document.documentElement as any).webkitRequestFullscreen || 
+      (document.documentElement as any).mozRequestFullScreen || 
+      (document.documentElement as any).msRequestFullscreen
+    );
+
+    // Function to detect iOS
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+
+  // Enhanced mobile handling for all mobile devices, not just iOS
+    const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile || isIOS) {
+      // Use a mobile-friendly approach for all mobile devices
+      if (!isFullscreen) {
+        // Toggle state
+        setIsFullscreen(true);
+        
+        // Apply mobile fullscreen simulation
+        if (containerRef.current) {
+          // Force container to expand to viewport dimensions
+          containerRef.current.style.position = 'fixed';
+          containerRef.current.style.top = '0';
+          containerRef.current.style.left = '0';
+          containerRef.current.style.width = '100vw';
+          containerRef.current.style.height = '100vh';
+          containerRef.current.style.zIndex = '9999';
+          containerRef.current.style.margin = '0';
+          containerRef.current.style.padding = '0';
+          containerRef.current.style.borderRadius = '0';
+          containerRef.current.style.border = 'none';
+          
+          // Set dimensions to match viewport
+          const viewportWidth = window.innerWidth;
+          const viewportHeight = window.innerHeight;
+          
+          setDimensions({
+            width: viewportWidth,
+            height: viewportHeight
+          });
+          
+          // Reheat simulation with a slight delay
+          setTimeout(() => {
+            if (graphRef.current) {
+              graphRef.current.d3ReheatSimulation();
+              graphRef.current.zoomToFit(400);
+            }
+          }, 200);
+          
+          // Prevent scrolling of the background
+          document.body.style.overflow = 'hidden';
+        }
+      } else {
+        // Exit simulated fullscreen
+        setIsFullscreen(false);
+        
+        // Reset styles
+        if (containerRef.current) {
+          containerRef.current.style.position = '';
+          containerRef.current.style.top = '';
+          containerRef.current.style.left = '';
+          containerRef.current.style.width = '';
+          containerRef.current.style.height = '';
+          containerRef.current.style.zIndex = '';
+          containerRef.current.style.margin = '';
+          containerRef.current.style.padding = '';
+          containerRef.current.style.borderRadius = '';
+          containerRef.current.style.border = '';
+          
+          // Reset dimensions to original
+          const { width } = containerRef.current.getBoundingClientRect();
+          setDimensions({
+            width,
+            height: Math.max(600, width * 0.6)
+          });
+          
+          // Reheat simulation
+          setTimeout(() => {
+            if (graphRef.current) {
+              graphRef.current.d3ReheatSimulation();
+            }
+          }, 200);
+          
+          // Re-enable scrolling
+          document.body.style.overflow = '';
+        }
+      }
+      return;
+    }
+    
+    // For browsers that support the Fullscreen API
+    if (isFullscreenSupported) {
+      if (!isCurrentlyFullscreen) {
+        // Enter fullscreen using the appropriate method
+        const requestFullscreen = (element: HTMLElement) => {
+          if (element.requestFullscreen) {
+            return element.requestFullscreen();
+          } else if ((element as any).webkitRequestFullscreen) {
+            return (element as any).webkitRequestFullscreen();
+          } else if ((element as any).mozRequestFullScreen) {
+            return (element as any).mozRequestFullScreen();
+          } else if ((element as any).msRequestFullscreen) {
+            return (element as any).msRequestFullscreen();
+          }
+          return Promise.reject("Fullscreen API not supported");
+        };
+        
+        if (containerRef.current) {
+          requestFullscreen(containerRef.current)
+            .then(() => {
+              setIsFullscreen(true);
+              // Adjust dimensions for fullscreen
+              setTimeout(() => {
+                if (containerRef.current) {
+                  const { width, height } = containerRef.current.getBoundingClientRect();
+                  setDimensions({ width, height });
+                  if (graphRef.current) {
+                    graphRef.current.d3ReheatSimulation();
+                  }
+                }
+              }, 100);
+            })
+            .catch((err: Error) => {
+              console.error(`Error attempting to enable fullscreen: ${err.message}`);
+              // Fallback for devices where the promise is rejected
+              setIsFullscreen(true);
               if (containerRef.current) {
-                const { width, height } = containerRef.current.getBoundingClientRect();
-                setDimensions({ width, height });
+                const viewportHeight = window.innerHeight;
+                setDimensions({
+                  width: containerRef.current.getBoundingClientRect().width,
+                  height: viewportHeight * 0.9
+                });
                 if (graphRef.current) {
                   graphRef.current.d3ReheatSimulation();
                 }
               }
-            }, 100);
-          })
-          .catch(err => {
-            console.error(`Error attempting to enable fullscreen: ${err.message}`);
-          });
-      }
-    } else {
-      // Exit fullscreen
-      if (document.exitFullscreen) {
-        document.exitFullscreen()
+            });
+        }
+      } else {
+        // Exit fullscreen using the appropriate method
+        const exitFullscreen = () => {
+          if (document.exitFullscreen) {
+            return document.exitFullscreen();
+          } else if ((document as any).webkitExitFullscreen) {
+            return (document as any).webkitExitFullscreen();
+          } else if ((document as any).mozCancelFullScreen) {
+            return (document as any).mozCancelFullScreen();
+          } else if ((document as any).msExitFullscreen) {
+            return (document as any).msExitFullscreen();
+          }
+          return Promise.reject("Fullscreen API not supported");
+        };
+        
+        exitFullscreen()
           .then(() => {
             setIsFullscreen(false);
             // Reset dimensions after exiting fullscreen
@@ -411,12 +550,55 @@ const Skills: React.FC = () => {
               }
             }, 100);
           })
-          .catch(err => {
+          .catch((err: Error) => {
             console.error(`Error attempting to exit fullscreen: ${err.message}`);
+            // Fallback in case the promise is rejected
+            setIsFullscreen(false);
+            setTimeout(() => {
+              if (containerRef.current) {
+                const { width } = containerRef.current.getBoundingClientRect();
+                setDimensions({
+                  width,
+                  height: Math.max(600, width * 0.6)
+                });
+                if (graphRef.current) {
+                  graphRef.current.d3ReheatSimulation();
+                }
+              }
+            }, 100);
           });
       }
+    } else {
+      // Fallback for browsers that don't support fullscreen
+      if (!isFullscreen) {
+        setIsFullscreen(true);
+        // Use viewport dimensions as a fallback
+        if (containerRef.current) {
+          const viewportHeight = window.innerHeight;
+          setDimensions({
+            width: containerRef.current.getBoundingClientRect().width,
+            height: viewportHeight * 0.9
+          });
+          if (graphRef.current) {
+            graphRef.current.d3ReheatSimulation();
+          }
+        }
+      } else {
+        setIsFullscreen(false);
+        // Reset to normal size
+        if (containerRef.current) {
+          const { width } = containerRef.current.getBoundingClientRect();
+          setDimensions({
+            width,
+            height: Math.max(600, width * 0.6)
+          });
+          if (graphRef.current) {
+            graphRef.current.d3ReheatSimulation();
+          }
+        }
+      }
     }
-  }, []);
+  }, [isFullscreen]);
 
   return (
     <section id="skills" className="py-20 bg-gray-900">
@@ -447,6 +629,7 @@ const Skills: React.FC = () => {
           onResetView={handleResetView}
           onFullscreenToggle={handleFullscreenToggle}
           isInsideGraph={true}
+          isFullscreen={isFullscreen}
         />
           {/* Graph Component */}
           <SkillGraph 
