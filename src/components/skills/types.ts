@@ -12,7 +12,9 @@ export type NodeType =
   | 'aiTech'
   | 'fabrication'
   | 'project'
-  | 'experience';
+  | 'experience'
+  | 'categoryProject'
+  | 'categoryExperience';
 
 // Main node structure for the graph
 export interface GraphNode {

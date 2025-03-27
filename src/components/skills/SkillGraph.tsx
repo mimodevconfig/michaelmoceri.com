@@ -1,5 +1,4 @@
 import React, { useRef, useCallback, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
-// Fixed import syntax
 import ForceGraph2D from 'react-force-graph-2d';
 import { GraphNode, GraphData, ForceGraphInstance } from './types';
 
@@ -28,6 +27,17 @@ const SkillGraph = forwardRef<ForceGraphInstance, SkillGraphProps>((props, ref) 
   
   const internalGraphRef = useRef<any>(null);
   const [zoomLevel, setZoomLevel] = useState(1);
+  
+  // Track zoom level changes
+  const handleZoomUpdate = useCallback(() => {
+    if (internalGraphRef.current) {
+      // Get the transform from the d3 zoom
+      const currentTransform = internalGraphRef.current.zoom().transform();
+      if (currentTransform && typeof currentTransform.k === 'number') {
+        setZoomLevel(currentTransform.k);
+      }
+    }
+  }, []);
 
   // Forward the ref to the parent component
   useImperativeHandle(ref, () => ({
@@ -165,18 +175,19 @@ const SkillGraph = forwardRef<ForceGraphInstance, SkillGraphProps>((props, ref) 
     ctx.stroke();
   }, [selectedNode, hoveredNode]);
 
+  // Empty function to disable the default tooltip
+  const emptyLabelAccessor = useCallback(() => '', []);
+
   return (
     <>
       {graphData.nodes.length > 0 && (
         <ForceGraph2D
-          // @ts-ignore - handling ref conversion from any to ForceGraphInstance
           ref={internalGraphRef}
-          // @ts-ignore - we're handling the graph data type with our custom GraphData
           graphData={graphData}
-          nodeLabel="name"
+          nodeLabel={emptyLabelAccessor}
           width={dimensions.width}
           height={dimensions.height}
-          backgroundColor="#111827" // Dark blue navy color matching projects section
+          backgroundColor="#111827"
           linkDirectionalParticles={2}
           linkDirectionalParticleWidth={(link) => {
             const linkSource = typeof link.source === 'object' ? link.source : null;
@@ -193,22 +204,18 @@ const SkillGraph = forwardRef<ForceGraphInstance, SkillGraphProps>((props, ref) 
           d3VelocityDecay={0.3}
           nodeRelSize={6}
           linkWidth={1}
-          enableZoomInteraction={false} // Disable default zoom interaction
-          enablePanInteraction={true} // Keep pan interaction
+          enableZoomInteraction={true} // Enable zoom interaction for scroll wheel and pinch to zoom
+          enablePanInteraction={true}
           cooldownTicks={100}
           // @ts-ignore - the d3Force prop is supported but not in the type definitions
           d3Force={(d3Force: any) => {
-            // Stronger repulsion between nodes
             d3Force('charge').strength(-nodeSpacing);
-            // Longer links for better spacing
             d3Force('link').distance((link: any) => {
               const linkSource = typeof link.source === 'object' ? link.source : { type: '' };
               const linkTarget = typeof link.target === 'object' ? link.target : { type: '' };
               return linkSource.type === 'category' || linkTarget.type === 'category' ? 120 : 80;
             });
-            // Add collision detection to prevent overlap
             d3Force('collision', d3Force.forceCollide((node: any) => node.val * 2 + 30));
-            // Center force to keep graph centered
             d3Force('center').strength(0.05);
           }}
         />

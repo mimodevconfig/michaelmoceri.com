@@ -10,10 +10,12 @@ export const nodeColors: Record<NodeType, string> = {
   categoryProficiency: '#10b981', // green (same as proficiency)
   categoryOpsDesign: '#f59e0b', // amber (same as opsDesign)
   categoryDevTech: '#8b5cf6', // purple (same as devTech)
+  categoryProject: '#ef4444', // red (same as project)
+  categoryExperience: '#d946ef', // fuchsia (same as experience)
   category: '#6b7280', // gray - fallback
   aiTech: '#ec4899', // pink
   fabrication: '#f97316', // orange
-  project: '#06b6d4', // cyan
+  project: '#ef4444', // red
   experience: '#d946ef', // fuchsia
 };
 
@@ -144,6 +146,17 @@ export const nodeDescriptions: Record<string, string> = {
 
 // Project relationships
 export const nodeToProjects: Record<string, string[]> = {
+  // Management Skills
+  'Strategic planning': ['ai-research-platform', 'crypto-datacenter-farm', 'fabrication-labs'],
+  'Business model development': ['3d-printing-calculator', 'crypto-datacenter-farm', 'fabrication-labs'],
+  'Fundraising': ['crypto-datacenter-farm', '100mm-art-foundation'],
+  'Team development and recruiting': ['ai-research-platform', 'fabrication-labs'],
+  'Vision and purpose development': ['ai-research-platform', '100mm-art-foundation'],
+  'Product road mapping': ['3d-printing-calculator', 'ai-research-platform'],
+  'Product management': ['3d-printing-calculator', 'ai-research-platform'],
+  'IT management': ['crypto-datacenter-farm', 'local-ai-inference-server'],
+  
+  // Dev & Tech Tools
   'Docker': ['ai-research-platform', 'local-ai-inference-server'],
   'RAG pipelines': ['ai-research-platform', 'ai-osint-platform'],
   'Vector DB': ['ai-research-platform', 'ai-osint-platform'],
@@ -151,32 +164,78 @@ export const nodeToProjects: Record<string, string[]> = {
   'React': ['3d-printing-calculator', 'ai-research-platform'],
   'Tailwind': ['3d-printing-calculator', 'ai-research-platform'],
   'Supabase': ['3d-printing-calculator'],
-  'OpenAI API': ['ai-research-platform', '3d-printing-calculator'],
-  'Anthropic API': ['ai-research-platform'],
+  'OpenAI API': ['ai-research-platform', '3d-printing-calculator', 'ai-osint-platform'],
+  'Anthropic API': ['ai-research-platform', 'ai-osint-platform'],
   'Gemini API': ['ai-research-platform'],
   'Ollama': ['local-ai-inference-server', 'ai-research-platform'],
+  'VS Code': ['3d-printing-calculator', 'ai-research-platform', 'ai-osint-platform'],
+  'Git': ['ai-research-platform', '3d-printing-calculator'],
+  'Node.js': ['3d-printing-calculator', 'ai-research-platform'],
+  
+  // Proficiencies
+  'Software and hardware development': ['ai-research-platform', 'local-ai-inference-server', 'crypto-datacenter-farm'],
   '3D printing': ['art-config', 'playboy-magazine-cover', 'fabrication-labs', 'sustainable-3d-printing-challenge'],
   'Network engineering and management': ['crypto-datacenter-farm', 'local-ai-inference-server'],
   'High-end server building': ['crypto-datacenter-farm', 'local-ai-inference-server'],
   'Machine design': ['fabrication-labs', 'sustainable-3d-printing-challenge'],
-  'Midjourney': ['ai-real-estate-development', 'art-config'],
   'UI/UX design': ['3d-printing-calculator', 'ai-research-platform'],
-  'Multi-agent AI powered workflows': ['ai-research-platform', 'ai-osint-platform']
+  'Multi-agent AI powered workflows': ['ai-research-platform', 'ai-osint-platform'],
+  'Automation development': ['ai-research-platform', 'local-ai-inference-server'],
+  
+  // Ops & Design Tools
+  'Midjourney': ['ai-real-estate-development', 'art-config'],
+  'Figma': ['3d-printing-calculator', 'ai-research-platform'],
+  'ChatGPT': ['ai-research-platform', 'ai-osint-platform'],
+  'Photoshop': ['playboy-magazine-cover', 'art-config'],
+  'Illustrator': ['playboy-magazine-cover', 'art-config']
 };
 
 // Experience relationships
 export const nodeToExperience: Record<string, string[]> = {
-  'Strategic planning': ['Config Holdings: Founder (2022-Present)', 'MakerOS: Founder & CEO (2018-2022)'],
-  'Business model development': ['Config Holdings: Founder (2022-Present)', 'MakerOS: Founder & CEO (2018-2022)'],
-  'Fundraising': ['MakerOS: Founder & CEO (2018-2022)', 'Config Holdings: Founder (2022-Present)'],
-  'Revenue Operations': ['Moceri Companies: VP of Real Estate Development, IT, & Marketing (2023-2024)', 'Shapeways: Head of Software GTM (2022-2023)'],
-  'GTM strategy development': ['Shapeways: Head of Software GTM (2022-2023)', 'MakerOS: Founder & CEO (2018-2022)'],
-  'HubSpot Enterprise': ['Moceri Companies: VP of Real Estate Development, IT, & Marketing (2023-2024)'],
+  // Management Skills
+  'Strategic planning': ['Config Holdings: Founder (2022-Present)', 'MakerOS: Founder & CEO (2018-2022)', 'Moceri Companies: VP of Real Estate Development, IT, & Marketing (2023-2024)'],
+  'Business model development': ['Config Holdings: Founder (2022-Present)', 'MakerOS: Founder & CEO (2018-2022)', 'Manulith: Founder & CEO (2014-2018)'],
+  'Fundraising': ['MakerOS: Founder & CEO (2018-2022)', 'Config Holdings: Founder (2022-Present)', 'Manulith: Founder & CEO (2014-2018)'],
+  'Revenue Operations': ['Moceri Companies: VP of Real Estate Development, IT, & Marketing (2023-2024)', 'Shapeways: Head of Software GTM (2022-2023)', 'MakerOS: Founder & CEO (2018-2022)'],
+  'GTM strategy development': ['Shapeways: Head of Software GTM (2022-2023)', 'MakerOS: Founder & CEO (2018-2022)', 'Moceri Companies: VP of Real Estate Development, IT, & Marketing (2023-2024)'],
+  'Team development and recruiting': ['Config Holdings: Founder (2022-Present)', 'MakerOS: Founder & CEO (2018-2022)', 'Moceri Companies: VP of Real Estate Development, IT, & Marketing (2023-2024)', 'Manulith: Founder & CEO (2014-2018)', 'Shapeways: Director of Product, Strategy, and Co-Innovation (2022-2023)'],
+  'Vision and purpose development': ['Config Holdings: Founder (2022-Present)', 'MakerOS: Founder & CEO (2018-2022)', 'Manulith: Founder & CEO (2014-2018)'],
+  'Product road mapping': ['MakerOS: Founder & CEO (2018-2022)', 'Shapeways: Director of Product, Strategy, and Co-Innovation (2022-2023)'],
+  'Product management': ['Shapeways: Director of Product, Strategy, and Co-Innovation (2022-2023)', 'MakerOS: Founder & CEO (2018-2022)'],
+  'IT management': ['Moceri Companies: VP of Real Estate Development, IT, & Marketing (2023-2024)', 'Config Holdings: Founder (2022-Present)'],
+  
+  // Proficiencies
+  'Software and hardware development': ['Config Holdings: Founder (2022-Present)', 'MakerOS: Founder & CEO (2018-2022)', 'Manulith: Founder & CEO (2014-2018)'],
+  'UI/UX design': ['MakerOS: Founder & CEO (2018-2022)', 'Config Holdings: Founder (2022-Present)'],
   '3D printing': ['3DPX: Co-Founder (2012-2014)', 'Manulith: Founder & CEO (2014-2018)', 'Config Holdings: Founder (2022-Present)'],
   'Machine design': ['Manulith: Founder & CEO (2014-2018)', 'Config Holdings: Founder (2022-Present)'],
+  'Multi-agent AI powered workflows': ['Config Holdings: Founder (2022-Present)'],
+  'Automation development': ['Config Holdings: Founder (2022-Present)', 'MakerOS: Founder & CEO (2018-2022)'],
   'Network engineering and management': ['Moceri Companies: VP of Real Estate Development, IT, & Marketing (2023-2024)', 'Config Holdings: Founder (2022-Present)'],
+  'Sales and marketing automation': ['MakerOS: Founder & CEO (2018-2022)', 'Shapeways: Head of Software GTM (2022-2023)', 'Moceri Companies: VP of Real Estate Development, IT, & Marketing (2023-2024)'],
+  'Photo & video editing': ['Config Holdings: Founder (2022-Present)'],
+  'Local AI hosting': ['Config Holdings: Founder (2022-Present)'],
   'High-end server building': ['Config Holdings: Founder (2022-Present)'],
-  'Product management': ['Shapeways: Director of Product, Strategy, and Co-Innovation (2022-2023)', 'MakerOS: Founder & CEO (2018-2022)']
+  
+  // Ops & Design Tools
+  'HubSpot Enterprise': ['Moceri Companies: VP of Real Estate Development, IT, & Marketing (2023-2024)'],
+  'Google Ads': ['Moceri Companies: VP of Real Estate Development, IT, & Marketing (2023-2024)', 'Shapeways: Head of Software GTM (2022-2023)'],
+  'Meta Ads': ['Moceri Companies: VP of Real Estate Development, IT, & Marketing (2023-2024)', 'Shapeways: Head of Software GTM (2022-2023)'],
+  'Figma': ['Config Holdings: Founder (2022-Present)', 'MakerOS: Founder & CEO (2018-2022)'],
+  'Adobe XD': ['MakerOS: Founder & CEO (2018-2022)'],
+  'Photoshop': ['Config Holdings: Founder (2022-Present)'],
+  'ChatGPT': ['Config Holdings: Founder (2022-Present)'],
+  'Midjourney': ['Config Holdings: Founder (2022-Present)'],
+  
+  // Dev & Tech Tools
+  'Docker': ['Config Holdings: Founder (2022-Present)'],
+  'VS Code': ['Config Holdings: Founder (2022-Present)', 'MakerOS: Founder & CEO (2018-2022)'],
+  'React': ['Config Holdings: Founder (2022-Present)', 'MakerOS: Founder & CEO (2018-2022)'],
+  'Node.js': ['Config Holdings: Founder (2022-Present)', 'MakerOS: Founder & CEO (2018-2022)'],
+  'Git': ['Config Holdings: Founder (2022-Present)', 'MakerOS: Founder & CEO (2018-2022)'],
+  'OpenAI API': ['Config Holdings: Founder (2022-Present)'],
+  'Anthropic API': ['Config Holdings: Founder (2022-Present)'],
+  'Gemini API': ['Config Holdings: Founder (2022-Present)']
 };
 
 // Skills data

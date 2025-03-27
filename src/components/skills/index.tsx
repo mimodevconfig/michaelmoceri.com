@@ -19,6 +19,7 @@ const Skills: React.FC = () => {
   const [showProjectsExperiences, setShowProjectsExperiences] = useState(false);
   const [nodeSpacing, setNodeSpacing] = useState(125);
   const [zoomLevel, setZoomLevel] = useState(1);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   
   // Context menu state
   const [contextMenu, setContextMenu] = useState<ContextMenuState>({
@@ -125,28 +126,103 @@ const Skills: React.FC = () => {
     const { nodes, links } = createBaseGraphData();
     
     try {
-      // Add project nodes
+      // Add project and experience category nodes
+      nodes.push(
+        { 
+          id: 'cat-projects', 
+          name: 'Projects', 
+          type: 'categoryProject', 
+          val: 15, 
+          color: nodeColors.categoryProject, 
+          description: 'Portfolio of projects spanning AI, web development, 3D printing, and more.' 
+        },
+        { 
+          id: 'cat-experiences', 
+          name: 'Experience', 
+          type: 'categoryExperience', 
+          val: 15, 
+          color: nodeColors.categoryExperience, 
+          description: 'Professional roles and responsibilities across various organizations.' 
+        }
+      );
+      
+      // Calculate connection counts for node sizing
+      const connectionCounts: Record<string, number> = {};
+      
+      // Initialize counts with 1 to have a minimum size
+      [...skills.management, ...skills.proficiencies, ...skills.opsDesignTools, ...skills.devTechTools, 
+        ...projects, ...experiences].forEach(id => {
+        connectionCounts[id] = 1;
+      });
+      
+      // Count connections from relationships
+      relationships.forEach(rel => {
+        connectionCounts[rel.source] = (connectionCounts[rel.source] || 1) + 1;
+        connectionCounts[rel.target] = (connectionCounts[rel.target] || 1) + 1;
+      });
+      
+      // Count connections from projects
+      Object.entries(nodeToProjects).forEach(([skill, skillProjects]) => {
+        if (skillProjects.length > 0) {
+          connectionCounts[skill] = (connectionCounts[skill] || 1) + skillProjects.length;
+          skillProjects.forEach(project => {
+            connectionCounts[project] = (connectionCounts[project] || 1) + 1;
+          });
+        }
+      });
+      
+      // Count connections from experiences
+      Object.entries(nodeToExperience).forEach(([skill, skillExperiences]) => {
+        if (skillExperiences.length > 0) {
+          connectionCounts[skill] = (connectionCounts[skill] || 1) + skillExperiences.length;
+          skillExperiences.forEach(exp => {
+            connectionCounts[exp] = (connectionCounts[exp] || 1) + 1;
+          });
+        }
+      });
+      
+      // Add project nodes with connection-based sizing
       const projectNodes = projects.map(project => ({
         id: project,
         name: formatProjectName(project),
-        type: 'project' as NodeType, // Explicitly type as NodeType
-        val: 4, // Slightly smaller than skills
+        type: 'project' as NodeType, 
+        val: 3 + Math.min(connectionCounts[project] || 1, 10), // Base size + connections, capped at 10
         color: nodeColors.project,
+        category: 'cat-projects',
         description: nodeDescriptions[project] || '',
       }));
       
-      // Add experience nodes
+      // Add experience nodes with connection-based sizing
       const experienceNodes = experiences.map(experience => ({
         id: experience,
         name: experience.split(':')[0], // Company name only for display
-        type: 'experience' as NodeType, // Explicitly type as NodeType
-        val: 4.5, // Slightly larger than projects
+        type: 'experience' as NodeType,
+        val: 3 + Math.min(connectionCounts[experience] || 1, 10), // Base size + connections, capped at 10
         color: nodeColors.experience,
+        category: 'cat-experiences',
         description: nodeDescriptions[experience] || '',
       }));
       
       // Add all nodes at once
       nodes.push(...projectNodes, ...experienceNodes);
+      
+      // Add connections from projects to project category
+      projectNodes.forEach(projectNode => {
+        links.push({
+          source: 'cat-projects',
+          target: projectNode.id,
+          value: 1
+        });
+      });
+      
+      // Add connections from experiences to experience category
+      experienceNodes.forEach(expNode => {
+        links.push({
+          source: 'cat-experiences',
+          target: expNode.id,
+          value: 1
+        });
+      });
       
       // Connect projects to related skills
       Object.entries(nodeToProjects).forEach(([skill, relatedProjects]) => {
@@ -175,6 +251,18 @@ const Skills: React.FC = () => {
               });
             }
           });
+        }
+      });
+      
+      // Update sizes for skill nodes based on connection count
+      nodes.forEach(node => {
+        if (node.type !== 'categoryManagement' && 
+            node.type !== 'categoryProficiency' && 
+            node.type !== 'categoryOpsDesign' && 
+            node.type !== 'categoryDevTech' && 
+            node.type !== 'categoryProject' && 
+            node.type !== 'categoryExperience') {
+          node.val = 3 + Math.min(connectionCounts[node.id] || 1, 12); // Base size + connections, capped at 12
         }
       });
       
@@ -280,17 +368,73 @@ const Skills: React.FC = () => {
     }
   }, []);
 
+  // Handle fullscreen toggle
+  const handleFullscreenToggle = useCallback(() => {
+    if (!document.fullscreenElement) {
+      // Enter fullscreen
+      if (containerRef.current?.requestFullscreen) {
+        containerRef.current.requestFullscreen()
+          .then(() => {
+            setIsFullscreen(true);
+            // Adjust dimensions for fullscreen
+            setTimeout(() => {
+              if (containerRef.current) {
+                const { width, height } = containerRef.current.getBoundingClientRect();
+                setDimensions({ width, height });
+                if (graphRef.current) {
+                  graphRef.current.d3ReheatSimulation();
+                }
+              }
+            }, 100);
+          })
+          .catch(err => {
+            console.error(`Error attempting to enable fullscreen: ${err.message}`);
+          });
+      }
+    } else {
+      // Exit fullscreen
+      if (document.exitFullscreen) {
+        document.exitFullscreen()
+          .then(() => {
+            setIsFullscreen(false);
+            // Reset dimensions after exiting fullscreen
+            setTimeout(() => {
+              if (containerRef.current) {
+                const { width } = containerRef.current.getBoundingClientRect();
+                setDimensions({
+                  width,
+                  height: Math.max(600, width * 0.6)
+                });
+                if (graphRef.current) {
+                  graphRef.current.d3ReheatSimulation();
+                }
+              }
+            }, 100);
+          })
+          .catch(err => {
+            console.error(`Error attempting to exit fullscreen: ${err.message}`);
+          });
+      }
+    }
+  }, []);
+
   return (
     <section id="skills" className="py-20 bg-gray-900">
       <div className="container mx-auto max-w-6xl px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Skills & Expertise</h2>
+          <h2 className="text-4xl font-bold mb-4">Skill Graph</h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
             Comprehensive expertise across management, technical, and creative domains.
           </p>
         </div>
         
-        {/* Controls Component */}
+        {/* Graph Container */}
+        <div 
+          ref={containerRef} 
+          className="bg-gray-900 rounded-xl overflow-hidden mt-2 w-full relative border border-gray-700/50 shadow-lg"
+          style={{ minHeight: '650px', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)' }}
+        >
+        {/* Controls Component - Inside Graph */}
         <SkillControls 
           showAllLabels={showAllLabels}
           showProjectsExperiences={showProjectsExperiences}
@@ -301,14 +445,9 @@ const Skills: React.FC = () => {
           onZoomIn={handleZoomIn}
           onZoomOut={handleZoomOut}
           onResetView={handleResetView}
+          onFullscreenToggle={handleFullscreenToggle}
+          isInsideGraph={true}
         />
-        
-        {/* Graph Container */}
-        <div 
-          ref={containerRef} 
-          className="bg-gray-900 rounded-xl overflow-hidden mt-2 w-full relative"
-          style={{ minHeight: '650px' }}
-        >
           {/* Graph Component */}
           <SkillGraph 
             ref={graphRef}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { X, ExternalLink, BookOpen, Briefcase, Code, Info, Network } from 'lucide-react';
 import { GraphNode } from './types';
-import { formatProjectName, relationships } from './data';
+import { formatProjectName, relationships, nodeToProjects, nodeToExperience, skills, projects, experiences } from './data';
 
 interface SkillContextMenuProps {
   node: GraphNode | null;
@@ -15,11 +15,70 @@ export const SkillContextMenu: React.FC<SkillContextMenuProps> = ({ node, visibl
   // Handle tab switching
   const [activeTab, setActiveTab] = React.useState<'connections' | 'details'>('connections');
 
-  // Get connected nodes from relationships array
+  // Get connected nodes - using different logic based on node type
   const getConnectedNodes = () => {
     if (!node) return [];
     
-    // Find all relationships where this node is either source or target
+    // For project nodes, find all skills that have this project in their relatedProjects
+    if (node.type === 'project') {
+      const projectId = node.id;
+      const connectedSkills: string[] = [];
+      
+      // Scan through all skills to find ones that connect to this project
+      Object.entries(nodeToProjects).forEach(([skill, projects]) => {
+        if (projects.includes(projectId)) {
+          connectedSkills.push(skill);
+        }
+      });
+      
+      return connectedSkills;
+    }
+    
+    // For experience nodes, find all skills that have this experience in their relatedExperience
+    if (node.type === 'experience') {
+      const experienceId = node.id;
+      const connectedSkills: string[] = [];
+      
+      // Scan through all skills to find ones that connect to this experience
+      Object.entries(nodeToExperience).forEach(([skill, experiences]) => {
+        if (experiences.includes(experienceId)) {
+          connectedSkills.push(skill);
+        }
+      });
+      
+      return connectedSkills;
+    }
+    
+    // For category nodes, find all direct children
+    if (node.type === 'categoryManagement' || 
+        node.type === 'categoryProficiency' || 
+        node.type === 'categoryOpsDesign' || 
+        node.type === 'categoryDevTech' ||
+        node.type === 'categoryProject' ||
+        node.type === 'categoryExperience') {
+      
+      // Get all nodes that have this category as their parent
+      const childNodes: string[] = [];
+      
+      // Match category IDs to their respective children
+      if (node.id === 'cat-management') {
+        return skills.management;
+      } else if (node.id === 'cat-proficiencies') {
+        return skills.proficiencies;
+      } else if (node.id === 'cat-opsDesign') {
+        return skills.opsDesignTools;
+      } else if (node.id === 'cat-devTech') {
+        return skills.devTechTools;
+      } else if (node.id === 'cat-projects') {
+        return projects;
+      } else if (node.id === 'cat-experiences') {
+        return experiences;
+      }
+      
+      return childNodes;
+    }
+    
+    // Default case: use relationships array for skill nodes
     return relationships
       .filter((rel: {source: string, target: string}) => rel.source === node.id || rel.target === node.id)
       .map((rel: {source: string, target: string}) => {

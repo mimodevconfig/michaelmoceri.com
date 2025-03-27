@@ -68,6 +68,7 @@ const Navigation: React.FC = () => {
     { name: 'About', path: '/#about', targetId: 'about' },
     { name: 'Projects', path: '/projects' },
     { name: 'Experience', path: '/#experience', targetId: 'experience' },
+    { name: 'Skill Graph', path: '/#skills', targetId: 'skills' },
     { name: 'Blog', path: '/blog' },
     { name: 'Contact', path: '/#contact', targetId: 'contact' },
   ];
