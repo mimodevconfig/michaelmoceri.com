@@ -1,0 +1,825 @@
+import React, { useRef, useCallback, useState, useEffect } from 'react';
+import { Code2, Database, Brain, Workflow, Award, PenTool, Briefcase, Cpu, Wrench, Info, ZoomIn, ZoomOut, RefreshCw, X } from 'lucide-react';
+import ForceGraph2D from 'react-force-graph-2d';
+import { cn } from '../lib/utils';
+
+// Custom Types for ForceGraph
+type ForceGraphInstance = {
+  centerAt: (x: number, y: number, ms: number) => void;
+  zoom: (factor: number, ms: number) => void;
+  d3Force: (forceName: string, ...args: any[]) => any;
+  d3ReheatSimulation: () => void;
+  zoomToFit: (duration?: number, padding?: number) => void;
+};
+
+// Define node types for the graph
+type NodeType = 'management' | 'proficiency' | 'opsDesign' | 'devTech' | 'category' | 'aiTech' | 'fabrication';
+
+// Define node and link interfaces
+interface Node {
+  id: string;
+  name: string;
+  type: NodeType;
+  val: number;
+  color?: string;
+  category?: string;
+  description?: string;
+  relatedExperience?: string[];
+  relatedProjects?: string[];
+  relatedPosts?: string[];
+  x?: number;
+  y?: number;
+  vx?: number;
+  vy?: number;
+  fx?: number | null;
+  fy?: number | null;
+}
+
+interface GraphNode extends Node {
+  [key: string]: any;
+}
+
+interface Link {
+  source: string | GraphNode;
+  target: string | GraphNode;
+  value: number;
+}
+
+interface GraphData {
+  nodes: GraphNode[];
+  links: Link[];
+}
+
+// Node descriptions
+const nodeDescriptions: Record<string, string> = {
+  // Management Skills
+  'Strategic planning': 'Setting long-term objectives and determining actions to achieve organizational goals.',
+  'Business model development': 'Creating a framework for how an organization creates, delivers, and captures value.',
+  'Fundraising': 'Securing financial resources from investors, grants, or other sources.',
+  'Revenue Operations': 'Aligning sales, marketing, and customer success to drive growth.',
+  'GTM strategy development': 'Planning for how a product reaches its target market.',
+  'Team development and recruiting': 'Building and growing effective teams through hiring and professional development.',
+  'Vision and purpose development': 'Defining the core mission and long-term aspirations of an organization.',
+  'Product road mapping': 'Planning the evolution of products with strategic prioritization.',
+  'Product management': 'Overseeing a product\'s development lifecycle from conception to launch.',
+  'IT management': 'Overseeing technology infrastructure, systems, and resources.',
+  
+  // Proficiencies
+  'Software and hardware development': 'Creating and implementing both digital solutions and physical computing systems.',
+  'UI/UX design': 'Creating intuitive, efficient, and enjoyable user interfaces and experiences.',
+  '3D printing': 'Additive manufacturing technology that creates physical objects from digital designs.',
+  'Machine design': 'Engineering mechanical systems for specific applications and environments.',
+  'Multi-agent AI powered workflows': 'Systems where multiple AI agents collaborate to complete complex tasks.',
+  'Automation development': 'Creating systems that operate with minimal human intervention.',
+  'Network engineering and management': 'Designing, implementing, and maintaining computer networks.',
+  'Sales and marketing automation': 'Using technology to automate sales and marketing processes.',
+  'Photo & video editing': 'Manipulating visual media to achieve desired creative or technical outcomes.',
+  'Local AI hosting': 'Deploying AI models on local infrastructure rather than cloud services.',
+  'High-end server building': 'Assembling powerful computing systems for demanding workloads.',
+  
+  // Dev & Tech Tools
+  'Docker': 'Platform for developing, shipping, and running applications in containers.',
+  'RAG pipelines': 'Retrieval-Augmented Generation systems that combine search with generative AI.',
+  'Vector DB': 'Databases optimized for storing and querying vector embeddings.',
+  'LoRA': 'Low-Rank Adaptation, an efficient fine-tuning method for large language models.',
+  'Node.js': 'JavaScript runtime built on Chrome\'s V8 JavaScript engine.',
+  'React': 'JavaScript library for building user interfaces.',
+  'Tailwind': 'Utility-first CSS framework for rapid UI development.',
+  'Supabase': 'Open source Firebase alternative with PostgreSQL database.',
+  'Ollama': 'Tool for running large language models locally.',
+  'Open WebUI': 'Web interface for interacting with locally-hosted AI models.',
+  'Bolt.DIY': 'Local AI development environment.',
+  'Groq': 'High-performance AI inference platform.',
+  
+  // Ops & Design Tools
+  'HubSpot Enterprise': 'Comprehensive CRM platform for marketing, sales, and customer service.',
+  'Figma': 'Collaborative interface design tool.',
+  'Midjourney': 'AI image generation platform.',
+  'ChatGPT': 'Conversational AI model by OpenAI.',
+  'Anthropic API': 'API for accessing Anthropic\'s Claude AI models.',
+  'Gemini API': 'API for accessing Google\'s Gemini AI models.'
+};
+
+// Project relationships
+const nodeToProjects: Record<string, string[]> = {
+  'Docker': ['ai-research-platform', 'local-ai-inference-server'],
+  'RAG pipelines': ['ai-research-platform', 'ai-osint-platform'],
+  'Vector DB': ['ai-research-platform', 'ai-osint-platform'],
+  'LoRA': ['ai-real-estate-development'],
+  'React': ['3d-printing-calculator', 'ai-research-platform'],
+  'Tailwind': ['3d-printing-calculator', 'ai-research-platform'],
+  'Supabase': ['3d-printing-calculator'],
+  'OpenAI API': ['ai-research-platform', '3d-printing-calculator'],
+  'Anthropic API': ['ai-research-platform'],
+  'Gemini API': ['ai-research-platform'],
+  'Ollama': ['local-ai-inference-server', 'ai-research-platform'],
+  '3D printing': ['art-config', 'playboy-magazine-cover', 'fabrication-labs', 'sustainable-3d-printing-challenge'],
+  'Network engineering and management': ['crypto-datacenter-farm', 'local-ai-inference-server'],
+  'High-end server building': ['crypto-datacenter-farm', 'local-ai-inference-server'],
+  'Machine design': ['fabrication-labs', 'sustainable-3d-printing-challenge'],
+  'Midjourney': ['ai-real-estate-development', 'art-config'],
+  'UI/UX design': ['3d-printing-calculator', 'ai-research-platform'],
+  'Multi-agent AI powered workflows': ['ai-research-platform', 'ai-osint-platform']
+};
+
+// Experience relationships
+const nodeToExperience: Record<string, string[]> = {
+  'Strategic planning': ['Config Holdings: Founder (2022-Present)', 'MakerOS: Founder & CEO (2018-2022)'],
+  'Business model development': ['Config Holdings: Founder (2022-Present)', 'MakerOS: Founder & CEO (2018-2022)'],
+  'Fundraising': ['MakerOS: Founder & CEO (2018-2022)', 'Config Holdings: Founder (2022-Present)'],
+  'Revenue Operations': ['Moceri Companies: VP of Real Estate Development, IT, & Marketing (2023-2024)', 'Shapeways: Head of Software GTM (2022-2023)'],
+  'GTM strategy development': ['Shapeways: Head of Software GTM (2022-2023)', 'MakerOS: Founder & CEO (2018-2022)'],
+  'HubSpot Enterprise': ['Moceri Companies: VP of Real Estate Development, IT, & Marketing (2023-2024)'],
+  '3D printing': ['3DPX: Co-Founder (2012-2014)', 'Manulith: Founder & CEO (2014-2018)', 'Config Holdings: Founder (2022-Present)'],
+  'Machine design': ['Manulith: Founder & CEO (2014-2018)', 'Config Holdings: Founder (2022-Present)'],
+  'Network engineering and management': ['Moceri Companies: VP of Real Estate Development, IT, & Marketing (2023-2024)', 'Config Holdings: Founder (2022-Present)'],
+  'High-end server building': ['Config Holdings: Founder (2022-Present)'],
+  'Product management': ['Shapeways: Director of Product, Strategy, and Co-Innovation (2022-2023)', 'MakerOS: Founder & CEO (2018-2022)']
+};
+
+// Skills data
+const skills = {
+  management: [
+    'Strategic planning',
+    'Business model development',
+    'Fundraising',
+    'Revenue Operations',
+    'GTM strategy development',
+    'Team development and recruiting',
+    'Vision and purpose development',
+    'Product road mapping',
+    'Product management',
+    'IT management'
+  ],
+  proficiencies: [
+    'Software and hardware development',
+    'UI/UX design',
+    '3D printing',
+    'Machine design',
+    'Multi-agent AI powered workflows',
+    'Automation development',
+    'Network engineering and management',
+    'Sales and marketing automation',
+    'Photo & video editing',
+    'Local AI hosting',
+    'High-end server building'
+  ],
+  opsDesignTools: [
+    'HubSpot Enterprise',
+    'Google Ads',
+    'Meta Ads',
+    'Photoshop',
+    'Illustrator',
+    'Adobe XD',
+    'Figma',
+    'Premier Pro',
+    'ChatGPT',
+    'Midjourney',
+    'RunwayML',
+    'G-Suite',
+    'MS 365 Suite',
+    'Squarespace',
+    'Wordpress',
+    'Wix',
+    '"Vibe Coding"'
+  ],
+  devTechTools: [
+    'Ollama',
+    'Open WebUI',
+    'OpenAI API',
+    'Anthropic API',
+    'Gemini API',
+    'Docker',
+    'VS Code',
+    'Bolt.DIY',
+    'Replit',
+    'Git',
+    'Node.js',
+    'n8n',
+    'Supabase',
+    'RAG pipelines',
+    'Vector DB',
+    'React',
+    'Tailwind',
+    'LoRA',
+    'Obsidian.md',
+    'Ubiquiti/Unifi hardware and software stack',
+    'Atlassian suite',
+    'Autodesk Fusion 360',
+    'Netfabb',
+    '3D printing slicers',
+    'FDM/SLA/SLS/DLP/DMLS 3D printing',
+    'Groq'
+  ]
+};
+
+// Define relationships between skills
+const relationships = [
+  // Management to Proficiencies
+  { source: 'Strategic planning', target: 'Software and hardware development' },
+  { source: 'Product management', target: 'UI/UX design' },
+  { source: 'IT management', target: 'Network engineering and management' },
+  { source: 'GTM strategy development', target: 'Sales and marketing automation' },
+  { source: 'Product road mapping', target: 'Machine design' },
+  { source: 'Vision and purpose development', target: 'Multi-agent AI powered workflows' },
+  
+  // Management to Tools
+  { source: 'Revenue Operations', target: 'HubSpot Enterprise' },
+  { source: 'GTM strategy development', target: 'Google Ads' },
+  { source: 'GTM strategy development', target: 'Meta Ads' },
+  { source: 'Product management', target: 'Atlassian suite' },
+  { source: 'IT management', target: 'MS 365 Suite' },
+  
+  // Proficiencies to Tools
+  { source: 'UI/UX design', target: 'Figma' },
+  { source: 'UI/UX design', target: 'Adobe XD' },
+  { source: 'Photo & video editing', target: 'Photoshop' },
+  { source: 'Photo & video editing', target: 'Illustrator' },
+  { source: 'Photo & video editing', target: 'Premier Pro' },
+  { source: '3D printing', target: 'Autodesk Fusion 360' },
+  { source: '3D printing', target: 'Netfabb' },
+  { source: '3D printing', target: '3D printing slicers' },
+  { source: '3D printing', target: 'FDM/SLA/SLS/DLP/DMLS 3D printing' },
+  { source: 'Machine design', target: 'Autodesk Fusion 360' },
+  { source: 'Multi-agent AI powered workflows', target: 'ChatGPT' },
+  { source: 'Multi-agent AI powered workflows', target: 'OpenAI API' },
+  { source: 'Multi-agent AI powered workflows', target: 'Anthropic API' },
+  { source: 'Multi-agent AI powered workflows', target: 'Gemini API' },
+  { source: 'Multi-agent AI powered workflows', target: 'Groq' },
+  { source: 'Local AI hosting', target: 'Ollama' },
+  { source: 'Local AI hosting', target: 'Open WebUI' },
+  { source: 'Network engineering and management', target: 'Ubiquiti/Unifi hardware and software stack' },
+  { source: 'Automation development', target: 'n8n' },
+  { source: 'Software and hardware development', target: 'VS Code' },
+  { source: 'Software and hardware development', target: 'Git' },
+  { source: 'Software and hardware development', target: 'Node.js' },
+  { source: 'Software and hardware development', target: 'React' },
+  { source: 'Software and hardware development', target: 'Docker' },
+  { source: 'Software and hardware development', target: 'Supabase' },
+  { source: 'Software and hardware development', target: 'Bolt.DIY' },
+  { source: 'Software and hardware development', target: 'Replit' },
+  
+  // Cross-category connections
+  { source: 'RAG pipelines', target: 'OpenAI API' },
+  { source: 'RAG pipelines', target: 'Anthropic API' },
+  { source: 'RAG pipelines', target: 'Gemini API' },
+  { source: 'RAG pipelines', target: 'Vector DB' },
+  { source: 'Obsidian.md', target: '"Vibe Coding"' },
+  { source: 'ChatGPT', target: '"Vibe Coding"' },
+  { source: 'Midjourney', target: 'UI/UX design' },
+  { source: 'RunwayML', target: 'UI/UX design' },
+  { source: 'React', target: 'Tailwind' },
+  { source: 'LoRA', target: 'Midjourney' },
+  { source: 'LoRA', target: 'OpenAI API' },
+  { source: 'Vector DB', target: 'RAG pipelines' }
+];
+
+// Colors for different node types
+const nodeColors = {
+  management: '#3b82f6', // blue
+  proficiency: '#10b981', // green
+  opsDesign: '#f59e0b', // amber
+  devTech: '#8b5cf6', // purple
+  category: '#6b7280', // gray
+  aiTech: '#ec4899', // pink
+  fabrication: '#f97316', // orange
+};
+
+export default function Skills() {
+  const [graphData, setGraphData] = useState<GraphData>({ nodes: [], links: [] });
+  const [dimensions, setDimensions] = useState({ width: 0, height: 600 });
+  const graphRef = useRef<ForceGraphInstance | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [selectedNode, setSelectedNode] = useState<GraphNode | null>(null);
+  const [hoveredNode, setHoveredNode] = useState<GraphNode | null>(null);
+  const [showAllLabels, setShowAllLabels] = useState(true);
+  const [nodeSpacing, setNodeSpacing] = useState(250);
+  const [zoomLevel, setZoomLevel] = useState(1);
+
+  // Context menu state
+  const [contextMenu, setContextMenu] = useState<{
+    visible: boolean;
+    x: number;
+    y: number;
+    node: GraphNode | null;
+  }>({
+    visible: false,
+    x: 0,
+    y: 0,
+    node: null
+  });
+
+  // Prepare graph data
+  useEffect(() => {
+    const nodes: GraphNode[] = [];
+    const links: Link[] = [];
+    
+    // Add category nodes
+    nodes.push(
+      { id: 'cat-management', name: 'Management Skills', type: 'category', val: 15, color: nodeColors.category },
+      { id: 'cat-proficiencies', name: 'Proficiencies', type: 'category', val: 15, color: nodeColors.category },
+      { id: 'cat-opsDesign', name: 'Ops & Design Tools', type: 'category', val: 15, color: nodeColors.category },
+      { id: 'cat-devTech', name: 'Dev & Tech Tools', type: 'category', val: 15, color: nodeColors.category }
+    );
+    
+    // Add skill nodes and connect to categories
+    skills.management.forEach(skill => {
+      nodes.push({ 
+        id: skill, 
+        name: skill, 
+        type: 'management', 
+        val: 5, 
+        color: nodeColors.management, 
+        category: 'cat-management',
+        description: nodeDescriptions[skill] || '',
+        relatedExperience: nodeToExperience[skill] || [],
+        relatedProjects: nodeToProjects[skill] || []
+      });
+      links.push({ source: 'cat-management', target: skill, value: 1 });
+    });
+    
+    skills.proficiencies.forEach(skill => {
+      nodes.push({ 
+        id: skill, 
+        name: skill, 
+        type: 'proficiency', 
+        val: 5, 
+        color: nodeColors.proficiency, 
+        category: 'cat-proficiencies',
+        description: nodeDescriptions[skill] || '',
+        relatedExperience: nodeToExperience[skill] || [],
+        relatedProjects: nodeToProjects[skill] || []
+      });
+      links.push({ source: 'cat-proficiencies', target: skill, value: 1 });
+    });
+    
+    skills.opsDesignTools.forEach(tool => {
+      nodes.push({ 
+        id: tool, 
+        name: tool, 
+        type: 'opsDesign', 
+        val: 5, 
+        color: nodeColors.opsDesign, 
+        category: 'cat-opsDesign',
+        description: nodeDescriptions[tool] || '',
+        relatedExperience: nodeToExperience[tool] || [],
+        relatedProjects: nodeToProjects[tool] || []
+      });
+      links.push({ source: 'cat-opsDesign', target: tool, value: 1 });
+    });
+    
+    skills.devTechTools.forEach(tool => {
+      nodes.push({ 
+        id: tool, 
+        name: tool, 
+        type: 'devTech', 
+        val: 5, 
+        color: nodeColors.devTech, 
+        category: 'cat-devTech',
+        description: nodeDescriptions[tool] || '',
+        relatedExperience: nodeToExperience[tool] || [],
+        relatedProjects: nodeToProjects[tool] || []
+      });
+      links.push({ source: 'cat-devTech', target: tool, value: 1 });
+    });
+    
+    // Add relationships between skills
+    relationships.forEach(rel => {
+      links.push({ source: rel.source, target: rel.target, value: 2 });
+    });
+    
+    setGraphData({ nodes, links });
+  }, []);
+
+  // Update dimensions on resize
+  useEffect(() => {
+    const updateDimensions = () => {
+      if (containerRef.current) {
+        const { width } = containerRef.current.getBoundingClientRect();
+        setDimensions({
+          width: width, // Full width of container
+          height: Math.max(600, width * 0.6) // Proportional height
+        });
+      }
+    };
+    
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    
+    return () => {
+      window.removeEventListener('resize', updateDimensions);
+    };
+  }, []);
+
+  // Apply force simulation with proper node spacing
+  useEffect(() => {
+    if (graphRef.current && graphData.nodes.length > 0) {
+      // Adjust force simulation for better spacing
+      const charge = graphRef.current.d3Force('charge');
+      if (charge && typeof charge.strength === 'function') {
+        charge.strength(-nodeSpacing);
+      }
+      
+      const linkForce = graphRef.current.d3Force('link');
+      if (linkForce && typeof linkForce.distance === 'function') {
+        linkForce.distance((link: any) => {
+          const linkSource = typeof link.source === 'object' ? link.source : { type: '' };
+          const linkTarget = typeof link.target === 'object' ? link.target : { type: '' };
+          return linkSource.type === 'category' || linkTarget.type === 'category' ? 120 : 80;
+        });
+      }
+      
+      // Restart simulation with new parameters
+      graphRef.current.d3ReheatSimulation();
+    }
+  }, [graphData, nodeSpacing]);
+
+  // Node click handler
+  const handleNodeClick = useCallback((node: any, event: MouseEvent) => {
+    const nodeData = node as GraphNode;
+    
+    if (selectedNode?.id === nodeData.id) {
+      setSelectedNode(null);
+      setContextMenu(prev => ({ ...prev, visible: false }));
+    } else {
+      setSelectedNode(nodeData);
+      
+      // Calculate position for context menu (near the node but not overlapping)
+      const x = event.clientX;
+      const y = event.clientY;
+      
+      setContextMenu({
+        visible: true,
+        x,
+        y,
+        node: nodeData
+      });
+    }
+    
+    if (graphRef.current && typeof node.x === 'number' && typeof node.y === 'number') {
+      // Center view on node with more space around it
+      graphRef.current.centerAt(node.x, node.y, 1000);
+    }
+  }, [selectedNode]);
+
+  // Node hover handler
+  const handleNodeHover = useCallback((node: any) => {
+    setHoveredNode(node ? node as GraphNode : null);
+    document.body.style.cursor = node ? 'pointer' : 'default';
+  }, []);
+
+  // Handle closing the context menu
+  const handleCloseContextMenu = useCallback(() => {
+    setContextMenu(prev => ({ ...prev, visible: false }));
+  }, []);
+
+  // Custom node painting with improved text rendering
+  const paintNode = useCallback((node: any, ctx: CanvasRenderingContext2D, globalScale: number) => {
+    const graphNode = node as GraphNode;
+    const { id, name, color, val, type } = graphNode;
+    const x = node.x || 0;
+    const y = node.y || 0;
+    
+    const isSelected = selectedNode?.id === id;
+    const isHovered = hoveredNode?.id === id;
+    const fontSize = isSelected ? 14 / globalScale : 12 / globalScale;
+    const nodeSize = val * (isSelected ? 1.5 : isHovered ? 1.2 : 1);
+    
+    // Draw node circle
+    ctx.beginPath();
+    ctx.arc(x, y, nodeSize, 0, 2 * Math.PI);
+    ctx.fillStyle = color || '#999';
+    ctx.fill();
+    
+    // Draw border for selected or hovered nodes
+    if (isSelected || isHovered) {
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 2 / globalScale;
+      ctx.stroke();
+    }
+    
+    // Draw node label for all nodes or just selected/hovered/category nodes
+    if (showAllLabels || isSelected || isHovered || type === 'category') {
+      ctx.font = `${fontSize}px Sans-Serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      
+      // Measure text for background
+      const textWidth = ctx.measureText(name).width;
+      const bgPadding = 4 / globalScale;
+      
+      // Calculate position for text - position below node with enough space
+      const textY = y + nodeSize + fontSize + bgPadding;
+      
+      // Add background for text readability
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+      ctx.fillRect(
+        x - textWidth / 2 - bgPadding,
+        textY - fontSize / 2 - bgPadding,
+        textWidth + bgPadding * 2,
+        fontSize + bgPadding * 2
+      );
+      
+      // Draw text
+      ctx.fillStyle = '#fff';
+      ctx.fillText(name, x, textY);
+      
+      // Add a subtle connecting line from node to label
+      ctx.beginPath();
+      ctx.moveTo(x, y + nodeSize);
+      ctx.lineTo(x, textY - fontSize / 2 - bgPadding);
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+      ctx.lineWidth = 1 / globalScale;
+      ctx.stroke();
+    }
+  }, [selectedNode, hoveredNode, showAllLabels]);
+
+  // Custom link painting
+  const paintLink = useCallback((link: any, ctx: CanvasRenderingContext2D, globalScale: number) => {
+    const source = typeof link.source === 'object' ? link.source : { x: 0, y: 0, id: null };
+    const target = typeof link.target === 'object' ? link.target : { x: 0, y: 0, id: null };
+    
+    const sourceX = source.x ?? 0;
+    const sourceY = source.y ?? 0;
+    const targetX = target.x ?? 0;
+    const targetY = target.y ?? 0;
+    
+    const isHighlighted = 
+      (selectedNode && (selectedNode.id === source.id || selectedNode.id === target.id)) ||
+      (hoveredNode && (hoveredNode.id === source.id || hoveredNode.id === target.id));
+    
+    ctx.beginPath();
+    ctx.moveTo(sourceX, sourceY);
+    ctx.lineTo(targetX, targetY);
+    ctx.strokeStyle = isHighlighted ? '#fff' : 'rgba(255, 255, 255, 0.2)';
+    ctx.lineWidth = isHighlighted ? 2 / globalScale : 1 / globalScale;
+    ctx.stroke();
+  }, [selectedNode, hoveredNode]);
+
+  // Handle spacing adjustment
+  const handleSpacingChange = (value: number) => {
+    setNodeSpacing(value);
+    if (graphRef.current) {
+      const charge = graphRef.current.d3Force('charge');
+      if (charge && typeof charge.strength === 'function') {
+        charge.strength(-value);
+        graphRef.current.d3ReheatSimulation();
+      }
+    }
+  };
+
+  // Handle zoom in
+  const handleZoomIn = () => {
+    if (graphRef.current) {
+      const newZoom = Math.min(zoomLevel * 1.2, 5); // Limit max zoom
+      setZoomLevel(newZoom);
+      graphRef.current.zoom(newZoom, 400); // Smooth transition
+    }
+  };
+
+  // Handle zoom out
+  const handleZoomOut = () => {
+    if (graphRef.current) {
+      const newZoom = Math.max(zoomLevel / 1.2, 0.5); // Limit min zoom
+      setZoomLevel(newZoom);
+      graphRef.current.zoom(newZoom, 400); // Smooth transition
+    }
+  };
+
+  // Handle reset view
+  const handleResetView = () => {
+    if (graphRef.current) {
+      setZoomLevel(1);
+      graphRef.current.centerAt(0, 0, 800);
+      graphRef.current.zoom(1, 800);
+    }
+  };
+
+  const formatProjectName = (projectId: string) => {
+    return projectId.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  };
+
+  return (
+    <section id="skills" className="py-20 bg-gray-900">
+      <div className="container-fluid px-4 mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4">Skills & Expertise</h2>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            Comprehensive expertise across management, technical, and creative domains.
+          </p>
+        </div>
+        
+        {/* Controls and Legend Panel */}
+        <div className="bg-gray-800 rounded-t-xl p-4">
+          {/* Legend - Full width on mobile, wrapped row on desktop */}
+          <div className="flex flex-wrap gap-4 mb-6">
+            <div className="flex items-center gap-2">
+              <span className="w-3 h-3 rounded-full bg-blue-500"></span>
+              <span>Management Skills</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-3 h-3 rounded-full bg-green-500"></span>
+              <span>Proficiencies</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-3 h-3 rounded-full bg-amber-500"></span>
+              <span>Ops & Design Tools</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-3 h-3 rounded-full bg-purple-500"></span>
+              <span>Dev & Tech Tools</span>
+            </div>
+          </div>
+          
+          {/* Controls - Stacked on mobile, flex row on desktop */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Show Labels Control */}
+            <div className="flex items-center gap-2">
+              <input 
+                type="checkbox" 
+                id="showLabels" 
+                checked={showAllLabels} 
+                onChange={() => setShowAllLabels(!showAllLabels)}
+                className="w-4 h-4"
+              />
+              <label htmlFor="showLabels">Show all labels</label>
+            </div>
+            
+            {/* Node Spacing Slider - Full width on mobile */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+              <span className="whitespace-nowrap">Node spacing:</span>
+              <input 
+                type="range" 
+                min="100" 
+                max="500" 
+                value={nodeSpacing} 
+                onChange={(e) => handleSpacingChange(parseInt(e.target.value))}
+                className="w-full sm:w-32"
+              />
+            </div>
+            
+            {/* Zoom controls - Centered on mobile */}
+            <div className="flex items-center justify-center sm:justify-end gap-2">
+              <button 
+                onClick={handleZoomIn}
+                className="p-1.5 bg-gray-700 rounded-md hover:bg-gray-600 transition-colors"
+                aria-label="Zoom in"
+                title="Zoom in"
+              >
+                <ZoomIn size={18} />
+              </button>
+              <button 
+                onClick={handleZoomOut}
+                className="p-1.5 bg-gray-700 rounded-md hover:bg-gray-600 transition-colors"
+                aria-label="Zoom out"
+                title="Zoom out"
+              >
+                <ZoomOut size={18} />
+              </button>
+              <button 
+                onClick={handleResetView}
+                className="p-1.5 bg-gray-700 rounded-md hover:bg-gray-600 transition-colors"
+                aria-label="Reset view"
+                title="Reset view"
+              >
+                <RefreshCw size={18} />
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-gray-800 rounded-b-xl p-3 text-center text-sm text-gray-400">
+          Click on nodes to focus and see connections. Hover to highlight relationships. Use zoom buttons to adjust view. Click and drag to pan and move nodes around.
+        </div>
+        
+        <div 
+          ref={containerRef} 
+          className="bg-gray-900 rounded-xl overflow-hidden mt-2 w-full"
+          style={{ minHeight: '650px', position: 'relative' }}
+        >
+          <div className="relative">
+            {graphData.nodes.length > 0 && (
+              <ForceGraph2D
+                ref={graphRef}
+                graphData={graphData}
+                nodeLabel="name"
+                width={dimensions.width}
+                height={dimensions.height}
+                backgroundColor="#111827" // Dark blue navy color matching projects section
+                linkDirectionalParticles={2}
+                linkDirectionalParticleWidth={(link) => {
+                  const linkSource = typeof link.source === 'object' ? link.source : null;
+                  const linkTarget = typeof link.target === 'object' ? link.target : null;
+                  return (selectedNode && 
+                    (linkSource?.id === selectedNode.id || 
+                    linkTarget?.id === selectedNode.id)) ? 2 : 0;
+                }}
+                nodeCanvasObject={paintNode}
+                linkCanvasObject={paintLink}
+                onNodeClick={handleNodeClick}
+                onNodeHover={handleNodeHover}
+                d3AlphaDecay={0.02}
+                d3VelocityDecay={0.3}
+                nodeRelSize={6}
+                linkWidth={1}
+                enableZoomInteraction={false} // Disable default zoom interaction
+                enablePanInteraction={true} // Keep pan interaction
+                cooldownTicks={100}
+                // @ts-ignore - the d3Force prop is supported but not in the type definitions
+                d3Force={(d3Force: any) => {
+                  // Stronger repulsion between nodes
+                  d3Force('charge').strength(-nodeSpacing);
+                  // Longer links for better spacing
+                  d3Force('link').distance((link: any) => {
+                    const linkSource = typeof link.source === 'object' ? link.source : { type: '' };
+                    const linkTarget = typeof link.target === 'object' ? link.target : { type: '' };
+                    return linkSource.type === 'category' || linkTarget.type === 'category' ? 120 : 80;
+                  });
+                  // Add collision detection to prevent overlap
+                  d3Force('collision', d3Force.forceCollide((node: any) => node.val * 2 + 30));
+                  // Center force to keep graph centered
+                  d3Force('center').strength(0.05);
+                }}
+              />
+            )}
+            
+            {/* Context Menu */}
+            {contextMenu.visible && contextMenu.node && (
+              <div 
+                className="absolute bg-gray-800 border border-gray-700 rounded-lg shadow-lg p-4 z-10 max-w-md"
+                style={{
+                  left: `${contextMenu.x}px`,
+                  top: `${contextMenu.y}px`,
+                  transform: 'translate(-50%, 20px)',
+                  maxWidth: '400px',
+                  width: '90%'
+                }}
+              >
+                <div className="flex justify-between items-center mb-3">
+                  <h3 className="text-xl font-bold">{contextMenu.node.name}</h3>
+                  <button 
+                    onClick={handleCloseContextMenu}
+                    className="p-1 rounded-full hover:bg-gray-700"
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
+                
+                {contextMenu.node.description && (
+                  <p className="text-gray-300 mb-4">{contextMenu.node.description}</p>
+                )}
+                
+                {contextMenu.node.relatedExperience && contextMenu.node.relatedExperience.length > 0 && (
+                  <div className="mb-4">
+                    <h4 className="font-semibold text-blue-400 mb-2">Experience</h4>
+                    <ul className="list-disc pl-5 space-y-1">
+                      {contextMenu.node.relatedExperience.map((exp, i) => (
+                        <li key={i} className="text-gray-300">{exp}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                
+                {contextMenu.node.relatedProjects && contextMenu.node.relatedProjects.length > 0 && (
+                  <div className="mb-4">
+                    <h4 className="font-semibold text-green-400 mb-2">Projects</h4>
+                    <div className="space-y-2">
+                      {contextMenu.node.relatedProjects.map((project, i) => (
+                        <div key={i} className="text-gray-300">
+                          <a 
+                            href={`/project/${project}`} 
+                            className="text-blue-400 hover:underline"
+                          >
+                            {formatProjectName(project)}
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
+                {contextMenu.node.relatedPosts && contextMenu.node.relatedPosts.length > 0 && (
+                  <div>
+                    <h4 className="font-semibold text-amber-400 mb-2">Blog Posts</h4>
+                    <div className="space-y-2">
+                      {contextMenu.node.relatedPosts.map((post, i) => (
+                        <div key={i} className="text-gray-300">
+                          <a 
+                            href={`/blog/post/${post}`} 
+                            className="text-blue-400 hover:underline"
+                          >
+                            {post.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

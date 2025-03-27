@@ -38,7 +38,7 @@ const HTMLSitemap: React.FC = () => {
           <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Professional Experience</h2>
           <ul className="space-y-2 text-blue-600 dark:text-blue-400">
             <li><Link to="/#experience" className="hover:underline">Experience Timeline</Link></li>
-            <li><Link to="/#skills" className="hover:underline">Skills & Expertise</Link></li>
+            <li><Link to="/#skills" className="hover:underline">Skill Graph</Link></li>
           </ul>
         </section>
         
