@@ -13,6 +13,7 @@ interface SkillControlsProps {
   onResetView: () => void;
   onFullscreenToggle: () => void;
   isInsideGraph?: boolean;
+  isFullscreen?: boolean;
 }
 
 const SkillControls: React.FC<SkillControlsProps> = ({
@@ -26,7 +27,8 @@ const SkillControls: React.FC<SkillControlsProps> = ({
   onZoomOut,
   onResetView,
   onFullscreenToggle,
-  isInsideGraph = false
+  isInsideGraph = false,
+  isFullscreen = false
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const toggleExpand = () => setIsExpanded(!isExpanded);
@@ -163,7 +165,7 @@ const SkillControls: React.FC<SkillControlsProps> = ({
             </div>
           </div>
           
-          {/* View Controls - Modern Buttons */}
+          {/* View Controls - Modern Buttons with enhanced mobile touch targets */}
           <div className="flex items-center gap-2">
             <button 
               onClick={onZoomIn}
@@ -191,7 +193,7 @@ const SkillControls: React.FC<SkillControlsProps> = ({
             </button>
             <button 
               onClick={onFullscreenToggle}
-              className="p-2 bg-gray-700 hover:bg-gray-600 active:bg-blue-600 rounded-lg text-gray-300 hover:text-white transition-all duration-150 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              className={`p-2 ${isFullscreen ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white'} rounded-lg transition-all duration-150 focus:ring-2 focus:ring-blue-400 focus:outline-none`}
               aria-label="Toggle fullscreen"
               title="Toggle fullscreen"
             >

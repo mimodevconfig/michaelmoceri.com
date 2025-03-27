@@ -10,13 +10,31 @@ interface SkillContextMenuProps {
 }
 
 export const SkillContextMenu: React.FC<SkillContextMenuProps> = ({ node, visible, onClose }) => {
-  if (!visible || !node) return null;
-
-  // Handle tab switching
+  // All hooks must be at the top level before any conditional returns
   const [activeTab, setActiveTab] = React.useState<'connections' | 'details'>('connections');
-
+  const [position, setPosition] = React.useState({ bottom: true, left: true });
+  
+  // Function to calculate the optimal position for the context menu
+  React.useEffect(() => {
+    if (visible && node) {
+      // Get viewport dimensions
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      
+      // Determine if we should position the menu at the top or bottom
+      // and left or right based on available space
+      const useBottom = viewportHeight > 500;
+      const useLeft = viewportWidth > 500;
+      
+      setPosition({
+        bottom: useBottom,
+        left: useLeft
+      });
+    }
+  }, [visible, node]);
+  
   // Get connected nodes - using different logic based on node type
-  const getConnectedNodes = () => {
+  const getConnectedNodes = React.useCallback(() => {
     if (!node) return [];
     
     // For project nodes, find all skills that have this project in their relatedProjects
@@ -57,9 +75,6 @@ export const SkillContextMenu: React.FC<SkillContextMenuProps> = ({ node, visibl
         node.type === 'categoryProject' ||
         node.type === 'categoryExperience') {
       
-      // Get all nodes that have this category as their parent
-      const childNodes: string[] = [];
-      
       // Match category IDs to their respective children
       if (node.id === 'cat-management') {
         return skills.management;
@@ -75,7 +90,7 @@ export const SkillContextMenu: React.FC<SkillContextMenuProps> = ({ node, visibl
         return experiences;
       }
       
-      return childNodes;
+      return [];
     }
     
     // Default case: use relationships array for skill nodes
@@ -86,12 +101,12 @@ export const SkillContextMenu: React.FC<SkillContextMenuProps> = ({ node, visibl
         const connectedNodeId = rel.source === node.id ? rel.target : rel.source;
         return connectedNodeId;
       });
-  };
+  }, [node]);
   
-  const connectedNodes = getConnectedNodes();
-
   // Get color based on node type for theming
-  const getNodeTypeColor = () => {
+  const getNodeTypeColor = React.useCallback(() => {
+    if (!node) return 'from-blue-600 to-blue-800';
+    
     switch (node.type) {
       case 'management': return 'from-blue-600 to-blue-800';
       case 'proficiency': return 'from-green-600 to-green-800';
@@ -102,10 +117,12 @@ export const SkillContextMenu: React.FC<SkillContextMenuProps> = ({ node, visibl
       case 'fabrication': return 'from-orange-600 to-orange-800';
       default: return 'from-blue-600 to-blue-800';
     }
-  };
+  }, [node]);
 
   // Determine the accent color based on node type
-  const accentColor = () => {
+  const accentColor = React.useCallback(() => {
+    if (!node) return 'blue';
+    
     switch (node.type) {
       case 'management': return 'blue';
       case 'proficiency': return 'green';
@@ -116,13 +133,24 @@ export const SkillContextMenu: React.FC<SkillContextMenuProps> = ({ node, visibl
       case 'fabrication': return 'orange';
       default: return 'blue';
     }
-  };
+  }, [node]);
+  
+  // Compute connected nodes
+  const connectedNodes = React.useMemo(() => {
+    return node ? getConnectedNodes() : [];
+  }, [node, getConnectedNodes]);
+  
+  // Early return if not visible or no node
+  if (!visible || !node) return null;
 
   return (
     <div 
-      className="absolute bottom-4 left-4 bg-gray-800/90 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl z-50 max-w-sm w-full overflow-hidden transition-all duration-200"
+      className={`absolute ${position.bottom ? 'bottom-4' : 'top-4'} ${position.left ? 'left-4' : 'right-4'} 
+        bg-gray-800/90 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl z-50 
+        w-full overflow-hidden transition-all duration-200`}
       style={{
-        boxShadow: '0 0 20px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 0, 0, 0.3)'
+        boxShadow: '0 0 20px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 0, 0, 0.3)',
+        maxWidth: window.innerWidth < 400 ? '90%' : '350px'
       }}
     >
       {/* Gradient header with title and close button */}
@@ -144,11 +172,11 @@ export const SkillContextMenu: React.FC<SkillContextMenuProps> = ({ node, visibl
         </div>
       </div>
 
-      {/* Tab navigation - modern pill style */}
+      {/* Tab navigation - modern pill style with improved touch targets for mobile */}
       <div className="flex p-2 bg-gray-900/50">
         <div className="bg-gray-800 p-1 rounded-lg flex w-full">
           <button
-            className={`flex-1 py-1.5 px-3 rounded-md text-sm font-medium flex items-center justify-center gap-1.5 transition-all ${
+            className={`flex-1 py-2 sm:py-1.5 px-2 sm:px-3 rounded-md text-sm font-medium flex items-center justify-center gap-1 sm:gap-1.5 transition-all ${
               activeTab === 'connections' 
                 ? `bg-${accentColor()}-600 text-white` 
                 : 'text-gray-400 hover:text-gray-300 hover:bg-gray-700/50'
@@ -159,7 +187,7 @@ export const SkillContextMenu: React.FC<SkillContextMenuProps> = ({ node, visibl
             <span>Connections</span>
           </button>
           <button
-            className={`flex-1 py-1.5 px-3 rounded-md text-sm font-medium flex items-center justify-center gap-1.5 transition-all ${
+            className={`flex-1 py-2 sm:py-1.5 px-2 sm:px-3 rounded-md text-sm font-medium flex items-center justify-center gap-1 sm:gap-1.5 transition-all ${
               activeTab === 'details' 
                 ? `bg-${accentColor()}-600 text-white` 
                 : 'text-gray-400 hover:text-gray-300 hover:bg-gray-700/50'
@@ -172,8 +200,8 @@ export const SkillContextMenu: React.FC<SkillContextMenuProps> = ({ node, visibl
         </div>
       </div>
 
-      {/* Content area */}
-      <div className="p-4 max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
+      {/* Content area with improved mobile styles */}
+      <div className="p-3 sm:p-4 max-h-[250px] sm:max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
         {activeTab === 'connections' ? (
           /* Connections Tab */
           <div>
