@@ -1,10 +1,31 @@
 import React from 'react';
-import { Building2, Award, MapPin, Calendar } from 'lucide-react';
+import { Building2, Award, MapPin, Calendar, ExternalLink } from 'lucide-react';
 import { SplashCursor } from './ui/splash-cursor';
 import { getImageUrl } from '../lib/imageUtils';
 import { Button } from './ui/button';
 
-const experiences = [
+type ExperienceItem = {
+  company: string;
+  role: string;
+  period: string;
+  location: string;
+  image: string;
+  highlights: string[];
+  link?: string;
+};
+
+const experiences: ExperienceItem[] = [
+  {
+    company: 'MimoLabs',
+    role: 'Founder & CEO',
+    period: '2026 - Present',
+    location: 'Metro-Detroit',
+    image: '/images/experience/mimolabs.webp?q=80&w=2670&auto=format&fit=crop',
+    link: 'https://mimolabs.ai/?utm_source=mm-site&utm_medium=portfolio&utm_content=experience',
+    highlights: [
+      'Building Mimo, an AI manufacturing agent that takes a product from idea to production-ready across 3D printing and advanced manufacturing'
+    ],
+  },
   {
     company: 'Config Holdings',
     role: 'Founder',
@@ -189,10 +210,21 @@ export default function Experience() {
                           <MapPin className="w-4 h-4" />
                           <span>{exp.location}</span>
                         </div>
+                        {exp.link && (
+                          <a
+                            href={exp.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 text-ide-text-link hover:underline mt-2"
+                          >
+                            <ExternalLink className="w-4 h-4" />
+                            <span>mimolabs.ai</span>
+                          </a>
+                        )}
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Right side - Experience highlights */}
                   <div className="w-1/2 pl-8">
                     <div className="bg-ide-bg-dropdown p-6 rounded-xl shadow-sm border border-ide-ui-border">
@@ -241,6 +273,17 @@ export default function Experience() {
                   <MapPin className="w-4 h-4" />
                   <span>{exp.location}</span>
                 </div>
+                {exp.link && (
+                  <a
+                    href={exp.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-ide-text-link hover:underline mt-2"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    <span>mimolabs.ai</span>
+                  </a>
+                )}
               </div>
               <div className="mt-4">
                 <h4 className="text-lg font-medium mb-3">Key Achievements</h4>
