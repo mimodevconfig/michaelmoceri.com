@@ -1,5 +1,5 @@
 import React from 'react';
-import { History, Lightbulb, Rocket, Building, MapPin, Target } from 'lucide-react';
+import { History, Lightbulb, Rocket, Building, MapPin, Target, Bot } from 'lucide-react';
 
 export default function About() {
   const milestones = [
@@ -26,6 +26,12 @@ export default function About() {
       title: "Shapeways Acquisition",
       description: "Shapeways acquires MakerOS",
       icon: Target
+    },
+    {
+      year: "2026",
+      title: "Founded MimoLabs",
+      description: "AI manufacturing agent launched at mimolabs.ai",
+      icon: Bot
     }
   ];
 
@@ -40,7 +46,7 @@ export default function About() {
         </div>
 
         {/* Timeline */}
-        <div className="grid md:grid-cols-4 gap-8 mb-16">
+        <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-8 mb-16">
           {milestones.map((milestone, index) => (
             <div key={index} className="relative">
               <div className="bg-ide-bg-dropdown p-6 rounded-xl border border-ide-ui-border h-full">
@@ -63,13 +69,10 @@ export default function About() {
               </h3>
               <div className="space-y-4 text-ide-text-secondary">
                 <p>
-                  Mike Moceri's career catapulted in 2012 when he co-founded 3DPX, the world's first 3D printing retail service bureau. This Chicago-based startup gained global recognition for its unique blend of retail and production, signifying a new era in 3D printing services, on-demand manufacturing, and product design.
+                  Mike Moceri co-founded 3DPX in 2012, the world's first 3D printing retail service bureau. The Chicago startup blended retail and production, helping define a new era of on-demand manufacturing and product design.
                 </p>
                 <p>
-                  Building on this success, Moceri ventured into Detroit's manufacturing industry by establishing Manulith in 2014. Manulith offered a comprehensive suite of services ranging from design and rapid prototyping to production for the automotive, aerospace, medical, consumer products, and industrial application sectors within the Great Lakes Region.
-                </p>
-                <p>
-                  In 2018, he expanded his footprint further by converting Manulith to MakerOS. As an industry-leading software-as-a-service platform, MakerOS served small to mid-sized design, engineering, and manufacturing firms. It digitized their workflow from initial client interaction to project management, production, and payments. As of 2022, MakerOS proudly served over 10,000 businesses globally.
+                  In 2014 he founded Manulith in Detroit, delivering design, rapid prototyping, and production for the automotive, aerospace, medical, and industrial sectors. He converted it into MakerOS in 2018, a SaaS platform that digitized the full workflow for design, engineering, and manufacturing firms, from first client contact through project management and production to payments. By 2022, MakerOS served over 10,000 businesses globally.
                 </p>
               </div>
             </div>
@@ -83,13 +86,19 @@ export default function About() {
               </h3>
               <div className="space-y-4 text-ide-text-secondary">
                 <p>
-                  Following the acquisition of MakerOS by Shapeways (NYSE: SHPW) in April 2022, Mike took on the role of Head of Software GTM and then later assumed a broader role as the Director of Product, Strategy, and Co-Innovation, further solidifying his leadership in the sector.
+                  After Shapeways (NYSE: SHPW) acquired MakerOS in April 2022, Mike served as Head of Software GTM and then Director of Product, Strategy, and Co-Innovation. He now lives in Metro Detroit, where he founded Config Holdings to incubate new ventures across AI and advanced manufacturing.
                 </p>
                 <p>
-                  Moceri now resides in Metro Detroit, working on a new problem set and challenges from which multiple new ventures and areas of research and development are forming via the founding of Config Holdings.
-                </p>
-                <p>
-                  His diverse interests span across energy, manufacturing, micro-industrial automation, product design, AI, new media development for fine arts, storage/data processing related blockchains, and geopolitics, reflecting his commitment to continuous learning and innovation. Mike is currently focusing his 15+ years of management and entrepreneurial experience to new horizons with R&D in AI application development, the integration of advanced manufacturing workflows, and scalable business ventures in the new AI paradigm.
+                  In 2026 that work became MimoLabs and its flagship product, Mimo, an AI manufacturing agent that takes a product from idea to production-ready across 3D printing and advanced manufacturing. Launched publicly at{' '}
+                  <a
+                    href={"https://mimolabs.ai/?utm_source=mm-site&utm_medium=portfolio&utm_content=about"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-ide-text-link hover:underline"
+                  >
+                    mimolabs.ai
+                  </a>
+                  , it brings a career of building 3D printing and manufacturing businesses into an AI-native way to make physical things.
                 </p>
               </div>
             </div>

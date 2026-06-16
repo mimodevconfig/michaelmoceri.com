@@ -141,7 +141,7 @@ export default function AppFooter() {
           ],
         },
       ]}
-      copyright="© 2025 Michael Moceri. All rights reserved."
+      copyright={`© ${new Date().getFullYear()} Michael Moceri. All rights reserved.`}
     />
   );
 }
